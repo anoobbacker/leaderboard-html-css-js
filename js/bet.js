@@ -232,7 +232,7 @@ function completePredictFn(results) {
       tbdy.appendChild(tbdytr);
 
       if (isUpcoming) {
-        upcomingTbdy.appendChild(tbdytr);
+        upcomingTbdy.appendChild(tbdytr.cloneNode(true));
       }
 
       location.hash = "features";
@@ -240,7 +240,7 @@ function completePredictFn(results) {
   }
 
   tbl.appendChild(thead);
-  upcomingTbl.appendChild(thead);
+  upcomingTbl.appendChild(thead.cloneNode(true));
 
   tbl.appendChild(tbdy);
   upcomingTbl.appendChild(upcomingTbdy);
