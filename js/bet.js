@@ -8,8 +8,8 @@ var printStepChecked = false;
 var matchResults = null;
 var pointsScoreAndWinner = 3;
 var pointsWinnerOnly = 1;
-var resultsURL="https://fabrikamsa1.blob.core.windows.net/wc2018/results01.csv";
-var predictionDataURL="https://fabrikamsa1.blob.core.windows.net/wc2018/predict01.csv";
+var resultsURL="https://fabrikamsa1.blob.core.windows.net/wc2018/results.csv";
+var predictionDataURL="https://fabrikamsa1.blob.core.windows.net/wc2018/predict.csv";
 
 $.fn.exists = function () {
   return this.length !== 0;
