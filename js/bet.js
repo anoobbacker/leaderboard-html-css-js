@@ -423,15 +423,3 @@ function disableButton() {
   $('#submit').prop('disabled', true);
   $('#submit').prop('text', "Wait processing predictions...");
 }
-
-
-function printStats(msg) {
-  if (msg)
-    console.log(msg);
-  console.log("  Row count:", rowCount);
-  if (stepped)
-    console.log("    Stepped:", stepped);
-  console.log("     Errors:", errorCount);
-  if (errorCount)
-    console.log("First error:", firstError);
-}
