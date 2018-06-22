@@ -8,14 +8,18 @@ var printStepChecked = false;
 var matchResults = null;
 var pointsScoreAndWinner = 3;
 var pointsWinnerOnly = 1;
-var resultsURL="https://fabrikamsa1.blob.core.windows.net/wc2018/results.csv";
-var predictionDataURL="https://fabrikamsa1.blob.core.windows.net/wc2018/predict.csv";
+var resultsURL = "https://fabrikamsa1.blob.core.windows.net/wc2018/results.csv";
+var predictionDataURL = "https://fabrikamsa1.blob.core.windows.net/wc2018/predict.csv";
 
 $.fn.exists = function () {
   return this.length !== 0;
 }
 
 $(function () {
+  $('#features').ready(function () {
+    $('#features').css('display', 'none');
+  });
+
   $('#submit').click(function () {
     stepped = 0;
     chunks = 0;
@@ -50,16 +54,25 @@ function completePredictFn(results) {
   }
 
   var leaderboard = {};
+
+  //all match prediction table
   var tbl = document.createElement('table');
   tbl.setAttribute('class', 'table table-condensed');
-  tbl.setAttribute('id', 'breakupdetails');
+  tbl.setAttribute('id', 'breakupdetail');
 
   var thead = document.createElement('thead');
   var tbdy = document.createElement('tbody');
 
+  //upcoming match prediction table
+  var upcomingTbl = document.createElement('table');
+  upcomingTbl.setAttribute('class', 'table table-condensed');
+  upcomingTbl.setAttribute('id', 'upcomingdetail');  
+  var upcomingTbdy = document.createElement('tbody');
+
   var lastMatchNo = 0;
   var newMatch = false;
-  for (var i = results.data.length-1; i >= 0; i--) {
+  var isUpcoming = false;
+  for (var i = results.data.length - 1; i >= 0; i--) {    
     var row = results.data[i];
     if (i == 0) {
       //table headers      
@@ -100,8 +113,9 @@ function completePredictFn(results) {
       currentMatchNo = row[0];
       if (lastMatchNo != currentMatchNo) {
         newMatch = true;
+        isUpcoming = false;
       } else {
-        newMatch = false;
+        newMatch = false;        
       }
       lastMatchNo = currentMatchNo;
 
@@ -128,15 +142,31 @@ function completePredictFn(results) {
         var matchResultStatus = matchResult[3];
         var matchComplete = false;
         if (!"Complete".localeCompare(matchResultStatus)) {
-          matchResultString = matchResultTeamAName + "(" + matchResultTeamAScore + ") " +
-            matchResultTeamBName + "(" + matchResultTeamBScore + ")";
+          var winner = "";
+          if (matchResultTeamAScore > matchResultTeamBScore) {
+            matchResultString = "<b>" + matchResultTeamAName +
+              "(" + matchResultTeamAScore + ")</b> " +
+              matchResultTeamBName + "(" + matchResultTeamBScore + ")";
+          } else if (matchResultTeamAScore < matchResultTeamBScore) {
+            matchResultString = matchResultTeamAName + "(" + matchResultTeamAScore + ") <b>" +
+              matchResultTeamBName + "(" + matchResultTeamBScore + ")</b>";
+          } else {
+            matchResultString = matchResultTeamAName + "(" + matchResultTeamAScore + ") " +
+              matchResultTeamBName + "(" + matchResultTeamBScore + ")";
+          }
           matchComplete = true;
         } else {
           matchResultString = matchResultTeamAName + " vs " +
             matchResultTeamBName + " on " + matchResultStatus;
+          var matchDateDiff = Math.abs(Date.parse(matchResultStatus) - new Date());
+          var diffDays = Math.ceil(matchDateDiff / (1000 * 3600 * 24)); 
+          console.log("Days to start: " + diffDays);
+          if ( diffDays < 2) {
+            isUpcoming = true;
+          }          
         }
         tbdytdName = document.createElement('td');
-        tbdytdName.textContent = matchResultString;
+        tbdytdName.innerHTML = matchResultString;
         tbdytdName.setAttribute('rowspan', '6');
         tbdytr.appendChild(tbdytdName);
       }
@@ -145,15 +175,28 @@ function completePredictFn(results) {
       var participantName = row[3];
       tbdytdName = document.createElement('td');
       tbdytdName.textContent = participantName;
+      var avatar = document.createElement("img");
+      avatar.src = "./img/" + participantName + ".png";
+      avatar.width = "20";
+      tbdytdName.appendChild(avatar);
       tbdytr.appendChild(tbdytdName);
 
       //predict
       var predictTeamAScore = row[4];
       var predictTeamBScore = row[5];
-      var predictString = matchResultTeamAName + "(" + predictTeamAScore + ") " +
-        matchResultTeamBName + "(" + predictTeamBScore + ")";
+      var predictString = "";
+      if (predictTeamAScore > predictTeamBScore) {
+        predictString = "<b>" + matchResultTeamAName + "(" + predictTeamAScore + ")</b> " +
+          matchResultTeamBName + "(" + predictTeamBScore + ")";
+      } else if (predictTeamAScore < predictTeamBScore) {
+        predictString = matchResultTeamAName + "(" + predictTeamAScore + ") <b>" +
+          matchResultTeamBName + "(" + predictTeamBScore + ")</b>";
+      } else {
+        predictString = matchResultTeamAName + "(" + predictTeamAScore + ") " +
+          matchResultTeamBName + "(" + predictTeamBScore + ")";
+      }
       tbdytdName = document.createElement('td');
-      tbdytdName.textContent = predictString;
+      tbdytdName.innerHTML = predictString;
       tbdytr.appendChild(tbdytdName);
 
       //points
@@ -188,12 +231,19 @@ function completePredictFn(results) {
       //append the row
       tbdy.appendChild(tbdytr);
 
+      if (isUpcoming) {
+        upcomingTbdy.appendChild(tbdytr);
+      }
+
       location.hash = "features";
     }
   }
 
   tbl.appendChild(thead);
+  upcomingTbl.appendChild(thead);
+
   tbl.appendChild(tbdy);
+  upcomingTbl.appendChild(upcomingTbdy);
 
   var sortedLeaderboard = Object.keys(leaderboard) //Create a list from the keys of your map. 
     .sort( //Sort it ...
@@ -209,8 +259,12 @@ function completePredictFn(results) {
     $("#featuredetail").remove();
   }
 
-  if ($("#breakupdetails").exists()) {
-    $("#breakupdetails").remove();
+  if ($("#upcomingdetail").exists()) {
+    $("#upcomingdetail").remove();
+  }
+
+  if ($("#breakupdetail").exists()) {
+    $("#breakupdetail").remove();
   }
 
   if ($("#leaderboard").exists()) {
@@ -218,7 +272,8 @@ function completePredictFn(results) {
   }
 
   $("#featuredetails").append(leaderBoard);
-  $("#featuredetails").append(tbl);
+  $("#upcomingdetails").append(upcomingTbl);
+  $("#breakupdetails").append(tbl);
   enableButton();
 }
 
@@ -422,4 +477,5 @@ function enableButton() {
 function disableButton() {
   $('#submit').prop('disabled', true);
   $('#submit').prop('text', "Wait processing predictions...");
+  $('#features').css('display', 'block');
 }
