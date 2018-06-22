@@ -59,7 +59,7 @@ function completePredictFn(results) {
 
   var lastMatchNo = 0;
   var newMatch = false;
-  for (var i = 0; i < results.data.length; i++) {
+  for (var i = results.data.length-1; i >= 0; i--) {
     var row = results.data[i];
     if (i == 0) {
       //table headers      
