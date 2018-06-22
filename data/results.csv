@@ -1,0 +1,33 @@
+﻿Match#,TeamA,TeamB,Status,TeamA-Result,TeamB-Result
+1,Russia,Saudi Arabia,Complete,5,0
+2,Uruguay,Egypt,Complete,1,0
+3,Morocco,Iran,Complete,0,1
+4,Spain,Portugal,Complete,3,3
+5,France,Australia,Complete,2,1
+6,Denmark,Peru,Complete,1,0
+7,Argentina,Iceland,Complete,1,1
+8,Croatia,Nigeria,Complete,2,0
+9,Costa Rica,Serbia,Complete,0,1
+10,Brazil,Switzerland,Complete,1,1
+11,Germany,Mexico,Complete,0,1
+12,Sweden,South Korea,Complete,1,0
+13,Belgium,Panama,Complete,3,0
+14,England,Tunisia,Complete,2,1
+15,Colombia,Japan,Complete,1,2
+16,Poland,Senegal,Complete,1,2
+17,Russia,Egypt,Complete,3,1
+18,Uruguay,Saudi Arabia,Complete,1,0
+19,Portugal,Morocco,Complete,1,0
+20,Iran,Spain,Complete,0,1
+21,Denmark,Australia,Complete,1,1
+22,France,Peru,Complete,1,0
+23,Argentina,Croatia,Complete,0,3
+24,Nigeria,Iceland,"Friday, 22 June 2018 20:30",,
+25,Brazil,Costa Rica,"Friday, 22 June 2018 17:30",,
+26,Serbia,Switzerland,"Friday, 22 June 2018 23:30",,
+27,South Korea,Mexico,"Saturday, 23 June 2018 20:30",,
+28,Germany,Sweden,"Saturday, 23 June 2018 23:30",,
+29,Belgium,Tunisia,"Saturday, 23 June 2018 17:30",,
+30,England,Panama,"Sunday, 24 June 2018 17:30",,
+31,Japan,Senegal,"Sunday, 24 June 2018 20:30",,
+32,Poland,Colombia,"Sunday, 24 June 2018 23:30",,
