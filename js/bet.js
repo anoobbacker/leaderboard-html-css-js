@@ -320,10 +320,10 @@ function createLeaderBoard1(leaderboard,
   thHead2.textContent = "Total Points";
 
   var thHead3 = document.createElement('th');
-  thHead3.textContent = "# of Winning Score";
+  thHead3.textContent = "# of Winning Scores";
 
   var thHead4 = document.createElement('th');
-  thHead4.textContent = "# of Winner";
+  thHead4.textContent = "# of Winning Matches";
 
   thRow.appendChild(thHead1);
   thRow.appendChild(thHead2);
