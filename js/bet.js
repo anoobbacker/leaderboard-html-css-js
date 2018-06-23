@@ -54,6 +54,8 @@ function completePredictFn(results) {
   }
 
   var leaderboard = {};
+  var leaderboardPredictScorePlusWinnerGameCount = {};
+  var leaderboardPredictWinnerGameCount = {};
 
   //all match prediction table
   var tbl = document.createElement('table');
@@ -66,13 +68,13 @@ function completePredictFn(results) {
   //upcoming match prediction table
   var upcomingTbl = document.createElement('table');
   upcomingTbl.setAttribute('class', 'table table-condensed');
-  upcomingTbl.setAttribute('id', 'upcomingdetail');  
+  upcomingTbl.setAttribute('id', 'upcomingdetail');
   var upcomingTbdy = document.createElement('tbody');
 
   var lastMatchNo = 0;
   var newMatch = false;
   var isUpcoming = false;
-  for (var i = results.data.length - 1; i >= 0; i--) {    
+  for (var i = results.data.length - 1; i >= 0; i--) {
     var row = results.data[i];
     if (i == 0) {
       //table headers      
@@ -81,7 +83,7 @@ function completePredictFn(results) {
       //add match number
       var theadth = document.createElement('th');
       theadth.textContent = row[0];
-      theadrow.appendChild(theadth);
+      //theadrow.appendChild(theadth);
 
       //add name
       theadth = document.createElement('th');
@@ -115,7 +117,7 @@ function completePredictFn(results) {
         newMatch = true;
         isUpcoming = false;
       } else {
-        newMatch = false;        
+        newMatch = false;
       }
       lastMatchNo = currentMatchNo;
 
@@ -128,7 +130,7 @@ function completePredictFn(results) {
         tbdytdName = document.createElement('td');
         tbdytdName.textContent = currentMatchNo;
         tbdytdName.setAttribute('rowspan', '6');
-        tbdytr.appendChild(tbdytdName);
+        //tbdytr.appendChild(tbdytdName);
 
 
         //actual result
@@ -159,11 +161,11 @@ function completePredictFn(results) {
           matchResultString = matchResultTeamAName + " vs " +
             matchResultTeamBName + " on " + matchResultStatus;
           var matchDateDiff = Math.abs(Date.parse(matchResultStatus) - new Date());
-          var diffDays = Math.ceil(matchDateDiff / (1000 * 3600 * 24)); 
+          var diffDays = Math.ceil(matchDateDiff / (1000 * 3600 * 24));
           console.log("Days to start: " + diffDays);
-          if ( diffDays < 2) {
+          if (diffDays < 2) {
             isUpcoming = true;
-          }          
+          }
         }
         tbdytdName = document.createElement('td');
         tbdytdName.innerHTML = matchResultString;
@@ -220,8 +222,25 @@ function completePredictFn(results) {
         tbdytdName.textContent = predictPoints;
         if (participantName in leaderboard) {
           leaderboard[participantName] += predictPoints;
+          if (predictPoints == pointsScoreAndWinner) {
+            leaderboardPredictScorePlusWinnerGameCount[participantName] += 1;
+          } 
+          
+          if (predictPoints >= pointsWinnerOnly) {
+            leaderboardPredictWinnerGameCount[participantName] += 1;
+          }
         } else {
           leaderboard[participantName] = predictPoints;
+          leaderboardPredictScorePlusWinnerGameCount[participantName] = 0;
+          leaderboardPredictWinnerGameCount[participantName] = 0;
+
+          if (predictPoints == pointsScoreAndWinner) {
+            leaderboardPredictScorePlusWinnerGameCount[participantName] = 1;
+          }
+
+          if (predictPoints >= pointsWinnerOnly) {
+            leaderboardPredictWinnerGameCount[participantName] = 1;
+          }
         }
       } else {
         tbdytdName.textContent = "-";
@@ -253,7 +272,10 @@ function completePredictFn(results) {
       })
   console.log("Sorted leaders: " + sortedLeaderboard);
 
-  var leaderBoard = createLeaderBoard1(leaderboard, sortedLeaderboard);
+  var leaderBoard = createLeaderBoard1(leaderboard, 
+    leaderboardPredictScorePlusWinnerGameCount, 
+    leaderboardPredictWinnerGameCount, 
+    sortedLeaderboard);
 
   if ($("#featuredetail").exists()) {
     $("#featuredetail").remove();
@@ -277,7 +299,10 @@ function completePredictFn(results) {
   enableButton();
 }
 
-function createLeaderBoard1(leaderboard, sortedLeaderboard) {
+function createLeaderBoard1(leaderboard, 
+  leaderboardPredictScorePlusWinnerGameCount, 
+  leaderboardPredictWinnerGameCount, 
+  sortedLeaderboard) {
   var leaderTbl = document.createElement('table');
 
   leaderTbl.setAttribute('class', 'table table-condensed');
@@ -294,8 +319,16 @@ function createLeaderBoard1(leaderboard, sortedLeaderboard) {
   var thHead2 = document.createElement('th');
   thHead2.textContent = "Total Points";
 
+  var thHead3 = document.createElement('th');
+  thHead3.textContent = "# of Winning Score";
+
+  var thHead4 = document.createElement('th');
+  thHead4.textContent = "# of Winner";
+
   thRow.appendChild(thHead1);
   thRow.appendChild(thHead2);
+  thRow.appendChild(thHead3);
+  thRow.appendChild(thHead4);
   tLhead.appendChild(thRow);
   leaderTbl.appendChild(tLhead);
 
@@ -319,13 +352,21 @@ function createLeaderBoard1(leaderboard, sortedLeaderboard) {
     thead2.textContent = pName;
     thead2.style.textAlign = "left";
 
-    var tpoint = document.createElement('td');
-    tpoint.textContent = leaderboard[pName];
+    var tpoint1 = document.createElement('td');
+    tpoint1.textContent = leaderboard[pName];
+
+    var tpoint2 = document.createElement('td');
+    tpoint2.textContent = leaderboardPredictScorePlusWinnerGameCount[pName];
+    
+    var tpoint3 = document.createElement('td');
+    tpoint3.textContent = leaderboardPredictWinnerGameCount[pName];
 
     //add leader row
     trow.appendChild(thead1);
     trow.appendChild(thead2);
-    trow.appendChild(tpoint);
+    trow.appendChild(tpoint1);
+    trow.appendChild(tpoint2);
+    trow.appendChild(tpoint3);
 
     tLbdy.appendChild(trow);
   }
