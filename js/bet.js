@@ -14,6 +14,41 @@ var predictionDataURL = "https://fabrikamsa1.blob.core.windows.net/wc2018/predic
 var groupStage1MatchNumber = 1
 var groupStage2MatchNumber = 17
 var groupStage3MatchNumber = 31
+var teamNameAcronymn = {
+  'Argentina': 'ARG',
+  'Australia': 'AUS',
+  'Belgium': 'BEL',
+  'Brazil': 'BRA',
+  'Colombia': 'COL',
+  'Costa Rica': 'CRC',
+  'Croatia': 'CRO',
+  'Denmark': 'DEN',
+  'Egypt': 'EGY',
+  'England': 'ENG',
+  'France': 'FRA',
+  'Germany': 'GER',
+  'Iceland': 'ISL',
+  'Iran': 'IRN',
+  'Japan': 'JPN',
+  'South Korea': 'KOR',
+  'Mexico': 'MEX',
+  'Morocco': 'MAR',
+  'Nigeria': 'NGA',
+  'Panama': 'PAN',
+  'Peru': 'PER',
+  'Poland': 'POL',
+  'Portugal': 'POR',
+  'Russia': 'RUS',
+  'Saudi Arabia': 'KSA',
+  'Senegal': 'SEN',
+  'Serbia': 'SRB',
+  'Spain': 'ESP',
+  'Sweden': 'SWE',
+  'Switzerland': 'SUI',
+  'Tunisia': 'TUN',
+  'Uruguay': 'URU',
+  'Korea Republic': 'KOR'
+}
 
 $.fn.exists = function () {
   return this.length !== 0;
@@ -194,16 +229,19 @@ function completePredictFn(results) {
       //predict
       var predictTeamAScore = row[4];
       var predictTeamBScore = row[5];
+      var predictTeamAName = teamNameAcronymn[matchResultTeamAName];
+      var predictTeamBName = teamNameAcronymn[matchResultTeamBName];
+
       var predictString = "";
       if (predictTeamAScore > predictTeamBScore) {
-        predictString = "<b>" + matchResultTeamAName + "(" + predictTeamAScore + ")</b> " +
-          matchResultTeamBName + "(" + predictTeamBScore + ")";
+        predictString = "<b>" + predictTeamAName + "(" + predictTeamAScore + ")</b> " +
+        predictTeamBName + "(" + predictTeamBScore + ")";
       } else if (predictTeamAScore < predictTeamBScore) {
-        predictString = matchResultTeamAName + "(" + predictTeamAScore + ") <b>" +
-          matchResultTeamBName + "(" + predictTeamBScore + ")</b>";
+        predictString = predictTeamAName + "(" + predictTeamAScore + ") <b>" +
+        predictTeamBName + "(" + predictTeamBScore + ")</b>";
       } else {
-        predictString = matchResultTeamAName + "(" + predictTeamAScore + ") " +
-          matchResultTeamBName + "(" + predictTeamBScore + ")";
+        predictString = predictTeamAName + "(" + predictTeamAScore + ") " +
+        predictTeamBName + "(" + predictTeamBScore + ")";
       }
       tbdytdName = document.createElement('td');
       tbdytdName.innerHTML = predictString;
@@ -258,7 +296,7 @@ function completePredictFn(results) {
       }
       tbdytr.appendChild(tbdytdName);
 
-      if ( currentMatchNo >= groupStage3MatchNumber ) {
+      if (currentMatchNo >= groupStage3MatchNumber) {
         //append the row
         tbdy.appendChild(tbdytr);
       }
@@ -294,14 +332,14 @@ function completePredictFn(results) {
     leaderboardPredictMatchesLost,
     sortedLeaderboard);
 
-    var leaderBoardTbl2 = createLeaderBoard2(leaderboard,
-      leaderboardPredictScorePlusWinnerGameCount,
-      leaderboardPredictWinnerGameCount,
-      leaderboardPredictLossesGameCount,
-      leaderboardPredictMatchesScorePlusWinner,
-      leaderboardPredictMatchesWinner,
-      leaderboardPredictMatchesLost,
-      sortedLeaderboard);
+  var leaderBoardTbl2 = createLeaderBoard2(leaderboard,
+    leaderboardPredictScorePlusWinnerGameCount,
+    leaderboardPredictWinnerGameCount,
+    leaderboardPredictLossesGameCount,
+    leaderboardPredictMatchesScorePlusWinner,
+    leaderboardPredictMatchesWinner,
+    leaderboardPredictMatchesLost,
+    sortedLeaderboard);
   if ($("#featuredetail").exists()) {
     $("#featuredetail").remove();
   }
