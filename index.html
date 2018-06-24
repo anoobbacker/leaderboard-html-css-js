@@ -26,17 +26,23 @@
   <link href="css/validation.min.css" rel="stylesheet">
 
   <!-- Bootstrap core JavaScript -->
-  <script src="vendor/jquery/jquery.min.js"></script>
-  <script src="vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
-  <script src="js/validation.min.js"></script>
+  <script type="text/javascript" src="vendor/jquery/jquery.min.js"></script>
+  <script type="text/javascript" src="vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+  <script type="text/javascript" src="js/validation.min.js"></script>
 
   <!-- Plugin JavaScript -->
   <script src="vendor/jquery-easing/jquery.easing.min.js"></script>
+  <script type="text/javascript" src="js/d3.v3.min.js"></script>
+  <script type="text/javascript" src="js/lodash.min.js"></script>
+  <script type="text/javascript" src="js/moment.min.js"></script>
 
   <!-- Custom scripts for this template -->
-  <script src="js/bet.js"></script>
-  <script src="js/new-age.min.js"></script>
-  <script src="js/papaparse.js"></script>
+  <script type="text/javascript" src="js/bet.js"></script>
+  <script type="text/javascript" src="js/new-age.min.js"></script>
+  <script type="text/javascript" src="js/papaparse.min.js"></script>
+  <script type="text/javascript" src="js/underscore-min.js"></script>
+  
+  
 </head>
 
 </head>
@@ -106,12 +112,18 @@
         <p class="text-muted">Shows only the predictions for upcomings games. To see all the predictions scroll down to 'All predictions' section.</p>
       </div>
     </div>
+    <div class="container" id="leaderboarddetails">
+      <div class="section-heading text-center">
+        <h2>Leader Board details</h2>
+        <p class="text-muted">Shows the leader board details. To see all the predictions scroll down to 'All predictions' section.</p><br/>
+        <a class="btn btn-primary text-center js-scroll-trigger" href="#page-top" tabindex="3">Go to Top!</a>
+      </div>
+    </div>    
     <div class="container" id="breakupdetails">
       <div class="section-heading text-center">
         <h2>All predictions</h2>
-        <p class="text-muted">Breakup of the prediction made by participants.</p>
-        <br/>
-        <a class="btn btn-primary text-center js-scroll-trigger" href="#featuredetails" tabindex="3">Go to Leaderboard!</a>
+        <p class="text-muted">Breakup of the prediction made by participants.</p><br/>
+        <a class="btn btn-primary text-center js-scroll-trigger" href="#page-top" tabindex="4">Go to Top!</a>
       </div>
     </div>
 

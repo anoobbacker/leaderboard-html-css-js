@@ -6,6 +6,7 @@ var parser;
 var pauseChecked = false;
 var printStepChecked = false;
 var matchResults = null;
+var pointsLost = 0;
 var pointsScoreAndWinner = 3;
 var pointsWinnerOnly = 1;
 var resultsURL = "https://fabrikamsa1.blob.core.windows.net/wc2018/results.csv";
@@ -56,6 +57,10 @@ function completePredictFn(results) {
   var leaderboard = {};
   var leaderboardPredictScorePlusWinnerGameCount = {};
   var leaderboardPredictWinnerGameCount = {};
+  var leaderboardPredictLossesGameCount = {};
+  var leaderboardPredictMatchesScorePlusWinner = {};
+  var leaderboardPredictMatchesWinner = {};
+  var leaderboardPredictMatchesLost = {};
 
   //all match prediction table
   var tbl = document.createElement('table');
@@ -202,7 +207,7 @@ function completePredictFn(results) {
       tbdytr.appendChild(tbdytdName);
 
       //points
-      var predictPoints = 0;
+      var predictPoints = pointsLost;
       if ((matchResultTeamAScore == predictTeamAScore) &&
         (matchResultTeamBScore == predictTeamBScore)) {
         predictPoints = pointsScoreAndWinner;
@@ -220,27 +225,30 @@ function completePredictFn(results) {
       tbdytdName = document.createElement('td');
       if (matchComplete) {
         tbdytdName.textContent = predictPoints;
-        if (participantName in leaderboard) {
-          leaderboard[participantName] += predictPoints;
-          if (predictPoints == pointsScoreAndWinner) {
-            leaderboardPredictScorePlusWinnerGameCount[participantName] += 1;
-          } 
-          
-          if (predictPoints >= pointsWinnerOnly) {
-            leaderboardPredictWinnerGameCount[participantName] += 1;
-          }
-        } else {
-          leaderboard[participantName] = predictPoints;
+        if (!(participantName in leaderboard)) {
+          leaderboard[participantName] = 0;
           leaderboardPredictScorePlusWinnerGameCount[participantName] = 0;
           leaderboardPredictWinnerGameCount[participantName] = 0;
+          leaderboardPredictLossesGameCount[participantName] = 0;
+          leaderboardPredictMatchesScorePlusWinner[participantName] = [];
+          leaderboardPredictMatchesWinner[participantName] = [];
+          leaderboardPredictMatchesLost[participantName] = [];
+        }
 
-          if (predictPoints == pointsScoreAndWinner) {
-            leaderboardPredictScorePlusWinnerGameCount[participantName] = 1;
-          }
+        leaderboard[participantName] += predictPoints;
+        if (predictPoints == pointsScoreAndWinner) {
+          leaderboardPredictScorePlusWinnerGameCount[participantName] += 1;
+          leaderboardPredictMatchesScorePlusWinner[participantName].push(predictString);
+        }
 
-          if (predictPoints >= pointsWinnerOnly) {
-            leaderboardPredictWinnerGameCount[participantName] = 1;
-          }
+        if (predictPoints >= pointsWinnerOnly) {
+          leaderboardPredictWinnerGameCount[participantName] += 1;
+          leaderboardPredictMatchesWinner[participantName].push(predictString);
+        }
+
+        if (predictPoints == pointsLost) {
+          leaderboardPredictLossesGameCount[participantName] += 1;
+          leaderboardPredictMatchesLost[participantName].push(predictString);
         }
       } else {
         tbdytdName.textContent = "-";
@@ -272,11 +280,23 @@ function completePredictFn(results) {
       })
   console.log("Sorted leaders: " + sortedLeaderboard);
 
-  var leaderBoard = createLeaderBoard1(leaderboard, 
-    leaderboardPredictScorePlusWinnerGameCount, 
-    leaderboardPredictWinnerGameCount, 
+  var leaderBoardTbl1 = createLeaderBoard1(leaderboard,
+    leaderboardPredictScorePlusWinnerGameCount,
+    leaderboardPredictWinnerGameCount,
+    leaderboardPredictLossesGameCount,
+    leaderboardPredictMatchesScorePlusWinner,
+    leaderboardPredictMatchesWinner,
+    leaderboardPredictMatchesLost,
     sortedLeaderboard);
 
+    var leaderBoardTbl2 = createLeaderBoard2(leaderboard,
+      leaderboardPredictScorePlusWinnerGameCount,
+      leaderboardPredictWinnerGameCount,
+      leaderboardPredictLossesGameCount,
+      leaderboardPredictMatchesScorePlusWinner,
+      leaderboardPredictMatchesWinner,
+      leaderboardPredictMatchesLost,
+      sortedLeaderboard);
   if ($("#featuredetail").exists()) {
     $("#featuredetail").remove();
   }
@@ -293,15 +313,25 @@ function completePredictFn(results) {
     $("#leaderboard").remove();
   }
 
-  $("#featuredetails").append(leaderBoard);
+  if ($("#leaderboarddetail").exists()) {
+    $("#leaderboarddetail").remove();
+  }
+
+  $("#featuredetails").append(leaderBoardTbl1);
   $("#upcomingdetails").append(upcomingTbl);
+  $("#leaderboarddetails").append(leaderBoardTbl2);
   $("#breakupdetails").append(tbl);
   enableButton();
+
 }
 
-function createLeaderBoard1(leaderboard, 
-  leaderboardPredictScorePlusWinnerGameCount, 
-  leaderboardPredictWinnerGameCount, 
+function createLeaderBoard1(leaderboard,
+  leaderboardPredictScorePlusWinnerGameCount,
+  leaderboardPredictWinnerGameCount,
+  leaderboardPredictLossesGameCount,
+  leaderboardPredictMatchesScorePlusWinner,
+  leaderboardPredictMatchesWinner,
+  leaderboardPredictMatchesLost,
   sortedLeaderboard) {
   var leaderTbl = document.createElement('table');
 
@@ -319,16 +349,8 @@ function createLeaderBoard1(leaderboard,
   var thHead2 = document.createElement('th');
   thHead2.textContent = "Total Points";
 
-  var thHead3 = document.createElement('th');
-  thHead3.textContent = "# of Winning Scores";
-
-  var thHead4 = document.createElement('th');
-  thHead4.textContent = "# of Winning Matches";
-
   thRow.appendChild(thHead1);
   thRow.appendChild(thHead2);
-  thRow.appendChild(thHead3);
-  thRow.appendChild(thHead4);
   tLhead.appendChild(thRow);
   leaderTbl.appendChild(tLhead);
 
@@ -353,21 +375,19 @@ function createLeaderBoard1(leaderboard,
     thead2.style.textAlign = "left";
 
     var tpoint1 = document.createElement('td');
-    tpoint1.textContent = leaderboard[pName];
-
-    var tpoint2 = document.createElement('td');
-    tpoint2.textContent = leaderboardPredictScorePlusWinnerGameCount[pName];
-    
-    var tpoint3 = document.createElement('td');
-    tpoint3.textContent = leaderboardPredictWinnerGameCount[pName];
+    tpoint1.innerHTML = leaderboard[pName] +
+      "<div style=\"font-size: 0.8em\">(# of Winning Scores: " +
+      leaderboardPredictScorePlusWinnerGameCount[pName] +
+      ", # of Winning Games: " +
+      leaderboardPredictWinnerGameCount[pName] +
+      ", # of Lost Games: " +
+      leaderboardPredictLossesGameCount[pName] +
+      ")</div>";
 
     //add leader row
     trow.appendChild(thead1);
     trow.appendChild(thead2);
     trow.appendChild(tpoint1);
-    trow.appendChild(tpoint2);
-    trow.appendChild(tpoint3);
-
     tLbdy.appendChild(trow);
   }
 
@@ -378,29 +398,98 @@ function createLeaderBoard1(leaderboard,
   return leaderTbl;
 }
 
-function createLeaderBoard2(leaderboard, sortedLeaderboard) {
-  var elem1 = document.createElement('div');
-  elem1.setAttribute('class', 'col-lg-16 my-auto');
-  elem1.setAttribute('id', 'featuredetail');
+function createLeaderBoard2(leaderboard,
+  leaderboardPredictScorePlusWinnerGameCount,
+  leaderboardPredictWinnerGameCount,
+  leaderboardPredictLossesGameCount,
+  leaderboardPredictMatchesScorePlusWinner,
+  leaderboardPredictMatchesWinner,
+  leaderboardPredictMatchesLost,
+  sortedLeaderboard) {
+  var leaderTbl = document.createElement('table');
 
-  var elem2 = document.createElement('div');
-  elem2.setAttribute('class', 'container-fluid');
+  leaderTbl.setAttribute('class', 'table table-condensed');
+  leaderTbl.setAttribute('id', 'leaderboarddetail');
 
-  var elem3 = document.createElement('div');
-  elem3.setAttribute('class', 'row');
+  var tLhead = document.createElement('thead');
 
+  var thRow = document.createElement('tr');
+
+  var thHead1 = document.createElement('th');
+  thHead1.textContent = "Name";
+  thHead1.setAttribute('colspan', '2');
+
+  var thHead3 = document.createElement('th');
+  thHead3.textContent = "Winning Scores";
+
+  var thHead4 = document.createElement('th');
+  thHead4.textContent = "Winning Matches";
+
+  var thHead5 = document.createElement('th');
+  thHead5.textContent = "Lost Matches";
+
+  thRow.appendChild(thHead1);
+  thRow.appendChild(thHead3);
+  thRow.appendChild(thHead4);
+  thRow.appendChild(thHead5);
+  tLhead.appendChild(thRow);
+  leaderTbl.appendChild(tLhead);
+
+  var tLbdy = document.createElement('tbody');
   //loop through header row elements
   for (var j = 0; j < sortedLeaderboard.length; j++) {
     var pName = sortedLeaderboard[j];
-    elem2.appendChild(createFeatureItem(pName, leaderboard[pName]));
+
+    var trow = document.createElement('tr');
+
+    //add match number
+    var thead1 = document.createElement('th');
+    var avatar = document.createElement("img");
+    avatar.src = "./img/" + pName + ".png";
+    avatar.width = "50";
+
+    //add avatar
+    thead1.appendChild(avatar);
+
+    var thead2 = document.createElement('th');
+    thead2.textContent = pName;
+    thead2.style.textAlign = "left";
+
+    var tpoint2 = document.createElement('td');
+    tpoint2.innerHTML = leaderboardPredictScorePlusWinnerGameCount[pName] +
+      "<br/><div style=\"font-size: 0.8em\">" +
+      leaderboardPredictMatchesScorePlusWinner[pName].sort().join("<br/>") +
+      "</div>";
+
+
+    var tpoint3 = document.createElement('td');
+    tpoint3.innerHTML = leaderboardPredictWinnerGameCount[pName] +
+      "<div style=\"font-size: 0.8em\">" +
+      leaderboardPredictMatchesWinner[pName].sort().join("<br/>") +
+      "</div>";
+
+    var tpoint4 = document.createElement('td');
+    tpoint4.innerHTML = leaderboardPredictLossesGameCount[pName] +
+      "<div style=\"font-size: 0.8em\">" +
+      leaderboardPredictMatchesLost[pName].sort().join("<br/>") +
+      "</div>";
+
+    //add leader row
+    trow.appendChild(thead1);
+    trow.appendChild(thead2);
+
+    trow.appendChild(tpoint2);
+    trow.appendChild(tpoint3);
+    trow.appendChild(tpoint4);
+
+    tLbdy.appendChild(trow);
   }
 
-  //elem2.appendChild(elem3);
-  elem1.appendChild(elem2);
+  leaderTbl.appendChild(tLbdy);
 
-  //$("#featuredetails").append(elem1);
+  // $("#featuredetails").append(leaderTbl);
 
-  return elem1;
+  return leaderTbl;
 }
 
 function createFeatureItem(title, desc) {
