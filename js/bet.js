@@ -11,6 +11,9 @@ var pointsScoreAndWinner = 3;
 var pointsWinnerOnly = 1;
 var resultsURL = "https://fabrikamsa1.blob.core.windows.net/wc2018/results.csv";
 var predictionDataURL = "https://fabrikamsa1.blob.core.windows.net/wc2018/predict.csv";
+var groupStage1MatchNumber = 1
+var groupStage2MatchNumber = 17
+var groupStage3MatchNumber = 31
 
 $.fn.exists = function () {
   return this.length !== 0;
@@ -168,7 +171,7 @@ function completePredictFn(results) {
           var matchDateDiff = Math.abs(Date.parse(matchResultStatus) - new Date());
           var diffDays = Math.ceil(matchDateDiff / (1000 * 3600 * 24));
           console.log("Days to start: " + diffDays);
-          if (diffDays < 2) {
+          if (diffDays <= 1) {
             isUpcoming = true;
           }
         }
@@ -255,8 +258,10 @@ function completePredictFn(results) {
       }
       tbdytr.appendChild(tbdytdName);
 
-      //append the row
-      tbdy.appendChild(tbdytr);
+      if ( currentMatchNo >= groupStage3MatchNumber ) {
+        //append the row
+        tbdy.appendChild(tbdytr);
+      }
 
       if (isUpcoming) {
         upcomingTbdy.appendChild(tbdytr.cloneNode(true));
