@@ -9,8 +9,8 @@ var matchResults = null;
 var pointsLost = 0;
 var pointsScoreAndWinner = 3;
 var pointsWinnerOnly = 1;
-var resultsURL = "./_data/results.csv?version2.0";
-var predictionDataURL = "./_data/predict.csv?version2.0";
+var resultsURL = "https://fabrikamsa1.blob.core.windows.net/wc2018/results.csv?version2.0";
+var predictionDataURL = "https://fabrikamsa1.blob.core.windows.net/wc2018/predict.csv?version2.0";
 var groupStage1MatchNumber = 1
 var groupStage2MatchNumber = 17
 var groupStage3MatchNumber = 31
@@ -205,7 +205,6 @@ function completePredictFn(results) {
             matchResultTeamBName + " on " + matchResultStatus;
           var matchDateDiff = Math.abs(Date.parse(matchResultStatus) - new Date());
           var diffDays = Math.ceil(matchDateDiff / (1000 * 3600 * 24));
-          console.log("Days to start: " + diffDays);
           if (diffDays <= 1) {
             isUpcoming = true;
           }
@@ -320,7 +319,7 @@ function completePredictFn(results) {
         // compares (the keys) by their respective values.
         return leaderboard[b] - leaderboard[a];
       })
-  console.log("Sorted leaders: " + sortedLeaderboard);
+  // console.log("Sorted leaders: " + sortedLeaderboard);
 
   var leaderBoardTbl1 = createLeaderBoard1(leaderboard,
     leaderboardPredictScorePlusWinnerGameCount,
