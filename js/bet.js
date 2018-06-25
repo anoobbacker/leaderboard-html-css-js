@@ -9,8 +9,8 @@ var matchResults = null;
 var pointsLost = 0;
 var pointsScoreAndWinner = 3;
 var pointsWinnerOnly = 1;
-var resultsURL = "https://github.com/anoobbacker/betwc/blob/master/data/results.csv?raw=true&version2.0";
-var predictionDataURL = "https://github.com/anoobbacker/betwc/blob/master/data/predict.csv?raw=true&version2.0";
+var resultsURL = "./_data/results.csv?version2.0";
+var predictionDataURL = "./data/predict.csv?version2.0";
 var groupStage1MatchNumber = 1
 var groupStage2MatchNumber = 17
 var groupStage3MatchNumber = 31
