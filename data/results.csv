@@ -1,61 +1,49 @@
-﻿Match#,TeamA,TeamB,Status,TeamA-Result,TeamB-Result,,
-1,Russia,Saudi Arabia,Complete,5,0,,
-2,Uruguay,Egypt,Complete,1,0,,
-3,Morocco,Iran,Complete,0,1,,
-4,Spain,Portugal,Complete,3,3,,
-5,France,Australia,Complete,2,1,,
-6,Denmark,Peru,Complete,1,0,,
-7,Argentina,Iceland,Complete,1,1,,
-8,Croatia,Nigeria,Complete,2,0,,
-9,Costa Rica,Serbia,Complete,0,1,,
-10,Brazil,Switzerland,Complete,1,1,,
-11,Germany,Mexico,Complete,0,1,,
-12,Sweden,South Korea,Complete,1,0,,
-13,Belgium,Panama,Complete,3,0,,
-14,England,Tunisia,Complete,2,1,,
-15,Colombia,Japan,Complete,1,2,,
-16,Poland,Senegal,Complete,1,2,,
-17,Russia,Egypt,Complete,3,1,,
-18,Uruguay,Saudi Arabia,Complete,1,0,,
-19,Portugal,Morocco,Complete,1,0,,
-20,Iran,Spain,Complete,0,1,,
-21,Denmark,Australia,Complete,1,1,,
-22,France,Peru,Complete,1,0,,
-23,Argentina,Croatia,Complete,0,3,,
-24,Nigeria,Iceland,"Friday, 22 June 2018 20:30",,,,
-25,Brazil,Costa Rica,Complete,2,0,,
-26,Serbia,Switzerland,"Friday, 22 June 2018 23:30",,,,"Friday, 22 June 2018 23:30: Serbia vs. Switzerland"
-27,South Korea,Mexico,"Saturday, 23 June 2018 20:30",,,,"Saturday, 23 June 2018 20:30: South Korea vs. Mexico"
-28,Germany,Sweden,"Saturday, 23 June 2018 23:30",,,,"Saturday, 23 June 2018 23:30: Germany vs. Sweden"
-29,Belgium,Tunisia,"Saturday, 23 June 2018 17:30",,,,"Saturday, 23 June 2018 17:30: Belgium vs. Tunisia"
-30,England,Panama,"Sunday, 24 June 2018 17:30",,,,"Sunday, 24 June 2018 17:30: England vs. Panama"
-31,Japan,Senegal,"Sunday, 24 June 2018 20:30",,,,"Sunday, 24 June 2018 20:30: Japan vs. Senegal"
-32,Poland,Colombia,"Sunday, 24 June 2018 23:30",,,,"Sunday, 24 June 2018 23:30: Poland vs. Colombia"
-33,Uruguay,Russia,"Mon Jun 25, 2018 19:30",,,,"Mon Jun 25, 2018 19:30: Uruguay vs. Russia"
-34,Saudi Arabia,Egypt,"Mon Jun 25, 2018 19:30",,,,"Mon Jun 25, 2018 19:30: Saudi Arabia vs. Egypt"
-35,Iran,Portugal,"Mon Jun 25, 2018 23:30",,,,"Mon Jun 25, 2018 23:30: Iran vs. Portugal"
-36,Spain,Morocco,"Mon Jun 25, 2018 23:30",,,,"Mon Jun 25, 2018 23:30: Spain vs. Morocco"
-37,Denmark,France,"Tue Jun 26, 2018 19:30",,,,"Tue Jun 26, 2018 19:30: Denmark vs. France"
-38,Australia,Peru,"Tue Jun 26, 2018 19:30",,,,"Tue Jun 26, 2018 19:30: Australia vs. Peru"
-39,Nigeria,Argentina,"Tue Jun 26, 2018 23:30",,,,"Tue Jun 26, 2018 23:30: Nigeria vs. Argentina"
-40,Iceland,Croatia,"Tue Jun 26, 2018 23:30",,,,"Tue Jun 26, 2018 23:30: Iceland vs. Croatia"
-41,Serbia,Brazil,"Wed Jun 27, 2018 23:30",,,,"Wed Jun 27, 2018 23:30: Serbia vs. Brazil"
-42,Switzerland,Costa Rica,"Wed Jun 27, 2018 23:30",,,,"Wed Jun 27, 2018 23:30: Switzerland vs. Costa Rica"
-43,Korea Republic,Germany,"Wed Jun 27, 2018 19:30",,,,"Wed Jun 27, 2018 19:30: Korea Republic vs. Germany"
-44,Mexico,Sweden,"Wed Jun 27, 2018 19:30",,,,"Wed Jun 27, 2018 19:30: Mexico vs. Sweden"
-45,England,Belgium,"Thu Jun 28, 2018 23:30",,,,"Thu Jun 28, 2018 23:30: England vs. Belgium"
-46,Panama,Tunisia,"Thu Jun 28, 2018 23:30",,,,"Thu Jun 28, 2018 23:30: Panama vs. Tunisia"
-47,Japan,Poland,"Thu Jun 28, 2018 19:30",,,,"Thu Jun 28, 2018 19:30: Japan vs. Poland"
-48,Senegal,Colombia,"Thu Jun 28, 2018 19:30",,,,"Thu Jun 28, 2018 19:30: Senegal vs. Colombia"
-,,,,,,,
-,,,,,,,
-,,,,,,,
-,,,,,,,
-,,,,,,,
-,,,,,,,
-,,,,,,,
-56,,,,,,,
-57,,,,,,,
-58,,,,,,,
-59,,,,,,,
-60,,,,,,,
+﻿Match#,TeamA,TeamB,Status,TeamA-Result,TeamB-Result
+1,Russia,Saudi Arabia,Complete,5,0
+2,Uruguay,Egypt,Complete,1,0
+3,Morocco,Iran,Complete,0,1
+4,Spain,Portugal,Complete,3,3
+5,France,Australia,Complete,2,1
+6,Denmark,Peru,Complete,1,0
+7,Argentina,Iceland,Complete,1,1
+8,Croatia,Nigeria,Complete,2,0
+9,Costa Rica,Serbia,Complete,0,1
+10,Brazil,Switzerland,Complete,1,1
+11,Germany,Mexico,Complete,0,1
+12,Sweden,South Korea,Complete,1,0
+13,Belgium,Panama,Complete,3,0
+14,England,Tunisia,Complete,2,1
+15,Colombia,Japan,Complete,1,2
+16,Poland,Senegal,Complete,1,2
+17,Russia,Egypt,Complete,3,1
+18,Uruguay,Saudi Arabia,Complete,1,0
+19,Portugal,Morocco,Complete,1,0
+20,Iran,Spain,Complete,0,1
+21,Denmark,Australia,Complete,1,1
+22,France,Peru,Complete,1,0
+23,Argentina,Croatia,Complete,0,3
+24,Nigeria,Iceland,Complete,2,0
+25,Brazil,Costa Rica,Complete,2,0
+26,Serbia,Switzerland,Complete,1,2
+27,South Korea,Mexico,Complete,1,2
+28,Germany,Sweden,Complete,2,1
+29,Belgium,Tunisia,Complete,5,2
+30,England,Panama,Complete,6,1
+31,Japan,Senegal,"Sunday, 24 June 2018 20:30",,
+32,Poland,Colombia,"Sunday, 24 June 2018 23:30",,
+33,Uruguay,Russia,"Mon Jun 25, 2018 19:30",,
+34,Saudi Arabia,Egypt,"Mon Jun 25, 2018 19:30",,
+35,Iran,Portugal,"Mon Jun 25, 2018 23:30",,
+36,Spain,Morocco,"Mon Jun 25, 2018 23:30",,
+37,Denmark,France,"Tue Jun 26, 2018 19:30",,
+38,Australia,Peru,"Tue Jun 26, 2018 19:30",,
+39,Nigeria,Argentina,"Tue Jun 26, 2018 23:30",,
+40,Iceland,Croatia,"Tue Jun 26, 2018 23:30",,
+41,Serbia,Brazil,"Wed Jun 27, 2018 23:30",,
+42,Switzerland,Costa Rica,"Wed Jun 27, 2018 23:30",,
+43,Korea Republic,Germany,"Wed Jun 27, 2018 19:30",,
+44,Mexico,Sweden,"Wed Jun 27, 2018 19:30",,
+45,England,Belgium,"Thu Jun 28, 2018 23:30",,
+46,Panama,Tunisia,"Thu Jun 28, 2018 23:30",,
+47,Japan,Poland,"Thu Jun 28, 2018 19:30",,
+48,Senegal,Colombia,"Thu Jun 28, 2018 19:30",,

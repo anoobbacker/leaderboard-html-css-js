@@ -9,8 +9,8 @@ var matchResults = null;
 var pointsLost = 0;
 var pointsScoreAndWinner = 3;
 var pointsWinnerOnly = 1;
-var resultsURL = "https://fabrikamsa1.blob.core.windows.net/wc2018/results.csv?version2.0";
-var predictionDataURL = "https://fabrikamsa1.blob.core.windows.net/wc2018/predict.csv?version2.0";
+var resultsURL = "https://github.com/anoobbacker/betwc/blob/master/data/results.csv?raw=true&version2.0";
+var predictionDataURL = "https://github.com/anoobbacker/betwc/blob/master/data/predict.csv?raw=true&version2.0";
 var groupStage1MatchNumber = 1
 var groupStage2MatchNumber = 17
 var groupStage3MatchNumber = 31
@@ -218,12 +218,11 @@ function completePredictFn(results) {
 
       //name
       var participantName = row[3];
+      var avatarInline = "<img src='./img/" + participantName + ".png' width='20' />" +
+        participantName;
+      
       tbdytdName = document.createElement('td');
-      tbdytdName.textContent = participantName;
-      var avatar = document.createElement("img");
-      avatar.src = "./img/" + participantName + ".png";
-      avatar.width = "20";
-      tbdytdName.appendChild(avatar);
+      tbdytdName.innerHTML = avatarInline;
       tbdytr.appendChild(tbdytdName);
 
       //predict
@@ -235,13 +234,13 @@ function completePredictFn(results) {
       var predictString = "";
       if (predictTeamAScore > predictTeamBScore) {
         predictString = "<b>" + predictTeamAName + "(" + predictTeamAScore + ")</b> " +
-        predictTeamBName + "(" + predictTeamBScore + ")";
+          predictTeamBName + "(" + predictTeamBScore + ")";
       } else if (predictTeamAScore < predictTeamBScore) {
         predictString = predictTeamAName + "(" + predictTeamAScore + ") <b>" +
-        predictTeamBName + "(" + predictTeamBScore + ")</b>";
+          predictTeamBName + "(" + predictTeamBScore + ")</b>";
       } else {
         predictString = predictTeamAName + "(" + predictTeamAScore + ") " +
-        predictTeamBName + "(" + predictTeamBScore + ")";
+          predictTeamBName + "(" + predictTeamBScore + ")";
       }
       tbdytdName = document.createElement('td');
       tbdytdName.innerHTML = predictString;
@@ -499,23 +498,23 @@ function createLeaderBoard2(leaderboard,
     thead2.style.textAlign = "left";
 
     var tpoint2 = document.createElement('td');
-    tpoint2.innerHTML = leaderboardPredictScorePlusWinnerGameCount[pName] +
-      "<br/><div style=\"font-size: 0.8em\">" +
-      leaderboardPredictMatchesScorePlusWinner[pName].sort().join("<br/>") +
-      "</div>";
+    tpoint2.innerHTML = leaderboardPredictScorePlusWinnerGameCount[pName];
+    // tpoint2.innerHTML += "<br/><div style=\"font-size: 0.8em\">" +
+    //   leaderboardPredictMatchesScorePlusWinner[pName].sort().join("<br/>") +
+    //   "</div>";
 
 
     var tpoint3 = document.createElement('td');
-    tpoint3.innerHTML = leaderboardPredictWinnerGameCount[pName] +
-      "<div style=\"font-size: 0.8em\">" +
-      leaderboardPredictMatchesWinner[pName].sort().join("<br/>") +
-      "</div>";
+    tpoint3.innerHTML = leaderboardPredictWinnerGameCount[pName];
+    // tpoint3.innerHTML += "<div style=\"font-size: 0.8em\">" +
+    //   leaderboardPredictMatchesWinner[pName].sort().join("<br/>") +
+    //   "</div>";
 
     var tpoint4 = document.createElement('td');
-    tpoint4.innerHTML = leaderboardPredictLossesGameCount[pName] +
-      "<div style=\"font-size: 0.8em\">" +
-      leaderboardPredictMatchesLost[pName].sort().join("<br/>") +
-      "</div>";
+    tpoint4.innerHTML = leaderboardPredictLossesGameCount[pName];
+    // tpoint4.innerHTML += "<div style=\"font-size: 0.8em\">" +
+    //   leaderboardPredictMatchesLost[pName].sort().join("<br/>") +
+    //   "</div>";
 
     //add leader row
     trow.appendChild(thead1);
