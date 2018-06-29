@@ -309,9 +309,17 @@ function completePredictFn(results) {
   }
 
   tbl.appendChild(thead);
-  upcomingTbl.appendChild(thead.cloneNode(true));
-
   tbl.appendChild(tbdy);
+
+  if ( upcomingTbdy.childElementCount == 0 ) {
+    var tbdytr = document.createElement('tr');
+    var tbdytdName = document.createElement('td');
+    tbdytdName.textContent = "Predictions are pending. Wait for particpants to submit the predictions.";
+    tbdytdName.setAttribute('colspan', thead.children[0].children.length);
+    tbdytr.appendChild(tbdytdName);
+    upcomingTbdy.appendChild(tbdytr);
+  }
+  upcomingTbl.appendChild(thead.cloneNode(true));
   upcomingTbl.appendChild(upcomingTbdy);
 
   var sortedLeaderboard = Object.keys(leaderboard) //Create a list from the keys of your map. 
