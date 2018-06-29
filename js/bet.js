@@ -14,6 +14,7 @@ var predictionDataURL = "https://fabrikamsa1.blob.core.windows.net/wc2018/predic
 var groupStage1MatchNumber = 1
 var groupStage2MatchNumber = 17
 var groupStage3MatchNumber = 31
+var round16MatchNumber = 49
 var teamNameAcronymn = {
   'Argentina': 'ARG',
   'Australia': 'AUS',
@@ -294,7 +295,7 @@ function completePredictFn(results) {
       }
       tbdytr.appendChild(tbdytdName);
 
-      if (currentMatchNo >= groupStage3MatchNumber) {
+      if (currentMatchNo >= (round16MatchNumber-5) ) {
         //append the row
         tbdy.appendChild(tbdytr);
       }
