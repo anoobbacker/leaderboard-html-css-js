@@ -295,7 +295,7 @@ function completePredictFn(results) {
       }
       tbdytr.appendChild(tbdytdName);
 
-      if (currentMatchNo >= (round16MatchNumber-5) ) {
+      if (currentMatchNo >= (round16MatchNumber) ) {
         //append the row
         tbdy.appendChild(tbdytr);
       }
