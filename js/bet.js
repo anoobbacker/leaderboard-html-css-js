@@ -204,7 +204,7 @@ function completePredictFn(results) {
         } else {
           matchResultString = matchResultTeamAName + " vs " +
             matchResultTeamBName + " on " + matchResultStatus;
-          var matchDateDiff = Math.abs(Date.parse(matchResultStatus.slice(0,-8)) - new Date());
+          var matchDateDiff = Math.abs(Date.parse(matchResultStatus.slice(0,-7).trim()) - new Date());
           var diffDays = Math.ceil(matchDateDiff / (1000 * 3600 * 24));
           if (diffDays <= 1) {
             isUpcoming = true;
