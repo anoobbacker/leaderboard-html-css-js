@@ -49,8 +49,8 @@ Match#,TeamA,TeamB,Status,TeamA-Result,TeamB-Result
 48,Senegal,Colombia,Complete,0,1
 49,Uruguay,Portugal,Complete,2,1
 50,France,Argentina,Complete,4,3
-51,Brazil,Mexico,"Jul 2, 2018 7:30PM",,
-52,Belgium,Japan,"Jul 2, 2018 11:30PM",,
+51,Brazil,Mexico,Complete,2,0
+52,Belgium,Japan,Complete,3,2
 53,Spain,Russia,Complete,4,5
 54,Croatia,Denmark,Complete,4,3
 55,Sweden,Switzerland,"Jul 3, 2018 7:30PM",,
