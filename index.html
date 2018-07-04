@@ -41,6 +41,7 @@
   <script type="text/javascript" src="js/new-age.min.js"></script>
   <script type="text/javascript" src="js/papaparse.min.js"></script>
   <script type="text/javascript" src="js/underscore-min.js"></script>
+  <script type="text/javascript" src="js/plot.js"></script>
 
 
 </head>
@@ -48,24 +49,6 @@
 </head>
 
 <body id="page-top">
-  <!-- Navigation -->
-  <nav class="navbar navbar-expand-lg navbar-light fixed-top" id="mainNav">
-    <div class="container">
-      <button class="navbar-toggler navbar-toggler-right" type="button" data-toggle="collapse" data-target="#navbarResponsive"
-        aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
-        Menu
-        <i class="fa fa-bars"></i>
-      </button>
-      <div class="collapse navbar-collapse" id="navbarResponsive">
-        <ul class="navbar-nav ml-auto">
-          <li class="nav-item">
-            <a class="nav-link js-scroll-trigger" href="https://rebrand.ly/betwc" target="#blank">Feedback</a>
-          </li>
-        </ul>
-      </div>
-    </div>
-  </nav>
-
   <header class="masthead">
     <div class="container h-100">
       <div class="row h-100">
@@ -106,16 +89,18 @@
         <h2>Leader Board</h2>
         <p class="text-muted">Leader board shows the overrall points of the participants.</p>
       </div>
+      <div id="chart">
+			</div>
     </div>
     <div class="container" id="upcomingdetails">
       <div class="section-heading text-center">
-        <h2>Recent match predictions</h2>
+        <h2>Upcoming match predictions</h2>
         <p class="text-muted">Shows only the predictions for upcomings games. To see all the predictions scroll down to 'All predictions' section.</p>
       </div>
     </div>
     <div class="container" id="leaderboarddetails">
       <div class="section-heading text-center">
-        <h2>Leader Board details</h2>
+        <h2>Leader Board bread down</h2>
         <p class="text-muted">Shows the leader board details. To see all the predictions scroll down to 'All predictions' section.</p>
         <br/>
         <a class="btn btn-primary text-center js-scroll-trigger" href="#page-top" tabindex="3">Go to Top!</a>
@@ -124,7 +109,7 @@
     
     <div class="container" id="breakupdetails">
       <div class="section-heading text-center">
-        <h2>Match prediction</h2>
+        <h2>Match predictions</h2>
         <p class="text-muted">Breakup of the prediction made by participants for upcoming stage.</p><br/>
         <a class="btn btn-primary text-center js-scroll-trigger" href="#page-top" tabindex="4">Go to Top!</a>
       </div>

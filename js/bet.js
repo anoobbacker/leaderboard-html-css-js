@@ -11,10 +11,52 @@ var pointsScoreAndWinner = 3;
 var pointsWinnerOnly = 1;
 var resultsURL = "https://fabrikamsa1.blob.core.windows.net/wc2018/results.csv?ver=3.0";
 var predictionDataURL = "https://fabrikamsa1.blob.core.windows.net/wc2018/predict.csv?ver=3.0";
-var groupStage1MatchNumber = 1
-var groupStage2MatchNumber = 17
-var groupStage3MatchNumber = 31
-var round16MatchNumber = 49
+
+var matchStages = [
+  //Groupstage match day1
+  {
+    MatchNumber: 1,
+    StageStartDate: 'June 14, 2018',
+    StageEndDate: 'June 19, 2018'
+  },
+  //Groupstage match day2
+  {
+    MatchNumber: 17,
+    StageStartDate: 'June 19, 2018',
+    StageEndDate: 'June 24, 2018'
+  },
+  //Groupstage match day3
+  {
+    MatchNumber: 31,
+    StageStartDate: 'June 25, 2018',
+    StageEndDate: 'June 28, 2018'
+  },
+  //round 16
+  {
+    MatchNumber: 49,
+    StageStartDate: 'June 30, 2018',
+    StageEndDate: 'July 3, 2018'
+  },
+  //quarter finals
+  {
+    MatchNumber: 57,
+    StageStartDate: 'July 6, 2018',
+    StageEndDate: 'July 7, 2018'
+  },
+  //semi finals
+  {
+    MatchNumber: 61,
+    StageStartDate: 'July 10, 2018',
+    StageEndDate: 'July 12, 2018'
+  },
+  //winner & loser finals
+  {
+    MatchNumber: 63,
+    StageStartDate: 'July 14, 2018',
+    StageEndDate: 'July 15, 2018'
+  }
+];
+
 var teamNameAcronymn = {
   'Argentina': 'ARG',
   'Australia': 'AUS',
@@ -50,6 +92,40 @@ var teamNameAcronymn = {
   'Uruguay': 'URU',
   'Korea Republic': 'KOR'
 }
+var leaderboardCatalog = [];
+var keyOptions = [
+  "Participant", //0
+  "Total points", //1
+  "Total score predict matches", //2
+  "Total winner predict matches", //3
+  "Total predict lost matches", //4
+  "Groupstage matchday1 points", //5
+  "Groupstage matchday1 score predict matches", //6
+  "Groupstage matchday1 winner predict matches", //7
+  "Groupstage matchday1 predict lost matches", //8
+  "Groupstage matchday2 points", //9
+  "Groupstage matchday2 score predict matches", //10
+  "Groupstage matchday2 winner predict matches", //11
+  "Groupstage matchday2 predict lost matches", //12
+  "Groupstage matchday3 points", //13
+  "Groupstage matchday3 score predict matches", //14
+  "Groupstage matchday3 winner predict matches", //15
+  "Groupstage matchday3 predict lost matches", //16
+  "Round16 points", //17
+  "Round16 score predict matches", //18
+  "Round16 winner predict matches", //19
+  "Round16 predict lost matches", //20
+  "Quarter final points", //21
+  "Quarter final score predict matches", //22
+  "Quarter final winner predict matches", //23
+  "Quarter final predict lost matches", //24
+  "Semi final points", //25
+  "Semi final score predict matches", //26
+  "Semi final winner predict matches", //27
+  "Semi final predict lost matches", //28
+  "Final points", //29
+  "Total number of matches" //30
+];
 
 $.fn.exists = function () {
   return this.length !== 0;
@@ -100,6 +176,15 @@ function completePredictFn(results) {
   var leaderboardPredictMatchesScorePlusWinner = {};
   var leaderboardPredictMatchesWinner = {};
   var leaderboardPredictMatchesLost = {};
+
+  var activeStageMatchNumber = 1;
+  for (var i = 0; i < matchStages.length; i++) {
+    var dDiff = Date.parse(matchStages[i].StageEndDate) - new Date()
+    if ( dDiff >= 0 ) {
+      activeStageMatchNumber = matchStages[i].MatchNumber;
+      break;
+    }
+  }
 
   //all match prediction table
   var tbl = document.createElement('table');
@@ -165,6 +250,12 @@ function completePredictFn(results) {
       }
       lastMatchNo = currentMatchNo;
 
+      //name
+      var participantName = row[3].trim();
+      if ( !"".localeCompare(participantName)) {
+        continue;
+      }
+
       //table rows
       var tbdytr = document.createElement('tr');
 
@@ -204,7 +295,7 @@ function completePredictFn(results) {
         } else {
           matchResultString = matchResultTeamAName + " vs " +
             matchResultTeamBName + " on " + matchResultStatus;
-          var matchDateDiff = Math.abs(Date.parse(matchResultStatus.slice(0,-7).trim()) - new Date());
+          var matchDateDiff = Math.abs(Date.parse(matchResultStatus.slice(0, -7).trim()) - new Date());
           var diffDays = Math.ceil(matchDateDiff / (1000 * 3600 * 24));
           if (diffDays <= 1) {
             isUpcoming = true;
@@ -216,11 +307,9 @@ function completePredictFn(results) {
         tbdytr.appendChild(tbdytdName);
       }
 
-      //name
-      var participantName = row[3];
       var avatarInline = "<img src='./img/" + participantName + ".png' width='20' />" +
         participantName;
-      
+
       tbdytdName = document.createElement('td');
       tbdytdName.innerHTML = avatarInline;
       tbdytr.appendChild(tbdytdName);
@@ -290,12 +379,14 @@ function completePredictFn(results) {
           leaderboardPredictLossesGameCount[participantName] += 1;
           leaderboardPredictMatchesLost[participantName].push(predictString);
         }
+
+        updateLeaderBoardCatalog(currentMatchNo, participantName, predictPoints);
       } else {
         tbdytdName.textContent = "-";
       }
       tbdytr.appendChild(tbdytdName);
 
-      if (currentMatchNo >= (round16MatchNumber) ) {
+      if (currentMatchNo >= activeStageMatchNumber) {
         //append the row
         tbdy.appendChild(tbdytr);
       }
@@ -309,9 +400,17 @@ function completePredictFn(results) {
   }
 
   tbl.appendChild(thead);
+  if ( tbdy.childElementCount == 0 ) {
+    var tbdytr = document.createElement('tr');
+    var tbdytdName = document.createElement('td');
+    tbdytdName.textContent = "Predictions are pending. Wait for particpants to submit the predictions.";
+    tbdytdName.setAttribute('colspan', thead.children[0].children.length);
+    tbdytr.appendChild(tbdytdName);
+    tbl.appendChild(tbdytr);    
+  }
   tbl.appendChild(tbdy);
 
-  if ( upcomingTbdy.childElementCount == 0 ) {
+  if (upcomingTbdy.childElementCount == 0) {
     var tbdytr = document.createElement('tr');
     var tbdytdName = document.createElement('td');
     tbdytdName.textContent = "Predictions are pending. Wait for particpants to submit the predictions.";
@@ -330,23 +429,6 @@ function completePredictFn(results) {
       })
   // console.log("Sorted leaders: " + sortedLeaderboard);
 
-  var leaderBoardTbl1 = createLeaderBoard1(leaderboard,
-    leaderboardPredictScorePlusWinnerGameCount,
-    leaderboardPredictWinnerGameCount,
-    leaderboardPredictLossesGameCount,
-    leaderboardPredictMatchesScorePlusWinner,
-    leaderboardPredictMatchesWinner,
-    leaderboardPredictMatchesLost,
-    sortedLeaderboard);
-
-  var leaderBoardTbl2 = createLeaderBoard2(leaderboard,
-    leaderboardPredictScorePlusWinnerGameCount,
-    leaderboardPredictWinnerGameCount,
-    leaderboardPredictLossesGameCount,
-    leaderboardPredictMatchesScorePlusWinner,
-    leaderboardPredictMatchesWinner,
-    leaderboardPredictMatchesLost,
-    sortedLeaderboard);
   if ($("#featuredetail").exists()) {
     $("#featuredetail").remove();
   }
@@ -367,12 +449,29 @@ function completePredictFn(results) {
     $("#leaderboarddetail").remove();
   }
 
-  $("#featuredetails").append(leaderBoardTbl1);
+  $("#featuredetails").append(createLeaderBoard1(leaderboard,
+    leaderboardPredictScorePlusWinnerGameCount,
+    leaderboardPredictWinnerGameCount,
+    leaderboardPredictLossesGameCount,
+    leaderboardPredictMatchesScorePlusWinner,
+    leaderboardPredictMatchesWinner,
+    leaderboardPredictMatchesLost,
+    sortedLeaderboard));
   $("#upcomingdetails").append(upcomingTbl);
-  $("#leaderboarddetails").append(leaderBoardTbl2);
+  $("#leaderboarddetails").append(createLeaderBoard2(leaderboard,
+    leaderboardPredictScorePlusWinnerGameCount,
+    leaderboardPredictWinnerGameCount,
+    leaderboardPredictLossesGameCount,
+    leaderboardPredictMatchesScorePlusWinner,
+    leaderboardPredictMatchesWinner,
+    leaderboardPredictMatchesLost,
+    sortedLeaderboard));
   $("#breakupdetails").append(tbl);
-  enableButton();
+  $("#chart").html('');
 
+  //loadChart(leaderboardCatalog);
+
+  enableButton();
 }
 
 function createLeaderBoard1(leaderboard,
@@ -542,31 +641,132 @@ function createLeaderBoard2(leaderboard,
   return leaderTbl;
 }
 
-function createFeatureItem(title, desc) {
-  var elem4 = document.createElement('div');
-  elem4.setAttribute('class', 'col-lg-6');
+function checkAndInitialize(pName) {
+  var pFound = false;
+  //find participantName in the array
+  for (var i = 0; i < leaderboardCatalog.length; i++) {
+    var leaderBoardItem = leaderboardCatalog[i];
+    if (leaderBoardItem[keyOptions[0]] == pName) {
+      pFound = true;
+      break;
+    }
+  }
 
-  var elem5 = document.createElement('div');
-  elem5.setAttribute('class', 'feature-item');
+  if (pFound == false) {
+    var pKeyName = keyOptions[0];
+    var leaderBoardItem = {};
+    leaderBoardItem[pKeyName] = pName;
+    for (var k = 1; k < keyOptions.length; k++) {
+      leaderBoardItem[keyOptions[k]] = 0;
+    }
+    leaderboardCatalog.push(leaderBoardItem);
+  }
+}
 
-  var elem6 = document.createElement('img');
-  elem6.src = "./img/" + title + ".png";
-  elem6.width = "50";
+function updateLeaderBoardCatalog(currentMatchNo, participantName, predictPoints) {
 
-  var elem7 = document.createElement('h3');
-  elem7.textContent = title;
+  checkAndInitialize(participantName);
 
-  var elem8 = document.createElement('p');
-  elem8.setAttribute('class', 'text-muted');
-  elem8.textContent = desc;
+  //find participantName in the array
+  for (var i = 0; i < leaderboardCatalog.length; i++) {
+    if (leaderboardCatalog[i][keyOptions[0]] == participantName) {
+      var leaderBoardItem = leaderboardCatalog[i];
+      leaderBoardItem[keyOptions[1]] += predictPoints;
+      leaderBoardItem[keyOptions[30]] += 1;
+      if (predictPoints == pointsScoreAndWinner) {
+        leaderBoardItem[keyOptions[2]] += 1;
+      }
 
-  elem5.appendChild(elem6);
-  elem5.appendChild(elem7);
-  elem5.appendChild(elem8);
+      if (predictPoints >= pointsWinnerOnly) {
+        leaderBoardItem[keyOptions[3]] += 1;
+      }
 
-  elem4.appendChild(elem5);
+      if (predictPoints == pointsLost) {
+        leaderBoardItem[keyOptions[4]] += 1;
+      }
+      if (currentMatchNo < matchStages[1].MatchNumber) {
+        leaderBoardItem[keyOptions[5]] += predictPoints;
+        if (predictPoints == pointsScoreAndWinner) {
+          leaderBoardItem[keyOptions[6]] += 1;
+        }
 
-  return elem4;
+        if (predictPoints >= pointsWinnerOnly) {
+          leaderBoardItem[keyOptions[7]] += 1;
+        }
+
+        if (predictPoints == pointsLost) {
+          leaderBoardItem[keyOptions[8]] += 1;
+        }
+      } else if (currentMatchNo < matchStages[2].MatchNumber) {
+        leaderBoardItem[keyOptions[9]] += predictPoints;
+        if (predictPoints == pointsScoreAndWinner) {
+          leaderBoardItem[keyOptions[10]] += 1;
+        }
+
+        if (predictPoints >= pointsWinnerOnly) {
+          leaderBoardItem[keyOptions[11]] += 1;
+        }
+
+        if (predictPoints == pointsLost) {
+          leaderBoardItem[keyOptions[12]] += 1;
+        }
+      } else if (currentMatchNo < matchStages[3].MatchNumber) {
+        leaderBoardItem[keyOptions[13]] += predictPoints;
+        if (predictPoints == pointsScoreAndWinner) {
+          leaderBoardItem[keyOptions[14]] += 1;
+        }
+
+        if (predictPoints >= pointsWinnerOnly) {
+          leaderBoardItem[keyOptions[15]] += 1;
+        }
+
+        if (predictPoints == pointsLost) {
+          leaderBoardItem[keyOptions[16]] += 1;
+        }
+      } else if (currentMatchNo < matchStages[4].MatchNumber) {
+        leaderBoardItem[keyOptions[17]] += predictPoints;
+        if (predictPoints == pointsScoreAndWinner) {
+          leaderBoardItem[keyOptions[18]] += 1;
+        }
+
+        if (predictPoints >= pointsWinnerOnly) {
+          leaderBoardItem[keyOptions[19]] += 1;
+        }
+
+        if (predictPoints == pointsLost) {
+          leaderBoardItem[keyOptions[20]] += 1;
+        }
+      } else if (currentMatchNo < matchStages[5].MatchNumber) {
+        leaderBoardItem[keyOptions[21]] += predictPoints;
+        if (predictPoints == pointsScoreAndWinner) {
+          leaderBoardItem[keyOptions[22]] += 1;
+        }
+
+        if (predictPoints >= pointsWinnerOnly) {
+          leaderBoardItem[keyOptions[23]] += 1;
+        }
+
+        if (predictPoints == pointsLost) {
+          leaderBoardItem[keyOptions[24]] += 1;
+        }
+      } else if (currentMatchNo < matchStages[6].MatchNumber) {
+        leaderBoardItem[keyOptions[25]] += predictPoints;
+        if (predictPoints == pointsScoreAndWinner) {
+          leaderBoardItem[keyOptions[26]] += 1;
+        }
+
+        if (predictPoints >= pointsWinnerOnly) {
+          leaderBoardItem[keyOptions[27]] += 1;
+        }
+
+        if (predictPoints == pointsLost) {
+          leaderBoardItem[keyOptions[28]] += 1;
+        }
+      } else if (currentMatchNo < matchStages[6].MatchNumber+2) {
+        leaderBoardItem[keyOptions[29]] += predictPoints;
+      }
+    }
+  }
 }
 
 function completeResultsFn(results) {
