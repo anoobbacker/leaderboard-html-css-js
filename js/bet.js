@@ -180,7 +180,7 @@ function completePredictFn(results) {
   var activeStageMatchNumber = 1;
   for (var i = 0; i < matchStages.length; i++) {
     var dDiff = Date.parse(matchStages[i].StageEndDate) - new Date()
-    if ( dDiff >= 0 ) {
+    if (dDiff >= 0) {
       activeStageMatchNumber = matchStages[i].MatchNumber;
       break;
     }
@@ -203,6 +203,7 @@ function completePredictFn(results) {
   var lastMatchNo = 0;
   var newMatch = false;
   var isUpcoming = false;
+  var atleastOneUpcoming = false;
   for (var i = results.data.length - 1; i >= 0; i--) {
     var row = results.data[i];
     if (i == 0) {
@@ -252,7 +253,7 @@ function completePredictFn(results) {
 
       //name
       var participantName = row[3].trim();
-      if ( !"".localeCompare(participantName)) {
+      if (!"".localeCompare(participantName)) {
         continue;
       }
 
@@ -391,6 +392,7 @@ function completePredictFn(results) {
         tbdy.appendChild(tbdytr);
       }
 
+
       if (isUpcoming) {
         upcomingTbdy.appendChild(tbdytr.cloneNode(true));
       }
@@ -400,13 +402,13 @@ function completePredictFn(results) {
   }
 
   tbl.appendChild(thead);
-  if ( tbdy.childElementCount == 0 ) {
+  if (tbdy.childElementCount == 0) {
     var tbdytr = document.createElement('tr');
     var tbdytdName = document.createElement('td');
     tbdytdName.textContent = "Predictions are pending. Wait for particpants to submit the predictions.";
     tbdytdName.setAttribute('colspan', thead.children[0].children.length);
     tbdytr.appendChild(tbdytdName);
-    tbl.appendChild(tbdytr);    
+    tbl.appendChild(tbdytr);
   }
   tbl.appendChild(tbdy);
 
@@ -762,7 +764,7 @@ function updateLeaderBoardCatalog(currentMatchNo, participantName, predictPoints
         if (predictPoints == pointsLost) {
           leaderBoardItem[keyOptions[28]] += 1;
         }
-      } else if (currentMatchNo < matchStages[6].MatchNumber+2) {
+      } else if (currentMatchNo < matchStages[6].MatchNumber + 2) {
         leaderBoardItem[keyOptions[29]] += predictPoints;
       }
     }
