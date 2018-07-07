@@ -387,7 +387,6 @@ function completePredictFn(results) {
 
       tbdytdName = document.createElement('td');
       if (matchComplete) {
-        tbdytdName.textContent = predictPoints;
         if (!(participantName in leaderboard)) {
           leaderboard[participantName] = 0;
           leaderboardPredictScorePlusWinnerGameCount[participantName] = 0;
@@ -399,35 +398,40 @@ function completePredictFn(results) {
         }
 
         leaderboard[participantName] += predictPoints;
-        if (predictPoints == matchStages[currentMatchStage].ScoreAndWinnerPoints) {
-          leaderboardPredictScorePlusWinnerGameCount[participantName] += 1;
-          leaderboardPredictMatchesScorePlusWinner[participantName].push(predictString);
-        }
 
         if (predictPoints >= matchStages[currentMatchStage].WinnerOnlyPoints) {
           leaderboardPredictWinnerGameCount[participantName] += 1;
           leaderboardPredictMatchesWinner[participantName].push(predictString);
+          tbdytdName.innerHTML = '<i class="fas fa-angle-up" style="color:#32CD32;"></i>' + Math.abs(predictPoints);
+        }
+
+        if (predictPoints == matchStages[currentMatchStage].ScoreAndWinnerPoints) {
+          leaderboardPredictScorePlusWinnerGameCount[participantName] += 1;
+          leaderboardPredictMatchesScorePlusWinner[participantName].push(predictString);
+          tbdytdName.innerHTML = '<i class="fas fa-angle-double-up" style="color:#32CD32;"></i>' + Math.abs(predictPoints);
         }
 
         if (predictPoints == matchStages[currentMatchStage].LostPoints) {
           leaderboardPredictLossesGameCount[participantName] += 1;
           leaderboardPredictMatchesLost[participantName].push(predictString);
+          tbdytdName.innerHTML = '<i class="fas fa-angle-down" style="color:#DC143C;"></i>' + Math.abs(predictPoints);
         }
 
         updateLeaderBoardCatalog(currentMatchNo, participantName, predictPoints, currentMatchStage);
       } else {
-        tbdytdName.textContent = "-";
+        //tbdytdName.textContent = "-";
+        tbdytdName.innerHTML = '<i class="fas fa-ellipsis-h" style="color:#797D7F;"></i>';
       }
-      tbdytr.appendChild(tbdytdName);
-
-      if (currentMatchNo >= activeStageMatchNumber) {
-        //append the row
-        tbdy.appendChild(tbdytr);
-      }
-
 
       if (isUpcoming) {
         upcomingTbdy.appendChild(tbdytr.cloneNode(true));
+      }
+
+      tbdytr.appendChild(tbdytdName);
+
+      //append the row if match is in active stage
+      if (currentMatchNo >= activeStageMatchNumber) {
+        tbdy.appendChild(tbdytr);
       }
 
       location.hash = "features";
@@ -445,6 +449,9 @@ function completePredictFn(results) {
   }
   tbl.appendChild(tbdy);
 
+  var upcomingTblHead = thead.cloneNode(true);
+  upcomingTblHead.firstElementChild.removeChild(upcomingTblHead.firstElementChild.lastElementChild);
+  
   if (upcomingTbdy.childElementCount == 0) {
     var tbdytr = document.createElement('tr');
     var tbdytdName = document.createElement('td');
@@ -453,7 +460,7 @@ function completePredictFn(results) {
     tbdytr.appendChild(tbdytdName);
     upcomingTbdy.appendChild(tbdytr);
   }
-  upcomingTbl.appendChild(thead.cloneNode(true));
+  upcomingTbl.appendChild(upcomingTblHead);
   upcomingTbl.appendChild(upcomingTbdy);
 
   var sortedLeaderboard = Object.keys(leaderboard) //Create a list from the keys of your map. 
@@ -560,11 +567,11 @@ function createLeaderBoard1(leaderboard,
 
     var tpoint1 = document.createElement('td');
     tpoint1.innerHTML = leaderboard[pName] +
-      "<div style=\"font-size: 0.8em\">(# of Winning Scores: " +
+      "<div style=\"font-size: 0.8em\">(Winning Score Matches: " +
       leaderboardPredictScorePlusWinnerGameCount[pName] +
-      ", # of Winning Games: " +
+      ", Winning Matches: " +
       leaderboardPredictWinnerGameCount[pName] +
-      ", # of Lost Games: " +
+      ", Lost Matches: " +
       leaderboardPredictLossesGameCount[pName] +
       ")</div>";
 
