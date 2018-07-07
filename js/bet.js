@@ -6,10 +6,7 @@ var parser;
 var pauseChecked = false;
 var printStepChecked = false;
 var matchResults = null;
-var pointsLost = 0;
-var pointsScoreAndWinner = 3;
-var pointsWinnerOnly = 1;
-var resultsURL = "https://fabrikamsa1.blob.core.windows.net/wc2018/results.csv?ver=3.1";
+var resultsURL = "https://fabrikamsa1.blob.core.windows.net/wc2018/results.csv?ver=3.2";
 var predictionDataURL = "https://fabrikamsa1.blob.core.windows.net/wc2018/predict.csv?ver=3.0";
 
 var matchStages = [
@@ -17,43 +14,71 @@ var matchStages = [
   {
     MatchNumber: 1,
     StageStartDate: 'June 14, 2018',
-    StageEndDate: 'June 19, 2018'
+    StageEndDate: 'June 19, 2018',
+    Stage: 0,
+    ScoreAndWinnerPoints: 3,
+    WinnerOnlyPoints: 1,
+    LostPoints: 0
   },
   //Groupstage match day2
   {
     MatchNumber: 17,
     StageStartDate: 'June 19, 2018',
-    StageEndDate: 'June 24, 2018'
+    StageEndDate: 'June 24, 2018',
+    Stage: 1,
+    ScoreAndWinnerPoints: 3,
+    WinnerOnlyPoints: 1,
+    LostPoints: 0
   },
   //Groupstage match day3
   {
     MatchNumber: 31,
     StageStartDate: 'June 25, 2018',
-    StageEndDate: 'June 28, 2018'
+    StageEndDate: 'June 28, 2018',
+    Stage: 2,
+    ScoreAndWinnerPoints: 3,
+    WinnerOnlyPoints: 1,
+    LostPoints: 0
   },
   //round 16
   {
     MatchNumber: 49,
     StageStartDate: 'June 30, 2018',
-    StageEndDate: 'July 3, 2018'
+    StageEndDate: 'July 3, 2018',
+    Stage: 3,
+    ScoreAndWinnerPoints: 3,
+    WinnerOnlyPoints: 1,
+    LostPoints: 0
   },
   //quarter finals
   {
     MatchNumber: 57,
     StageStartDate: 'July 6, 2018',
-    StageEndDate: 'July 7, 2018'
+    StageEndDate: 'July 7, 2018',
+    Stage: 4,
+    ScoreAndWinnerPoints: 5,
+    WinnerOnlyPoints: 3,
+    LostPoints: -1
   },
   //semi finals
   {
     MatchNumber: 61,
     StageStartDate: 'July 10, 2018',
-    StageEndDate: 'July 12, 2018'
+    StageEndDate: 'July 12, 2018',
+    Stage: 5,
+    ScoreAndWinnerPoints: 5,
+    WinnerOnlyPoints: 3,
+    LostPoints: -1
   },
   //winner & loser finals
   {
     MatchNumber: 63,
     StageStartDate: 'July 14, 2018',
-    StageEndDate: 'July 15, 2018'
+    StageEndDate: 'July 15, 2018',
+    Stage: 6,
+    ScoreAndWinnerPoints: 5,
+    WinnerOnlyPoints: 3,
+    LostPoints: -1
   }
 ];
 
@@ -180,7 +205,8 @@ function completePredictFn(results) {
   var activeStageMatchNumber = 1;
   for (var i = 0; i < matchStages.length; i++) {
     var dDiff = Date.parse(matchStages[i].StageEndDate) - new Date()
-    if (dDiff >= 0) {
+    var diffDays = Math.ceil(dDiff / (1000 * 3600 * 24));
+    if (diffDays >= 0) {
       activeStageMatchNumber = matchStages[i].MatchNumber;
       break;
     }
@@ -203,7 +229,6 @@ function completePredictFn(results) {
   var lastMatchNo = 0;
   var newMatch = false;
   var isUpcoming = false;
-  var atleastOneUpcoming = false;
   for (var i = results.data.length - 1; i >= 0; i--) {
     var row = results.data[i];
     if (i == 0) {
@@ -250,6 +275,14 @@ function completePredictFn(results) {
         newMatch = false;
       }
       lastMatchNo = currentMatchNo;
+
+      var currentMatchStage = matchStages.length - 1;
+      for (var x = 0; x < matchStages.length; x++) {
+        if (currentMatchNo < matchStages[x].MatchNumber) {
+          currentMatchStage = matchStages[x].Stage - 1;
+          break;
+        }
+      }
 
       //name
       var participantName = row[3].trim();
@@ -337,19 +370,19 @@ function completePredictFn(results) {
       tbdytr.appendChild(tbdytdName);
 
       //points
-      var predictPoints = pointsLost;
+      var predictPoints = matchStages[currentMatchStage].LostPoints;
       if ((matchResultTeamAScore == predictTeamAScore) &&
         (matchResultTeamBScore == predictTeamBScore)) {
-        predictPoints = pointsScoreAndWinner;
+        predictPoints = matchStages[currentMatchStage].ScoreAndWinnerPoints;
       } else if ((matchResultTeamAScore == matchResultTeamBScore) &&
         (predictTeamAScore == predictTeamBScore)) {
-        predictPoints = pointsWinnerOnly;
+        predictPoints = matchStages[currentMatchStage].WinnerOnlyPoints;
       } else if ((matchResultTeamAScore > matchResultTeamBScore) &&
         (predictTeamAScore > predictTeamBScore)) {
-        predictPoints = pointsWinnerOnly;
+        predictPoints = matchStages[currentMatchStage].WinnerOnlyPoints;
       } else if ((matchResultTeamAScore < matchResultTeamBScore) &&
         (predictTeamAScore < predictTeamBScore)) {
-        predictPoints = pointsWinnerOnly;
+        predictPoints = matchStages[currentMatchStage].WinnerOnlyPoints;
       }
 
       tbdytdName = document.createElement('td');
@@ -366,22 +399,22 @@ function completePredictFn(results) {
         }
 
         leaderboard[participantName] += predictPoints;
-        if (predictPoints == pointsScoreAndWinner) {
+        if (predictPoints == matchStages[currentMatchStage].ScoreAndWinnerPoints) {
           leaderboardPredictScorePlusWinnerGameCount[participantName] += 1;
           leaderboardPredictMatchesScorePlusWinner[participantName].push(predictString);
         }
 
-        if (predictPoints >= pointsWinnerOnly) {
+        if (predictPoints >= matchStages[currentMatchStage].WinnerOnlyPoints) {
           leaderboardPredictWinnerGameCount[participantName] += 1;
           leaderboardPredictMatchesWinner[participantName].push(predictString);
         }
 
-        if (predictPoints == pointsLost) {
+        if (predictPoints == matchStages[currentMatchStage].LostPoints) {
           leaderboardPredictLossesGameCount[participantName] += 1;
           leaderboardPredictMatchesLost[participantName].push(predictString);
         }
 
-        updateLeaderBoardCatalog(currentMatchNo, participantName, predictPoints);
+        updateLeaderBoardCatalog(currentMatchNo, participantName, predictPoints, currentMatchStage);
       } else {
         tbdytdName.textContent = "-";
       }
@@ -665,7 +698,7 @@ function checkAndInitialize(pName) {
   }
 }
 
-function updateLeaderBoardCatalog(currentMatchNo, participantName, predictPoints) {
+function updateLeaderBoardCatalog(currentMatchNo, participantName, predictPoints, currentMatchStage) {
 
   checkAndInitialize(participantName);
 
@@ -675,93 +708,93 @@ function updateLeaderBoardCatalog(currentMatchNo, participantName, predictPoints
       var leaderBoardItem = leaderboardCatalog[i];
       leaderBoardItem[keyOptions[1]] += predictPoints;
       leaderBoardItem[keyOptions[30]] += 1;
-      if (predictPoints == pointsScoreAndWinner) {
+      if (predictPoints == matchStages[currentMatchStage].ScoreAndWinnerPoints) {
         leaderBoardItem[keyOptions[2]] += 1;
       }
 
-      if (predictPoints >= pointsWinnerOnly) {
+      if (predictPoints >= matchStages[currentMatchStage].WinnerOnlyPoints) {
         leaderBoardItem[keyOptions[3]] += 1;
       }
 
-      if (predictPoints == pointsLost) {
+      if (predictPoints == matchStages[currentMatchStage].LostPoints) {
         leaderBoardItem[keyOptions[4]] += 1;
       }
       if (currentMatchNo < matchStages[1].MatchNumber) {
         leaderBoardItem[keyOptions[5]] += predictPoints;
-        if (predictPoints == pointsScoreAndWinner) {
+        if (predictPoints == matchStages[currentMatchStage].ScoreAndWinnerPoints) {
           leaderBoardItem[keyOptions[6]] += 1;
         }
 
-        if (predictPoints >= pointsWinnerOnly) {
+        if (predictPoints >= matchStages[currentMatchStage].WinnerOnlyPoints) {
           leaderBoardItem[keyOptions[7]] += 1;
         }
 
-        if (predictPoints == pointsLost) {
+        if (predictPoints == matchStages[currentMatchStage].LostPoints) {
           leaderBoardItem[keyOptions[8]] += 1;
         }
       } else if (currentMatchNo < matchStages[2].MatchNumber) {
         leaderBoardItem[keyOptions[9]] += predictPoints;
-        if (predictPoints == pointsScoreAndWinner) {
+        if (predictPoints == matchStages[currentMatchStage].ScoreAndWinnerPoints) {
           leaderBoardItem[keyOptions[10]] += 1;
         }
 
-        if (predictPoints >= pointsWinnerOnly) {
+        if (predictPoints >= matchStages[currentMatchStage].WinnerOnlyPoints) {
           leaderBoardItem[keyOptions[11]] += 1;
         }
 
-        if (predictPoints == pointsLost) {
+        if (predictPoints == matchStages[currentMatchStage].LostPoints) {
           leaderBoardItem[keyOptions[12]] += 1;
         }
       } else if (currentMatchNo < matchStages[3].MatchNumber) {
         leaderBoardItem[keyOptions[13]] += predictPoints;
-        if (predictPoints == pointsScoreAndWinner) {
+        if (predictPoints == matchStages[currentMatchStage].ScoreAndWinnerPoints) {
           leaderBoardItem[keyOptions[14]] += 1;
         }
 
-        if (predictPoints >= pointsWinnerOnly) {
+        if (predictPoints >= matchStages[currentMatchStage].WinnerOnlyPoints) {
           leaderBoardItem[keyOptions[15]] += 1;
         }
 
-        if (predictPoints == pointsLost) {
+        if (predictPoints == matchStages[currentMatchStage].LostPoints) {
           leaderBoardItem[keyOptions[16]] += 1;
         }
       } else if (currentMatchNo < matchStages[4].MatchNumber) {
         leaderBoardItem[keyOptions[17]] += predictPoints;
-        if (predictPoints == pointsScoreAndWinner) {
+        if (predictPoints == matchStages[currentMatchStage].ScoreAndWinnerPoints) {
           leaderBoardItem[keyOptions[18]] += 1;
         }
 
-        if (predictPoints >= pointsWinnerOnly) {
+        if (predictPoints >= matchStages[currentMatchStage].WinnerOnlyPoints) {
           leaderBoardItem[keyOptions[19]] += 1;
         }
 
-        if (predictPoints == pointsLost) {
+        if (predictPoints == matchStages[currentMatchStage].LostPoints) {
           leaderBoardItem[keyOptions[20]] += 1;
         }
       } else if (currentMatchNo < matchStages[5].MatchNumber) {
         leaderBoardItem[keyOptions[21]] += predictPoints;
-        if (predictPoints == pointsScoreAndWinner) {
+        if (predictPoints == matchStages[currentMatchStage].ScoreAndWinnerPoints) {
           leaderBoardItem[keyOptions[22]] += 1;
         }
 
-        if (predictPoints >= pointsWinnerOnly) {
+        if (predictPoints >= matchStages[currentMatchStage].WinnerOnlyPoints) {
           leaderBoardItem[keyOptions[23]] += 1;
         }
 
-        if (predictPoints == pointsLost) {
+        if (predictPoints == matchStages[currentMatchStage].LostPoints) {
           leaderBoardItem[keyOptions[24]] += 1;
         }
       } else if (currentMatchNo < matchStages[6].MatchNumber) {
         leaderBoardItem[keyOptions[25]] += predictPoints;
-        if (predictPoints == pointsScoreAndWinner) {
+        if (predictPoints == matchStages[currentMatchStage].ScoreAndWinnerPoints) {
           leaderBoardItem[keyOptions[26]] += 1;
         }
 
-        if (predictPoints >= pointsWinnerOnly) {
+        if (predictPoints >= matchStages[currentMatchStage].WinnerOnlyPoints) {
           leaderBoardItem[keyOptions[27]] += 1;
         }
 
-        if (predictPoints == pointsLost) {
+        if (predictPoints == matchStages[currentMatchStage].LostPoints) {
           leaderBoardItem[keyOptions[28]] += 1;
         }
       } else if (currentMatchNo < matchStages[6].MatchNumber + 2) {
