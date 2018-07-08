@@ -567,11 +567,11 @@ function createLeaderBoard1(leaderboard,
 
     var tpoint1 = document.createElement('td');
     tpoint1.innerHTML = leaderboard[pName] +
-      "<div style=\"font-size: 0.8em\">(Winning Score Matches: " +
+      "<div style=\"font-size: 0.8em\">(Predicted Score Matches: " +
       leaderboardPredictScorePlusWinnerGameCount[pName] +
-      ", Winning Matches: " +
+      ", Predicted Win Matches: " +
       leaderboardPredictWinnerGameCount[pName] +
-      ", Lost Matches: " +
+      ", Predicted Fail Matches: " +
       leaderboardPredictLossesGameCount[pName] +
       ")</div>";
 
