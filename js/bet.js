@@ -242,7 +242,7 @@ function completePredictFn(results) {
 
       //add name
       theadth = document.createElement('th');
-      theadth.textContent = "Actual results";
+      theadth.textContent = "Match";
       theadrow.appendChild(theadth);
 
       //add name
