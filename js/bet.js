@@ -76,9 +76,9 @@ var matchStages = [
     StageStartDate: 'July 14, 2018',
     StageEndDate: 'July 15, 2018',
     Stage: 6,
-    ScoreAndWinnerPoints: 15,
-    WinnerOnlyPoints: 5,
-    LostPoints: -5
+    ScoreAndWinnerPoints: 40,
+    WinnerOnlyPoints: 15,
+    LostPoints: -10
   }
 ];
 
