@@ -78,6 +78,7 @@ var teamNameAcronymn = {
   'France': 'FRA',
   'Finland': 'FIN',
   'Germany': 'GER',
+  'Hungary': 'HUN',
   'Iceland': 'ISL',
   'Iran': 'IRN',
   'Italy': 'ITA',
@@ -95,10 +96,12 @@ var teamNameAcronymn = {
   'Portugal': 'POR',
   'Russia': 'RUS',
   'Saudi Arabia': 'KSA',
+  'Scotland': 'SCO',
   'Senegal': 'SEN',
   'Serbia': 'SRB',
   'Spain': 'ESP',
   'Sweden': 'SWE',
+  'Slovakia': 'SVK',
   'Switzerland': 'SUI',
   'Tunisia': 'TUN',
   'Turkey': 'TUR',
@@ -166,6 +169,7 @@ $(function () {
   });
 });
 
+//function that is called after parsing prediction csv file.
 function completePredictFn(results) {
   if (results && results.errors) {
     if (results.errors) {
@@ -191,6 +195,7 @@ function completePredictFn(results) {
   var leaderboardPredictMatchesWinner = {};
   var leaderboardPredictMatchesLost = {};
 
+  //find the active stage rounds of the matches
   var activeStageMatchNumber = 1;
   for (var i = 0; i < matchStages.length; i++) {
     var dDiff = Date.parse(matchStages[i].StageEndDate) - new Date()
@@ -360,17 +365,23 @@ function completePredictFn(results) {
 
       //points
       var predictPoints = matchStages[currentMatchStage].LostPoints;
-      if ((matchResultTeamAScore == predictTeamAScore) &&
+      if ((-1 == predictTeamAScore) && (-1 == predictTeamBScore)) {
+        //missed prediction
+      } else if ((matchResultTeamAScore == predictTeamAScore) &&
         (matchResultTeamBScore == predictTeamBScore)) {
+        //Perfect prediction
         predictPoints = matchStages[currentMatchStage].ScoreAndWinnerPoints;
       } else if ((matchResultTeamAScore == matchResultTeamBScore) &&
         (predictTeamAScore == predictTeamBScore)) {
+        //Only predicted the winner but score wasn't correct.
         predictPoints = matchStages[currentMatchStage].WinnerOnlyPoints;
       } else if ((matchResultTeamAScore > matchResultTeamBScore) &&
         (predictTeamAScore > predictTeamBScore)) {
+        //Only predicted the winner but score wasn't correct.
         predictPoints = matchStages[currentMatchStage].WinnerOnlyPoints;
       } else if ((matchResultTeamAScore < matchResultTeamBScore) &&
         (predictTeamAScore < predictTeamBScore)) {
+        //Only predicted the winner but score wasn't correct.
         predictPoints = matchStages[currentMatchStage].WinnerOnlyPoints;
       }
 
@@ -800,6 +811,8 @@ function updateLeaderBoardCatalog(currentMatchNo, participantName, predictPoints
   }
 }
 
+//function that is called after parsing prediction csv file and starts 
+//trigger parsing prediction csv file
 function completeResultsFn(results) {
   if (results && results.errors) {
     if (results.errors) {
@@ -827,6 +840,7 @@ function errorFn(err, file) {
   console.log("ERROR:", err, file);
 }
 
+//start parsing prediction csv file
 function buildPredictConfig() {
   return {
     delimiter: $('#delimiter').val(),
@@ -848,6 +862,7 @@ function buildPredictConfig() {
   };
 }
 
+//read the results csv file
 function buildResultsConfig() {
   return {
     delimiter: $('#delimiter').val(),
