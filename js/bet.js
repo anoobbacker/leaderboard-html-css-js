@@ -7,7 +7,7 @@ var pauseChecked = false;
 var printStepChecked = false;
 var matchResults = null;
 var resultsURL = "https://betwc.blob.core.windows.net/betwec/results-eurocup2020.csv?ver=1.0.1";
-var predictionDataURL = "https://betwc.blob.core.windows.net/betwec/predict-eurocup2020.csv?ver=1.0.1";
+var predictionDataURL = "https://betwc.blob.core.windows.net/betwec/predict-eurocup2020.csv?ver=1.0.2";
 
 var matchStages = [
   //stage1
@@ -349,7 +349,13 @@ function completePredictFn(results) {
       var predictTeamBName = teamNameAcronymn[matchResultTeamBName];
 
       var predictString = "";
-      if (predictTeamAScore > predictTeamBScore) {
+      if ((0 == predictTeamAScore.length) && (0 == predictTeamBScore.length)) {
+        //skipped prediction
+        predictString = "( Yet to submit ) ";
+      } else if ((-1 == predictTeamAScore) && (-1 == predictTeamBScore)) {
+        //skipped prediction
+        predictString = "( Skipped ) ";
+      } else if (predictTeamAScore > predictTeamBScore) {
         predictString = "<b>" + predictTeamAName + "(" + predictTeamAScore + ")</b> " +
           predictTeamBName + "(" + predictTeamBScore + ")";
       } else if (predictTeamAScore < predictTeamBScore) {
@@ -366,7 +372,7 @@ function completePredictFn(results) {
       //points
       var predictPoints = matchStages[currentMatchStage].LostPoints;
       if ((-1 == predictTeamAScore) && (-1 == predictTeamBScore)) {
-        //missed prediction
+        //skipped prediction
       } else if ((matchResultTeamAScore == predictTeamAScore) &&
         (matchResultTeamBScore == predictTeamBScore)) {
         //Perfect prediction
