@@ -1,0 +1,385 @@
+Match#,TeamA,TeamB,Name,TeamA-Predict,TeamB-Predict
+1,Russia,Saudi Arabia,Shanavas,3,0
+1,Russia,Saudi Arabia,Anoob,3,0
+1,Russia,Saudi Arabia,Ranish,2,0
+1,Russia,Saudi Arabia,Shiju,2,1
+1,Russia,Saudi Arabia,Swami,0,1
+1,Russia,Saudi Arabia,Baiju,0,0
+2,Uruguay,Egypt,Swami,2,1
+2,Uruguay,Egypt,Shanavas,1,0
+2,Uruguay,Egypt,Ranish,1,0
+2,Uruguay,Egypt,Shiju,3,1
+2,Uruguay,Egypt,Anoob,4,1
+2,Uruguay,Egypt,Baiju,0,0
+3,Morocco,Iran,Baiju,2,1
+3,Morocco,Iran,Shanavas,2,0
+3,Morocco,Iran,Swami,0,0
+3,Morocco,Iran,Shiju,2,1
+3,Morocco,Iran,Anoob,2,0
+3,Morocco,Iran,Ranish,2,1
+4,Spain,Portugal,Baiju,1,1
+4,Spain,Portugal,Shanavas,2,1
+4,Spain,Portugal,Swami,2,3
+4,Spain,Portugal,Shiju,3,1
+4,Spain,Portugal,Anoob,1,0
+4,Spain,Portugal,Ranish,1,0
+5,France,Australia,Shiju,2,1
+5,France,Australia,Shanavas,2,0
+5,France,Australia,Ranish,2,1
+5,France,Australia,Anoob,4,0
+5,France,Australia,Swami,3,1
+5,France,Australia,Baiju,2,1
+6,Denmark,Peru,Shiju,2,0
+6,Denmark,Peru,Shanavas,1,1
+6,Denmark,Peru,Ranish,1,0
+6,Denmark,Peru,Anoob,2,1
+6,Denmark,Peru,Swami,3,2
+6,Denmark,Peru,Baiju,2,0
+7,Argentina,Iceland,Shiju,3,0
+7,Argentina,Iceland,Shanavas,3,1
+7,Argentina,Iceland,Ranish,2,1
+7,Argentina,Iceland,Anoob,3,0
+7,Argentina,Iceland,Swami,2,2
+7,Argentina,Iceland,Baiju,1,0
+8,Croatia,Nigeria,Shiju,1,1
+8,Croatia,Nigeria,Shanavas,2,0
+8,Croatia,Nigeria,Ranish,2,2
+8,Croatia,Nigeria,Anoob,2,1
+8,Croatia,Nigeria,Swami,5,2
+8,Croatia,Nigeria,Baiju,1,2
+9,Costa Rica,Serbia,Anoob,0,1
+9,Costa Rica,Serbia,Swami,0,0
+9,Costa Rica,Serbia,Ranish,0,1
+9,Costa Rica,Serbia,Baiju,1,2
+9,Costa Rica,Serbia,Shiju,2,1
+9,Costa Rica,Serbia,Shanavas,0,1
+10,Brazil,Switzerland,Anoob,3,1
+10,Brazil,Switzerland,Swami,2,1
+10,Brazil,Switzerland,Ranish,2,0
+10,Brazil,Switzerland,Baiju,4,1
+10,Brazil,Switzerland,Shiju,2,2
+10,Brazil,Switzerland,Shanavas,3,2
+11,Germany,Mexico,Anoob,3,0
+11,Germany,Mexico,Swami,3,1
+11,Germany,Mexico,Ranish,3,1
+11,Germany,Mexico,Baiju,3,1
+11,Germany,Mexico,Shiju,1,1
+11,Germany,Mexico,Shanavas,3,1
+12,Sweden,South Korea,Anoob,1,0
+12,Sweden,South Korea,Swami,2,0
+12,Sweden,South Korea,Ranish,2,0
+12,Sweden,South Korea,Baiju,2,2
+12,Sweden,South Korea,Shiju,2,0
+12,Sweden,South Korea,Shanavas,2,0
+13,Belgium,Panama,Anoob,1,0
+13,Belgium,Panama,Swami,2,0
+13,Belgium,Panama,Ranish,2,0
+13,Belgium,Panama,Baiju,1,1
+13,Belgium,Panama,Shiju,3,0
+13,Belgium,Panama,Shanavas,3,0
+14,England,Tunisia,Anoob,2,0
+14,England,Tunisia,Swami,3,0
+14,England,Tunisia,Ranish,2,1
+14,England,Tunisia,Baiju,2,0
+14,England,Tunisia,Shiju,2,0
+14,England,Tunisia,Shanavas,3,0
+15,Colombia,Japan,Anoob,2,1
+15,Colombia,Japan,Swami,2,0
+15,Colombia,Japan,Ranish,2,0
+15,Colombia,Japan,Baiju,1,2
+15,Colombia,Japan,Shiju,2,1
+15,Colombia,Japan,Shanavas,1,0
+16,Poland,Senegal,Anoob,2,1
+16,Poland,Senegal,Swami,2,1
+16,Poland,Senegal,Ranish,2,1
+16,Poland,Senegal,Baiju,1,2
+16,Poland,Senegal,Shiju,2,2
+16,Poland,Senegal,Shanavas,1,1
+17,Russia,Egypt,Ranish,0,0
+17,Russia,Egypt,Shiju,2,0
+17,Russia,Egypt,Swami,1,1
+17,Russia,Egypt,Shanavas,1,2
+17,Russia,Egypt,Baiju,2,2
+17,Russia,Egypt,Anoob,2,1
+18,Uruguay,Saudi Arabia,Ranish,3,0
+18,Uruguay,Saudi Arabia,Shiju,2,0
+18,Uruguay,Saudi Arabia,Swami,4,0
+18,Uruguay,Saudi Arabia,Shanavas,2,0
+18,Uruguay,Saudi Arabia,Baiju,3,0
+18,Uruguay,Saudi Arabia,Anoob,3,0
+19,Portugal,Morocco,Ranish,2,0
+19,Portugal,Morocco,Shiju,1,1
+19,Portugal,Morocco,Swami,4,1
+19,Portugal,Morocco,Shanavas,3,0
+19,Portugal,Morocco,Baiju,1,1
+19,Portugal,Morocco,Anoob,3,1
+20,Iran,Spain,Ranish,0,2
+20,Iran,Spain,Shiju,0,3
+20,Iran,Spain,Swami,0,4
+20,Iran,Spain,Shanavas,0,1
+20,Iran,Spain,Baiju,1,2
+20,Iran,Spain,Anoob,0,4
+21,Denmark,Australia,Ranish,1,1
+21,Denmark,Australia,Shiju,2,2
+21,Denmark,Australia,Swami,1,0
+21,Denmark,Australia,Shanavas,2,1
+21,Denmark,Australia,Baiju,2,1
+21,Denmark,Australia,Anoob,1,0
+22,France,Peru,Ranish,2,1
+22,France,Peru,Shiju,1,1
+22,France,Peru,Swami,1,0
+22,France,Peru,Shanavas,1,0
+22,France,Peru,Baiju,2,0
+22,France,Peru,Anoob,4,0
+23,Argentina,Croatia,Ranish,2,1
+23,Argentina,Croatia,Shiju,2,0
+23,Argentina,Croatia,Swami,4,1
+23,Argentina,Croatia,Shanavas,2,1
+23,Argentina,Croatia,Baiju,3,1
+23,Argentina,Croatia,Anoob,3,1
+24,Nigeria,Iceland,Ranish,0,1
+24,Nigeria,Iceland,Shiju,1,1
+24,Nigeria,Iceland,Swami,1,2
+24,Nigeria,Iceland,Shanavas,0,1
+24,Nigeria,Iceland,Baiju,2,3
+24,Nigeria,Iceland,Anoob,2,1
+25,Brazil,Costa Rica,Ranish,3,0
+25,Brazil,Costa Rica,Shiju,2,2
+25,Brazil,Costa Rica,Swami,2,0
+25,Brazil,Costa Rica,Shanavas,2,0
+25,Brazil,Costa Rica,Baiju,4,1
+25,Brazil,Costa Rica,Anoob,4,0
+26,Serbia,Switzerland,Ranish,0,0
+26,Serbia,Switzerland,Shiju,1,2
+26,Serbia,Switzerland,Swami,1,1
+26,Serbia,Switzerland,Shanavas,1,1
+26,Serbia,Switzerland,Baiju,1,1
+26,Serbia,Switzerland,Anoob,1,2
+27,South Korea,Mexico,Ranish,0,2
+27,South Korea,Mexico,Shiju,0,3
+27,South Korea,Mexico,Swami,0,3
+27,South Korea,Mexico,Shanavas,0,1
+27,South Korea,Mexico,Baiju,1,2
+27,South Korea,Mexico,Anoob,0,3
+28,Germany,Sweden,Ranish,1,0
+28,Germany,Sweden,Shiju,1,1
+28,Germany,Sweden,Swami,1,1
+28,Germany,Sweden,Shanavas,3,1
+28,Germany,Sweden,Baiju,2,0
+28,Germany,Sweden,Anoob,4,0
+29,Belgium,Tunisia,Ranish,3,0
+29,Belgium,Tunisia,Shiju,3,0
+29,Belgium,Tunisia,Swami,2,0
+29,Belgium,Tunisia,Shanavas,2,0
+29,Belgium,Tunisia,Baiju,1,0
+29,Belgium,Tunisia,Anoob,2,0
+30,England,Panama,Ranish,2,0
+30,England,Panama,Shiju,2,0
+30,England,Panama,Swami,4,0
+30,England,Panama,Shanavas,1,0
+30,England,Panama,Baiju,3,1
+30,England,Panama,Anoob,3,0
+31,Japan,Senegal,Ranish,1,1
+31,Japan,Senegal,Shiju,1,2
+31,Japan,Senegal,Swami,1,1
+31,Japan,Senegal,Shanavas,1,2
+31,Japan,Senegal,Baiju,1,2
+31,Japan,Senegal,Anoob,1,0
+32,Poland,Colombia,Ranish,1,1
+32,Poland,Colombia,Shiju,1,2
+32,Poland,Colombia,Swami,2,1
+32,Poland,Colombia,Shanavas,1,2
+32,Poland,Colombia,Baiju,0,1
+32,Poland,Colombia,Anoob,1,2
+33,Uruguay ,Russia,Swami,2,1
+33,Uruguay ,Russia,Ranish,1,2
+33,Uruguay ,Russia,Shanavas,2,2
+33,Uruguay ,Russia,Anoob,2,1
+33,Uruguay ,Russia,Baiju,2,0
+33,Uruguay ,Russia,Shiju,1,0
+34,Saudi Arabia,Egypt,Swami,0,0
+34,Saudi Arabia,Egypt,Ranish,0,1
+34,Saudi Arabia,Egypt,Shanavas,0,2
+34,Saudi Arabia,Egypt,Anoob,0,2
+34,Saudi Arabia,Egypt,Baiju,1,2
+34,Saudi Arabia,Egypt,Shiju,0,1
+35,Iran ,Portugal,Swami,2,1
+35,Iran ,Portugal,Ranish,0,2
+35,Iran ,Portugal,Shanavas,0,3
+35,Iran ,Portugal,Anoob,0,3
+35,Iran ,Portugal,Baiju,0,1
+35,Iran ,Portugal,Shiju,1,0
+36,Spain ,Morocco,Swami,3,0
+36,Spain ,Morocco,Ranish,3,0
+36,Spain ,Morocco,Shanavas,2,1
+36,Spain ,Morocco,Anoob,4,0
+36,Spain ,Morocco,Baiju,1,1
+36,Spain ,Morocco,Shiju,2,0
+37,Denmark ,France,Swami,1,2
+37,Denmark ,France,Ranish,1,1
+37,Denmark ,France,Shanavas,1,2
+37,Denmark ,France,Anoob,0,2
+37,Denmark ,France,Baiju,2,1
+37,Denmark ,France,Shiju,1,0
+38,Australia ,Peru,Swami,0,2
+38,Australia ,Peru,Ranish,1,2
+38,Australia ,Peru,Shanavas,1,2
+38,Australia ,Peru,Anoob,2,1
+38,Australia ,Peru,Baiju,0,1
+38,Australia ,Peru,Shiju,1,1
+39,Nigeria,Argentina,Swami,1,2
+39,Nigeria,Argentina,Ranish,1,2
+39,Nigeria,Argentina,Shanavas,2,3
+39,Nigeria,Argentina,Anoob,1,3
+39,Nigeria,Argentina,Baiju,1,2
+39,Nigeria,Argentina,Shiju,0,4
+40,Iceland ,Croatia,Swami,3,1
+40,Iceland ,Croatia,Ranish,0,3
+40,Iceland ,Croatia,Shanavas,0,2
+40,Iceland ,Croatia,Anoob,1,2
+40,Iceland ,Croatia,Baiju,1,3
+40,Iceland ,Croatia,Shiju,0,2
+41,Serbia ,Brazil,Swami,1,0
+41,Serbia ,Brazil,Ranish,0,3
+41,Serbia ,Brazil,Shanavas,0,2
+41,Serbia ,Brazil,Anoob,0,2
+41,Serbia ,Brazil,Baiju,0,3
+41,Serbia ,Brazil,Shiju,1,0
+42,Switzerland ,Costa Rica,Swami,1,1
+42,Switzerland ,Costa Rica,Ranish,2,0
+42,Switzerland ,Costa Rica,Shanavas,1,0
+42,Switzerland ,Costa Rica,Anoob,2,0
+42,Switzerland ,Costa Rica,Baiju,1,2
+42,Switzerland ,Costa Rica,Shiju,2,1
+43,Korea Republic,Germany,Swami,0,2
+43,Korea Republic,Germany,Ranish,1,2
+43,Korea Republic,Germany,Shanavas,0,3
+43,Korea Republic,Germany,Anoob,0,3
+43,Korea Republic,Germany,Baiju,1,1
+43,Korea Republic,Germany,Shiju,1,1
+44,Mexico ,Sweden,Swami,1,2
+44,Mexico ,Sweden,Ranish,2,1
+44,Mexico ,Sweden,Shanavas,2,1
+44,Mexico ,Sweden,Anoob,1,1
+44,Mexico ,Sweden,Baiju,1,2
+44,Mexico ,Sweden,Shiju,1,2
+45,England ,Belgium,Swami,1,1
+45,England ,Belgium,Ranish,1,2
+45,England ,Belgium,Shanavas,2,1
+45,England ,Belgium,Anoob,3,1
+45,England ,Belgium,Baiju,2,2
+45,England ,Belgium,Shiju,1,2
+46,Panama ,Tunisia,Swami,1,1
+46,Panama ,Tunisia,Ranish,0,1
+46,Panama ,Tunisia,Shanavas,1,0
+46,Panama ,Tunisia,Anoob,2,1
+46,Panama ,Tunisia,Baiju,1,1
+46,Panama ,Tunisia,Shiju,2,2
+47,Japan ,Poland,Swami,2,1
+47,Japan ,Poland,Ranish,1,1
+47,Japan ,Poland,Shanavas,1,2
+47,Japan ,Poland,Anoob,1,1
+47,Japan ,Poland,Baiju,1,0
+47,Japan ,Poland,Shiju,1,2
+48,Senegal ,Colombia,Swami,1,2
+48,Senegal ,Colombia,Ranish,2,1
+48,Senegal ,Colombia,Shanavas,1,2
+48,Senegal ,Colombia,Anoob,3,1
+48,Senegal ,Colombia,Baiju,2,3
+48,Senegal ,Colombia,Shiju,1,2
+49,Uruguay,Portugal,Shanavas,1,2
+49,Uruguay,Portugal,Anoob,2,3
+49,Uruguay,Portugal,Baiju,2,0
+49,Uruguay,Portugal,Ranish,1,2
+49,Uruguay,Portugal,Swami,0,2
+49,Uruguay,Portugal,Shiju,1,0
+50,France,Argentina,Shanavas,2,1
+50,France,Argentina,Anoob,2,3
+50,France,Argentina,Baiju,1,2
+50,France,Argentina,Ranish,1,2
+50,France,Argentina,Swami,4,2
+50,France,Argentina,Shiju,0,2
+51,Brazil,Mexico,Shanavas,2,0
+51,Brazil,Mexico,Anoob,3,1
+51,Brazil,Mexico,Baiju,1,0
+51,Brazil,Mexico,Ranish,2,0
+51,Brazil,Mexico,Swami,0,1
+51,Brazil,Mexico,Shiju,1,2
+52,Belgium,Japan,Shanavas,3,1
+52,Belgium,Japan,Anoob,2,1
+52,Belgium,Japan,Baiju,3,1
+52,Belgium,Japan,Ranish,3,1
+52,Belgium,Japan,Swami,2,1
+52,Belgium,Japan,Shiju,1,0
+53,Spain,Russia,Shanavas,1,2
+53,Spain,Russia,Anoob,3,1
+53,Spain,Russia,Baiju,2,1
+53,Spain,Russia,Ranish,2,0
+53,Spain,Russia,Swami,2,0
+53,Spain,Russia,Shiju,1,0
+54,Croatia,Denmark,Shanavas,2,0
+54,Croatia,Denmark,Anoob,2,0
+54,Croatia,Denmark,Baiju,3,1
+54,Croatia,Denmark,Ranish,1,0
+54,Croatia,Denmark,Swami,0,1
+54,Croatia,Denmark,Shiju,2,1
+55,Sweden,Switzerland,Shanavas,4,3
+55,Sweden,Switzerland,Anoob,1,2
+55,Sweden,Switzerland,Baiju,1,0
+55,Sweden,Switzerland,Ranish,2,1
+55,Sweden,Switzerland,Swami,3,5
+55,Sweden,Switzerland,Shiju,1,2
+56,Colombia,England,Shanavas,0,2
+56,Colombia,England,Anoob,1,2
+56,Colombia,England,Baiju,1,2
+56,Colombia,England,Ranish,0,2
+56,Colombia,England,Swami,2,1
+56,Colombia,England,Shiju,0,2
+57,Uruguay,France,Swami,1,2
+57,Uruguay,France,Baiju,1,0
+57,Uruguay,France,Shanavas,1,2
+57,Uruguay,France,Anoob,2,1
+57,Uruguay,France,Ranish,5,4
+57,Uruguay,France,Shiju,2,1
+58,Brazil ,Belgium,Swami,1,2
+58,Brazil ,Belgium,Baiju,2,0
+58,Brazil ,Belgium,Shanavas,3,1
+58,Brazil ,Belgium,Anoob,1,2
+58,Brazil ,Belgium,Ranish,2,1
+58,Brazil ,Belgium,Shiju,1,3
+59,Sweden,England,Swami,1,0
+59,Sweden,England,Baiju,1,2
+59,Sweden,England,Shanavas,4,5
+59,Sweden,England,Anoob,1,3
+59,Sweden,England,Ranish,4,3
+59,Sweden,England,Shiju,0,1
+60,Russia,Croatia,Swami,1,2
+60,Russia,Croatia,Baiju,0,2
+60,Russia,Croatia,Shanavas,2,3
+60,Russia,Croatia,Anoob,1,3
+60,Russia,Croatia,Ranish,0,1
+60,Russia,Croatia,Shiju,2,1
+61,Belgium,France,Swami,2,1
+61,Belgium,France,Anoob,6,5
+61,Belgium,France,Baiju,1,2
+61,Belgium,France,Shiju,2,1
+61,Belgium,France,Ranish,2,3
+61,Belgium,France,Shanavas,2,3
+62,England,Croatia,Swami,2,0
+62,England,Croatia,Anoob,6,5
+62,England,Croatia,Baiju,0,2
+62,England,Croatia,Shiju,5,4
+62,England,Croatia,Ranish,4,5
+62,England,Croatia,Shanavas,2,1
+63,Belgium,England,Shiju,2,0
+63,Belgium,England,Swami,4,2
+63,Belgium,England,Anoob,2,1
+63,Belgium,England,Ranish,3,0
+63,Belgium,England,Shanavas,2,1
+63,Belgium,England,Baiju,1,0
+64,France,Croatia,Shiju,0,1
+64,France,Croatia,Swami,1,2
+64,France,Croatia,Anoob,1,0
+64,France,Croatia,Ranish,0,2
+64,France,Croatia,Shanavas,2,0
+64,France,Croatia,Baiju,0,2

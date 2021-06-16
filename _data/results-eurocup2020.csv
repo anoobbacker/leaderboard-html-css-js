@@ -1,0 +1,37 @@
+Match#,TeamA,TeamB,Status,TeamA-Result,TeamB-Result
+1,Turkey,Italy,Complete,0,3
+2,Wales,Switzerland,Complete,1,1
+3,Denmark,Finland,Complete,0,1
+4,Belgium,Russia,Complete,3,0
+5,England,Croatia,Complete,1,0
+6,Austria,North Macedonia,Complete,3,1
+7,Netherlands,Ukraine,Complete,3,2
+8,Scotland,Czech Republic,Complete,0,2
+9,Poland,Slovakia,Complete,1,2
+10,Spain,Sweden,Complete,0,0
+11,Hungary,Portugal,Complete,0,3
+12,France,Germany,Complete,1,0
+13,Finland,Russia,Complete,0,1
+14,Turkey,Wales,,,
+15,Italy,Switzerland,,,
+16,Ukraine,North Macedonia,,,
+17,Denmark,Belgium,,,
+18,Netherlands,Austria,,,
+19,Sweden,Slovakia,,,
+20,Croatia,Czech Republic,,,
+21,England,Scotland,,,
+22,Hungary,France,,,
+23,Portugal,Germany,,,
+24,Spain,Poland,,,
+25,Italy,Wales,,,
+26,Switzerland,Turkey,,,
+27,Ukraine,Austria,,,
+28,North Macedonia,Netherlands,,,
+29,Finland,Belgium,,,
+30,Russia,Denmark,,,
+31,Czech Republic,England,,,
+32,Croatia,Scotland,,,
+33,Sweden,Poland,,,
+34,Slovakia,Spain,,,
+35,Germany,Hungary,,,
+36,Portugal,France,,,

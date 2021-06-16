@@ -1,0 +1,65 @@
+Match#,TeamA,TeamB,Status,TeamA-Result,TeamB-Result
+1,Russia,Saudi Arabia,Complete,5,0
+2,Uruguay,Egypt,Complete,1,0
+3,Morocco,Iran,Complete,0,1
+4,Spain,Portugal,Complete,3,3
+5,France,Australia,Complete,2,1
+6,Denmark,Peru,Complete,1,0
+7,Argentina,Iceland,Complete,1,1
+8,Croatia,Nigeria,Complete,2,0
+9,Costa Rica,Serbia,Complete,0,1
+10,Brazil,Switzerland,Complete,1,1
+11,Germany,Mexico,Complete,0,1
+12,Sweden,South Korea,Complete,1,0
+13,Belgium,Panama,Complete,3,0
+14,England,Tunisia,Complete,2,1
+15,Colombia,Japan,Complete,1,2
+16,Poland,Senegal,Complete,1,2
+17,Russia,Egypt,Complete,3,1
+18,Uruguay,Saudi Arabia,Complete,1,0
+19,Portugal,Morocco,Complete,1,0
+20,Iran,Spain,Complete,0,1
+21,Denmark,Australia,Complete,1,1
+22,France,Peru,Complete,1,0
+23,Argentina,Croatia,Complete,0,3
+24,Nigeria,Iceland,Complete,2,0
+25,Brazil,Costa Rica,Complete,2,0
+26,Serbia,Switzerland,Complete,1,2
+27,South Korea,Mexico,Complete,1,2
+28,Germany,Sweden,Complete,2,1
+29,Belgium,Tunisia,Complete,5,2
+30,England,Panama,Complete,6,1
+31,Japan,Senegal,Complete,2,2
+32,Poland,Colombia,Complete,0,3
+33,Uruguay,Russia,Complete,3,0
+34,Saudi Arabia,Egypt,Complete,1,1
+35,Iran,Portugal,Complete,1,1
+36,Spain,Morocco,Complete,2,2
+37,Denmark,France,Complete,0,0
+38,Australia,Peru,Complete,0,2
+39,Nigeria,Argentina,Complete,1,2
+40,Iceland,Croatia,Complete,1,2
+41,Serbia,Brazil,Complete,0,2
+42,Switzerland,Costa Rica,Complete,2,2
+43,Korea Republic,Germany,Complete,2,0
+44,Mexico,Sweden,Complete,0,3
+45,England,Belgium,Complete,0,1
+46,Panama,Tunisia,Complete,1,2
+47,Japan,Poland,Complete,0,1
+48,Senegal,Colombia,Complete,0,1
+49,Uruguay,Portugal,Complete,2,1
+50,France,Argentina,Complete,4,3
+51,Brazil,Mexico,Complete,2,0
+52,Belgium,Japan,Complete,3,2
+53,Spain,Russia,Complete,4,5
+54,Croatia,Denmark,Complete,4,3
+55,Sweden,Switzerland,Complete,1,0
+56,Colombia,England,Complete,4,5
+57,Uruguay,France,Complete,0,2
+58,Brazil,Belgium,Complete,1,2
+59,Sweden,England,Complete,0,2
+60,Russia,Croatia,Complete,5,6
+61,Belgium,France,Complete,0,1
+62,England,Croatia,Complete,1,2
+63,Belgium,England,Complete,2,0
+64,France,Croatia,Complete,4,2
