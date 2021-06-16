@@ -6,76 +6,56 @@ var parser;
 var pauseChecked = false;
 var printStepChecked = false;
 var matchResults = null;
-var resultsURL = "https://fabrikamsa1.blob.core.windows.net/wc2018/results.csv?ver=3.3";
-var predictionDataURL = "https://fabrikamsa1.blob.core.windows.net/wc2018/predict.csv?ver=4.1";
+var resultsURL = "https://betwc.blob.core.windows.net/betwec/results-eurocup2020.csv?ver=1.0";
+var predictionDataURL = "https://betwc.blob.core.windows.net/betwec/predict-eurocup2020.csv?ver=1.0.0";
 
 var matchStages = [
-  //Groupstage match day1
+  //stage1
   {
     MatchNumber: 1,
-    StageStartDate: 'June 14, 2018',
-    StageEndDate: 'June 19, 2018',
+    StageStartDate: 'June 11, 2021',
+    StageEndDate: 'June 23, 2021',
     Stage: 0,
     ScoreAndWinnerPoints: 3,
     WinnerOnlyPoints: 1,
     LostPoints: 0
   },
-  //Groupstage match day2
+  //stage2
   {
-    MatchNumber: 17,
-    StageStartDate: 'June 19, 2018',
-    StageEndDate: 'June 24, 2018',
+    MatchNumber: 37,
+    StageStartDate: 'June 26, 2021',
+    StageEndDate: 'June 29, 2021',
     Stage: 1,
     ScoreAndWinnerPoints: 3,
     WinnerOnlyPoints: 1,
     LostPoints: 0
   },
-  //Groupstage match day3
+  //stage3
   {
-    MatchNumber: 31,
-    StageStartDate: 'June 25, 2018',
-    StageEndDate: 'June 28, 2018',
+    MatchNumber: 44,
+    StageStartDate: 'July 2, 2021',
+    StageEndDate: 'July 3, 2021',
     Stage: 2,
-    ScoreAndWinnerPoints: 3,
-    WinnerOnlyPoints: 1,
-    LostPoints: 0
-  },
-  //round 16
-  {
-    MatchNumber: 49,
-    StageStartDate: 'June 30, 2018',
-    StageEndDate: 'July 3, 2018',
-    Stage: 3,
-    ScoreAndWinnerPoints: 3,
-    WinnerOnlyPoints: 1,
-    LostPoints: 0
-  },
-  //quarter finals
-  {
-    MatchNumber: 57,
-    StageStartDate: 'July 6, 2018',
-    StageEndDate: 'July 7, 2018',
-    Stage: 4,
     ScoreAndWinnerPoints: 5,
     WinnerOnlyPoints: 3,
     LostPoints: -1
   },
-  //semi finals
+  //stage4
   {
-    MatchNumber: 61,
-    StageStartDate: 'July 10, 2018',
-    StageEndDate: 'July 12, 2018',
-    Stage: 5,
+    MatchNumber: 48,
+    StageStartDate: 'July 6, 2021',
+    StageEndDate: 'July 7, 2021',
+    Stage: 3,
     ScoreAndWinnerPoints: 15,
     WinnerOnlyPoints: 5,
     LostPoints: -5
   },
-  //winner & loser finals
+  //finals
   {
-    MatchNumber: 63,
-    StageStartDate: 'July 14, 2018',
-    StageEndDate: 'July 15, 2018',
-    Stage: 6,
+    MatchNumber: 50,
+    StageStartDate: 'July 11, 2021',
+    StageEndDate: 'July 11, 2021',
+    Stage: 4,
     ScoreAndWinnerPoints: 40,
     WinnerOnlyPoints: 15,
     LostPoints: -10
@@ -85,23 +65,30 @@ var matchStages = [
 var teamNameAcronymn = {
   'Argentina': 'ARG',
   'Australia': 'AUS',
+  'Austria': 'AUT',
   'Belgium': 'BEL',
-  'Brazil': 'BRA',
+  'Brazil': 'BRA',  
   'Colombia': 'COL',
   'Costa Rica': 'CRC',
   'Croatia': 'CRO',
+  'Czech Republic': 'CZE',
   'Denmark': 'DEN',
   'Egypt': 'EGY',
   'England': 'ENG',
   'France': 'FRA',
+  'Finland': 'FIN',
   'Germany': 'GER',
   'Iceland': 'ISL',
   'Iran': 'IRN',
-  'Japan': 'JPN',
+  'Italy': 'ITA',
+  'Japan': 'JPN',  
+  'Korea Republic': 'KOR',
   'South Korea': 'KOR',
   'Mexico': 'MEX',
   'Morocco': 'MAR',
   'Nigeria': 'NGA',
+  'Netherlands': 'NED',
+  'North Macedonia': 'MKD',
   'Panama': 'PAN',
   'Peru': 'PER',
   'Poland': 'POL',
@@ -114,8 +101,10 @@ var teamNameAcronymn = {
   'Sweden': 'SWE',
   'Switzerland': 'SUI',
   'Tunisia': 'TUN',
+  'Turkey': 'TUR',
   'Uruguay': 'URU',
-  'Korea Republic': 'KOR'
+  'Ukraine': 'UKR',
+  'Wales': 'WAL',
 }
 var leaderboardCatalog = [];
 var keyOptions = [
