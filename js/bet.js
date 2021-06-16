@@ -6,8 +6,9 @@ var parser;
 var pauseChecked = false;
 var printStepChecked = false;
 var matchResults = null;
-var resultsURL = "https://betwc.blob.core.windows.net/betwec/results-eurocup2020.csv?ver=1.0.1";
-var predictionDataURL = "https://betwc.blob.core.windows.net/betwec/predict-eurocup2020.csv?ver=1.0.2";
+const random = Math.random();
+var resultsURL = "https://betwc.blob.core.windows.net/betwec/results-eurocup2020.csv?ver=" + random;
+var predictionDataURL = "https://betwc.blob.core.windows.net/betwec/predict-eurocup2020.csv?ver="+ random;
 
 var matchStages = [
   //stage1
