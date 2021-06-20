@@ -110,6 +110,54 @@ var teamNameAcronymn = {
   'Ukraine': 'UKR',
   'Wales': 'WAL',
 }
+
+var teamFlag = {
+  'Argentina': 'ar',
+  'Australia': 'au',
+  'Austria': 'at',
+  'Belgium': 'be',
+  'Brazil': 'br',  
+  'Colombia': 'co',
+  'Costa Rica': 'cr',
+  'Croatia': 'hr',
+  'Czech Republic': 'cz',
+  'Denmark': 'dk',
+  'Egypt': 'eg',
+  'England': 'gb',
+  'France': 'fr',
+  'Finland': 'fi',
+  'Germany': 'de',
+  'Hungary': 'hu',
+  'Iceland': 'is',
+  'Iran': 'ir',
+  'Italy': 'it',
+  'Japan': 'jp',  
+  'Korea Republic': 'kp',
+  'South Korea': 'kr',
+  'Mexico': 'mx',
+  'Morocco': 'ma',
+  'Nigeria': 'ng',
+  'Netherlands': 'nl',
+  'North Macedonia': 'mk',
+  'Panama': 'pa',
+  'Peru': 'pe',
+  'Poland': 'pl',
+  'Portugal': 'pt',
+  'Russia': 'ru',
+  'Saudi Arabia': 'sa',
+  'Scotland': 'gb-sct',
+  'Senegal': 'sn',
+  'Serbia': 'rs',
+  'Spain': 'es',
+  'Sweden': 'se',
+  'Slovakia': 'sk',
+  'Switzerland': 'ch',
+  'Tunisia': 'tn',
+  'Turkey': 'tr',
+  'Uruguay': 'uy',
+  'Ukraine': 'ua',
+  'Wales': 'gb-wls',
+}
 var leaderboardCatalog = [];
 var keyOptions = [
   "Participant", //0
@@ -303,6 +351,14 @@ function completePredictFn(results) {
 
         var matchResultTeamAName = matchResult[1];
         var matchResultTeamBName = matchResult[2];
+        
+        var predictTeamAName = teamNameAcronymn[matchResultTeamAName];
+        var predictTeamBName = teamNameAcronymn[matchResultTeamBName];
+
+        var predictTeamAFlag = "<img src='img/country-flags-main/" + teamFlag[matchResultTeamAName] +".svg' height=16px /> ";
+        var predictTeamBFlag = "<img src='img/country-flags-main/" + teamFlag[matchResultTeamBName] +".svg' height=16px /> ";
+
+
         var matchResultTeamAScore = matchResult[4];
         var matchResultTeamBScore = matchResult[5];
         var matchResultStatus = matchResult[3];
@@ -310,20 +366,21 @@ function completePredictFn(results) {
         if (!"Complete".localeCompare(matchResultStatus)) {
           var winner = "";
           if (matchResultTeamAScore > matchResultTeamBScore) {
-            matchResultString = "<b>" + matchResultTeamAName +
-              "(" + matchResultTeamAScore + ")</b> " +
-              matchResultTeamBName + "(" + matchResultTeamBScore + ")";
+            matchResultString = "<b>" 
+            + predictTeamAFlag + matchResultTeamAName + "(" + 
+            matchResultTeamAScore + ")</b><br/> " +
+            predictTeamBFlag + matchResultTeamBName + "(" + matchResultTeamBScore + ")";
           } else if (matchResultTeamAScore < matchResultTeamBScore) {
-            matchResultString = matchResultTeamAName + "(" + matchResultTeamAScore + ") <b>" +
-              matchResultTeamBName + "(" + matchResultTeamBScore + ")</b>";
+            matchResultString = predictTeamAFlag + matchResultTeamAName + "(" + matchResultTeamAScore + ") <b><br/>" +
+            predictTeamBFlag + matchResultTeamBName + "(" + matchResultTeamBScore + ")</b>";
           } else {
-            matchResultString = matchResultTeamAName + "(" + matchResultTeamAScore + ") " +
-              matchResultTeamBName + "(" + matchResultTeamBScore + ")";
+            matchResultString = predictTeamAFlag + matchResultTeamAName + "(" + matchResultTeamAScore + ")<br/> " +
+            predictTeamBFlag + matchResultTeamBName + "(" + matchResultTeamBScore + ")";
           }
           matchComplete = true;
         } else {
-          matchResultString = matchResultTeamAName + " vs " +
-            matchResultTeamBName + " on " + matchResultStatus;
+          matchResultString = predictTeamAFlag + matchResultTeamAName + "<br/> " +
+          predictTeamBFlag + matchResultTeamBName + "<br/> on " + matchResultStatus;
           var matchDateDiff = Math.abs(Date.parse(matchResultStatus.trim()) - new Date());
           var diffDays = Math.ceil(matchDateDiff / (1000 * 3600 * 24));
           if (diffDays <= 1) {
@@ -346,16 +403,15 @@ function completePredictFn(results) {
       //predict
       var predictTeamAScore = row[4];
       var predictTeamBScore = row[5];
-      var predictTeamAName = teamNameAcronymn[matchResultTeamAName];
-      var predictTeamBName = teamNameAcronymn[matchResultTeamBName];
+
 
       var predictString = "";
       if ((0 == predictTeamAScore.length) && (0 == predictTeamBScore.length)) {
         //skipped prediction
-        predictString = "( Yet to submit ) ";
+        predictString = "📅Upcoming";
       } else if ((-1 == predictTeamAScore) && (-1 == predictTeamBScore)) {
         //skipped prediction
-        predictString = "( Skipped ) ";
+        predictString = "⌛Skip";
       } else if (predictTeamAScore > predictTeamBScore) {
         predictString = "<b>" + predictTeamAName + "(" + predictTeamAScore + ")</b> " +
           predictTeamBName + "(" + predictTeamBScore + ")";
