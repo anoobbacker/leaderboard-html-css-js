@@ -31,9 +31,9 @@ var matchStages = [
     WinnerOnlyPoints: 1,
     LostPoints: 0
   },
-  //stage3
+  //quarter-finals
   {
-    MatchNumber: 44,
+    MatchNumber: 45,
     StageStartDate: 'July 2, 2021',
     StageEndDate: 'July 3, 2021',
     Stage: 2,
@@ -41,9 +41,9 @@ var matchStages = [
     WinnerOnlyPoints: 3,
     LostPoints: -1
   },
-  //stage4
+  //semi-finals
   {
-    MatchNumber: 48,
+    MatchNumber: 49,
     StageStartDate: 'July 6, 2021',
     StageEndDate: 'July 7, 2021',
     Stage: 3,
@@ -53,7 +53,7 @@ var matchStages = [
   },
   //finals
   {
-    MatchNumber: 50,
+    MatchNumber: 51,
     StageStartDate: 'July 11, 2021',
     StageEndDate: 'July 11, 2021',
     Stage: 4,
@@ -109,6 +109,7 @@ var teamNameAcronymn = {
   'Uruguay': 'URU',
   'Ukraine': 'UKR',
   'Wales': 'WAL',
+  'TBD': 'TBD',
 }
 
 var teamFlag = {
@@ -355,9 +356,15 @@ function completePredictFn(results) {
         var predictTeamAName = teamNameAcronymn[matchResultTeamAName];
         var predictTeamBName = teamNameAcronymn[matchResultTeamBName];
 
-        var predictTeamAFlag = "<img src='img/country-flags-main/" + teamFlag[matchResultTeamAName] +".svg' height=16px /> ";
-        var predictTeamBFlag = "<img src='img/country-flags-main/" + teamFlag[matchResultTeamBName] +".svg' height=16px /> ";
-
+        var predictTeamAFlag = "";
+        var predictTeamBFlag = "";
+        if ("TBD".localeCompare(matchResultTeamAName)) {
+          predictTeamAFlag = "<img src='img/country-flags-main/" + teamFlag[matchResultTeamAName] +".svg' height=16px /> ";
+        }
+        
+        if ("TBD".localeCompare(matchResultTeamBName)) {
+          predictTeamBFlag = "<img src='img/country-flags-main/" + teamFlag[matchResultTeamBName] +".svg' height=16px /> ";
+        }
 
         var matchResultTeamAScore = matchResult[4];
         var matchResultTeamBScore = matchResult[5];
