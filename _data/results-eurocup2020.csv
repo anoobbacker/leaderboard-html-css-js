@@ -12,26 +12,34 @@ Match#,TeamA,TeamB,Status,TeamA-Result,TeamB-Result
 11,Hungary,Portugal,Complete,0,3
 12,France,Germany,Complete,1,0
 13,Finland,Russia,Complete,0,1
-14,Turkey,Wales,,,
-15,Italy,Switzerland,,,
-16,Ukraine,North Macedonia,,,
-17,Denmark,Belgium,,,
-18,Netherlands,Austria,,,
-19,Sweden,Slovakia,,,
-20,Croatia,Czech Republic,,,
-21,England,Scotland,,,
-22,Hungary,France,,,
-23,Portugal,Germany,,,
-24,Spain,Poland,,,
-25,Italy,Wales,,,
-26,Switzerland,Turkey,,,
-27,Ukraine,Austria,,,
-28,North Macedonia,Netherlands,,,
-29,Finland,Belgium,,,
-30,Russia,Denmark,,,
-31,Czech Republic,England,,,
-32,Croatia,Scotland,,,
-33,Sweden,Poland,,,
-34,Slovakia,Spain,,,
-35,Germany,Hungary,,,
-36,Portugal,France,,,
+14,Turkey,Wales,Complete,0,2
+15,Italy,Switzerland,Complete,3,0
+16,Ukraine,North Macedonia,Complete,2,1
+17,Denmark,Belgium,Complete,1,2
+18,Netherlands,Austria,Complete,2,0
+19,Sweden,Slovakia,Complete,1,0
+20,Croatia,Czech Republic,Complete,1,1
+21,England,Scotland,Complete,0,0
+22,Hungary,France,Complete,1,1
+23,Portugal,Germany,Complete,2,4
+24,Spain,Poland,Complete,1,1
+25,Italy,Wales,Complete,1,0
+26,Switzerland,Turkey,Complete,3,1
+27,Ukraine,Austria,Complete,0,1
+28,North Macedonia,Netherlands,Complete,0,3
+29,Finland,Belgium,Complete,0,2
+30,Russia,Denmark,Complete,1,4
+31,Czech Republic,England,Complete,0,1
+32,Croatia,Scotland,Complete,3,1
+33,Sweden,Poland,Complete,3,2
+34,Slovakia,Spain,Complete,0,5
+35,Germany,Hungary,Complete,2,2
+36,Portugal,France,Complete,2,2
+37,Wales,Denmark,Complete,0,4
+38,Italy,Austria,Complete,2,1
+39,Netherlands,Czech Republic,"Jun 27, 2021",,
+40,Belgium,Portugal,"Jun 28, 2021",,
+41,Croatia,Spain,"Jun 28, 2021",,
+42,France,Switzerland,"Jun 29, 2021",,
+43,England,Germany,"Jun 29, 2021",,
+44,Sweden,Ukraine,Jun 30 2021,,

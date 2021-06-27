@@ -1,217 +1,265 @@
 Match#,TeamA,TeamB,Name,TeamA-Predict,TeamB-Predict
-1,Turkey,Italy,Shanavas,-1,-1
 1,Turkey,Italy,Anoob,-1,-1
+1,Turkey,Italy,Baiju,-1,-1
 1,Turkey,Italy,Ranish,-1,-1
+1,Turkey,Italy,Shanavas,-1,-1
 1,Turkey,Italy,Shiju,-1,-1
 1,Turkey,Italy,Swami,-1,-1
-1,Turkey,Italy,Baiju,-1,-1
-2,Wales,Switzerland,Swami,-1,-1
-2,Wales,Switzerland,Shanavas,-1,-1
-2,Wales,Switzerland,Ranish,-1,-1
-2,Wales,Switzerland,Shiju,-1,-1
 2,Wales,Switzerland,Anoob,-1,-1
 2,Wales,Switzerland,Baiju,-1,-1
-3,Denmark,Finland,Baiju,-1,-1
-3,Denmark,Finland,Shanavas,-1,-1
-3,Denmark,Finland,Swami,-1,-1
-3,Denmark,Finland,Shiju,-1,-1
+2,Wales,Switzerland,Ranish,-1,-1
+2,Wales,Switzerland,Shanavas,-1,-1
+2,Wales,Switzerland,Shiju,-1,-1
+2,Wales,Switzerland,Swami,-1,-1
 3,Denmark,Finland,Anoob,-1,-1
+3,Denmark,Finland,Baiju,-1,-1
 3,Denmark,Finland,Ranish,-1,-1
-4,Belgium,Russia,Baiju,-1,-1
-4,Belgium,Russia,Shanavas,-1,-1
-4,Belgium,Russia,Swami,-1,-1
-4,Belgium,Russia,Shiju,-1,-1
+3,Denmark,Finland,Shanavas,-1,-1
+3,Denmark,Finland,Shiju,-1,-1
+3,Denmark,Finland,Swami,-1,-1
 4,Belgium,Russia,Anoob,-1,-1
+4,Belgium,Russia,Baiju,-1,-1
 4,Belgium,Russia,Ranish,-1,-1
-5,England,Croatia,Shiju,-1,-1
-5,England,Croatia,Shanavas,-1,-1
-5,England,Croatia,Ranish,-1,-1
+4,Belgium,Russia,Shanavas,-1,-1
+4,Belgium,Russia,Shiju,-1,-1
+4,Belgium,Russia,Swami,-1,-1
 5,England,Croatia,Anoob,-1,-1
-5,England,Croatia,Swami,-1,-1
 5,England,Croatia,Baiju,-1,-1
-6,Austria,North Macedonia,Shiju,-1,-1
-6,Austria,North Macedonia,Shanavas,-1,-1
-6,Austria,North Macedonia,Ranish,-1,-1
+5,England,Croatia,Ranish,-1,-1
+5,England,Croatia,Shanavas,-1,-1
+5,England,Croatia,Shiju,-1,-1
+5,England,Croatia,Swami,-1,-1
 6,Austria,North Macedonia,Anoob,-1,-1
-6,Austria,North Macedonia,Swami,-1,-1
 6,Austria,North Macedonia,Baiju,-1,-1
-7,Netherlands,Ukraine,Shiju,-1,-1
-7,Netherlands,Ukraine,Shanavas,-1,-1
-7,Netherlands,Ukraine,Ranish,-1,-1
+6,Austria,North Macedonia,Ranish,-1,-1
+6,Austria,North Macedonia,Shanavas,-1,-1
+6,Austria,North Macedonia,Shiju,-1,-1
+6,Austria,North Macedonia,Swami,-1,-1
 7,Netherlands,Ukraine,Anoob,-1,-1
-7,Netherlands,Ukraine,Swami,-1,-1
 7,Netherlands,Ukraine,Baiju,-1,-1
-8,Scotland,Czech Republic,Shiju,-1,-1
-8,Scotland,Czech Republic,Shanavas,-1,-1
-8,Scotland,Czech Republic,Ranish,-1,-1
+7,Netherlands,Ukraine,Ranish,-1,-1
+7,Netherlands,Ukraine,Shanavas,-1,-1
+7,Netherlands,Ukraine,Shiju,-1,-1
+7,Netherlands,Ukraine,Swami,-1,-1
 8,Scotland,Czech Republic,Anoob,-1,-1
-8,Scotland,Czech Republic,Swami,-1,-1
 8,Scotland,Czech Republic,Baiju,-1,-1
+8,Scotland,Czech Republic,Ranish,-1,-1
+8,Scotland,Czech Republic,Shanavas,-1,-1
+8,Scotland,Czech Republic,Shiju,-1,-1
+8,Scotland,Czech Republic,Swami,-1,-1
 9,Poland,Slovakia,Anoob,-1,-1
-9,Poland,Slovakia,Swami,-1,-1
-9,Poland,Slovakia,Ranish,-1,-1
 9,Poland,Slovakia,Baiju,-1,-1
-9,Poland,Slovakia,Shiju,-1,-1
+9,Poland,Slovakia,Ranish,-1,-1
 9,Poland,Slovakia,Shanavas,-1,-1
+9,Poland,Slovakia,Shiju,-1,-1
+9,Poland,Slovakia,Swami,-1,-1
 10,Spain,Sweden,Anoob,-1,-1
-10,Spain,Sweden,Swami,-1,-1
-10,Spain,Sweden,Ranish,-1,-1
 10,Spain,Sweden,Baiju,-1,-1
-10,Spain,Sweden,Shiju,-1,-1
+10,Spain,Sweden,Ranish,-1,-1
 10,Spain,Sweden,Shanavas,-1,-1
+10,Spain,Sweden,Shiju,-1,-1
+10,Spain,Sweden,Swami,-1,-1
 11,Hungary,Portugal,Anoob,-1,-1
-11,Hungary,Portugal,Swami,-1,-1
-11,Hungary,Portugal,Ranish,-1,-1
 11,Hungary,Portugal,Baiju,-1,-1
-11,Hungary,Portugal,Shiju,-1,-1
+11,Hungary,Portugal,Ranish,-1,-1
 11,Hungary,Portugal,Shanavas,-1,-1
+11,Hungary,Portugal,Shiju,-1,-1
+11,Hungary,Portugal,Swami,-1,-1
 12,France,Germany,Anoob,-1,-1
-12,France,Germany,Swami,-1,-1
-12,France,Germany,Ranish,-1,-1
 12,France,Germany,Baiju,-1,-1
-12,France,Germany,Shiju,-1,-1
+12,France,Germany,Ranish,-1,-1
 12,France,Germany,Shanavas,-1,-1
+12,France,Germany,Shiju,-1,-1
+12,France,Germany,Swami,-1,-1
 13,Finland,Russia,Anoob,-1,-1
-13,Finland,Russia,Swami,-1,-1
-13,Finland,Russia,Ranish,-1,-1
 13,Finland,Russia,Baiju,-1,-1
-13,Finland,Russia,Shiju,-1,-1
+13,Finland,Russia,Ranish,-1,-1
 13,Finland,Russia,Shanavas,-1,-1
-14,Turkey,Wales,Anoob,,
-14,Turkey,Wales,Swami,,
-14,Turkey,Wales,Ranish,,
-14,Turkey,Wales,Baiju,,
-14,Turkey,Wales,Shiju,,
-14,Turkey,Wales,Shanavas,,
-15,Italy,Switzerland,Anoob,,
-15,Italy,Switzerland,Swami,,
-15,Italy,Switzerland,Ranish,,
-15,Italy,Switzerland,Baiju,,
-15,Italy,Switzerland,Shiju,,
-15,Italy,Switzerland,Shanavas,,
-16,Ukraine,North Macedonia,Anoob,,
-16,Ukraine,North Macedonia,Swami,,
-16,Ukraine,North Macedonia,Ranish,,
-16,Ukraine,North Macedonia,Baiju,,
-16,Ukraine,North Macedonia,Shiju,,
-16,Ukraine,North Macedonia,Shanavas,,
-17,Denmark,Belgium,Ranish,,
-17,Denmark,Belgium,Shiju,,
-17,Denmark,Belgium,Swami,,
-17,Denmark,Belgium,Shanavas,,
-17,Denmark,Belgium,Baiju,,
-17,Denmark,Belgium,Anoob,,
-18,Netherlands,Austria,Ranish,,
-18,Netherlands,Austria,Shiju,,
-18,Netherlands,Austria,Swami,,
-18,Netherlands,Austria,Shanavas,,
-18,Netherlands,Austria,Baiju,,
-18,Netherlands,Austria,Anoob,,
-19,Sweden,Slovakia,Ranish,,
-19,Sweden,Slovakia,Shiju,,
-19,Sweden,Slovakia,Swami,,
-19,Sweden,Slovakia,Shanavas,,
-19,Sweden,Slovakia,Baiju,,
-19,Sweden,Slovakia,Anoob,,
-20,Croatia,Czech Republic,Ranish,,
-20,Croatia,Czech Republic,Shiju,,
-20,Croatia,Czech Republic,Swami,,
-20,Croatia,Czech Republic,Shanavas,,
-20,Croatia,Czech Republic,Baiju,,
-20,Croatia,Czech Republic,Anoob,,
-21,England,Scotland,Ranish,,
-21,England,Scotland,Shiju,,
-21,England,Scotland,Swami,,
-21,England,Scotland,Shanavas,,
-21,England,Scotland,Baiju,,
-21,England,Scotland,Anoob,,
-22,Hungary,France,Ranish,,
-22,Hungary,France,Shiju,,
-22,Hungary,France,Swami,,
-22,Hungary,France,Shanavas,,
-22,Hungary,France,Baiju,,
-22,Hungary,France,Anoob,,
-23,Portugal,Germany,Ranish,,
-23,Portugal,Germany,Shiju,,
-23,Portugal,Germany,Swami,,
-23,Portugal,Germany,Shanavas,,
-23,Portugal,Germany,Baiju,,
-23,Portugal,Germany,Anoob,,
-24,Spain,Poland,Ranish,,
-24,Spain,Poland,Shiju,,
-24,Spain,Poland,Swami,,
-24,Spain,Poland,Shanavas,,
-24,Spain,Poland,Baiju,,
-24,Spain,Poland,Anoob,,
-25,Italy,Wales,Ranish,,
-25,Italy,Wales,Shiju,,
-25,Italy,Wales,Swami,,
-25,Italy,Wales,Shanavas,,
-25,Italy,Wales,Baiju,,
-25,Italy,Wales,Anoob,,
-26,Switzerland,Turkey,Ranish,,
-26,Switzerland,Turkey,Shiju,,
-26,Switzerland,Turkey,Swami,,
-26,Switzerland,Turkey,Shanavas,,
-26,Switzerland,Turkey,Baiju,,
-26,Switzerland,Turkey,Anoob,,
-27,Ukraine,Austria,Ranish,,
-27,Ukraine,Austria,Shiju,,
-27,Ukraine,Austria,Swami,,
-27,Ukraine,Austria,Shanavas,,
-27,Ukraine,Austria,Baiju,,
-27,Ukraine,Austria,Anoob,,
-28,North Macedonia,Netherlands,Ranish,,
-28,North Macedonia,Netherlands,Shiju,,
-28,North Macedonia,Netherlands,Swami,,
-28,North Macedonia,Netherlands,Shanavas,,
-28,North Macedonia,Netherlands,Baiju,,
-28,North Macedonia,Netherlands,Anoob,,
-29,Finland,Belgium,Ranish,,
-29,Finland,Belgium,Shiju,,
-29,Finland,Belgium,Swami,,
-29,Finland,Belgium,Shanavas,,
-29,Finland,Belgium,Baiju,,
-29,Finland,Belgium,Anoob,,
-30,Russia,Denmark,Ranish,,
-30,Russia,Denmark,Shiju,,
-30,Russia,Denmark,Swami,,
-30,Russia,Denmark,Shanavas,,
-30,Russia,Denmark,Baiju,,
-30,Russia,Denmark,Anoob,,
-31,Czech Republic,England,Ranish,,
-31,Czech Republic,England,Shiju,,
-31,Czech Republic,England,Swami,,
-31,Czech Republic,England,Shanavas,,
-31,Czech Republic,England,Baiju,,
-31,Czech Republic,England,Anoob,,
-32,Croatia,Scotland,Ranish,,
-32,Croatia,Scotland,Shiju,,
-32,Croatia,Scotland,Swami,,
-32,Croatia,Scotland,Shanavas,,
-32,Croatia,Scotland,Baiju,,
-32,Croatia,Scotland,Anoob,,
-33,Sweden,Poland,Swami,,
-33,Sweden,Poland,Ranish,,
-33,Sweden,Poland,Shanavas,,
-33,Sweden,Poland,Anoob,,
-33,Sweden,Poland,Baiju,,
-33,Sweden,Poland,Shiju,,
-34,Slovakia,Spain,Swami,,
-34,Slovakia,Spain,Ranish,,
-34,Slovakia,Spain,Shanavas,,
-34,Slovakia,Spain,Anoob,,
-34,Slovakia,Spain,Baiju,,
-34,Slovakia,Spain,Shiju,,
-35,Germany,Hungary,Swami,,
-35,Germany,Hungary,Ranish,,
-35,Germany,Hungary,Shanavas,,
-35,Germany,Hungary,Anoob,,
-35,Germany,Hungary,Baiju,,
-35,Germany,Hungary,Shiju,,
-36,Portugal,France,Swami,,
-36,Portugal,France,Ranish,,
-36,Portugal,France,Shanavas,,
-36,Portugal,France,Anoob,,
-36,Portugal,France,Baiju,,
-36,Portugal,France,Shiju,,
+13,Finland,Russia,Shiju,-1,-1
+13,Finland,Russia,Swami,-1,-1
+14,Turkey,Wales,Anoob,0,1
+14,Turkey,Wales,Baiju,-1,-1
+14,Turkey,Wales,Ranish,-1,-1
+14,Turkey,Wales,Shanavas,0,2
+14,Turkey,Wales,Shiju,1,1
+14,Turkey,Wales,Swami,1,3
+15,Italy,Switzerland,Anoob,2,0
+15,Italy,Switzerland,Baiju,-1,-1
+15,Italy,Switzerland,Ranish,-1,-1
+15,Italy,Switzerland,Shanavas,1,0
+15,Italy,Switzerland,Shiju,2,1
+15,Italy,Switzerland,Swami,-1,-1
+16,Ukraine,North Macedonia,Anoob,3,0
+16,Ukraine,North Macedonia,Baiju,-1,-1
+16,Ukraine,North Macedonia,Ranish,2,0
+16,Ukraine,North Macedonia,Shanavas,2,0
+16,Ukraine,North Macedonia,Shiju,2,1
+16,Ukraine,North Macedonia,Swami,1,1
+17,Denmark,Belgium,Anoob,1,2
+17,Denmark,Belgium,Baiju,-1,-1
+17,Denmark,Belgium,Ranish,0,3
+17,Denmark,Belgium,Shanavas,2,1
+17,Denmark,Belgium,Shiju,0,2
+17,Denmark,Belgium,Swami,1,2
+18,Netherlands,Austria,Anoob,3,2
+18,Netherlands,Austria,Baiju,-1,-1
+18,Netherlands,Austria,Ranish,3,1
+18,Netherlands,Austria,Shanavas,2,1
+18,Netherlands,Austria,Shiju,2,0
+18,Netherlands,Austria,Swami,3,1
+19,Sweden,Slovakia,Anoob,2,1
+19,Sweden,Slovakia,Baiju,-1,-1
+19,Sweden,Slovakia,Ranish,1,0
+19,Sweden,Slovakia,Shanavas,1,0
+19,Sweden,Slovakia,Shiju,2,1
+19,Sweden,Slovakia,Swami,-1,-1
+20,Croatia,Czech Republic,Anoob,2,1
+20,Croatia,Czech Republic,Baiju,-1,-1
+20,Croatia,Czech Republic,Ranish,2,1
+20,Croatia,Czech Republic,Shanavas,1,1
+20,Croatia,Czech Republic,Shiju,3,1
+20,Croatia,Czech Republic,Swami,-1,-1
+21,England,Scotland,Anoob,3,0
+21,England,Scotland,Baiju,-1,-1
+21,England,Scotland,Ranish,3,0
+21,England,Scotland,Shanavas,2,0
+21,England,Scotland,Shiju,2,0
+21,England,Scotland,Swami,-1,-1
+22,Hungary,France,Anoob,0,2
+22,Hungary,France,Baiju,0,-1
+22,Hungary,France,Ranish,0,3
+22,Hungary,France,Shanavas,0,2
+22,Hungary,France,Shiju,0,2
+22,Hungary,France,Swami,1,2
+23,Portugal,Germany,Anoob,3,2
+23,Portugal,Germany,Baiju,-1,-1
+23,Portugal,Germany,Ranish,1,2
+23,Portugal,Germany,Shanavas,2,1
+23,Portugal,Germany,Shiju,1,2
+23,Portugal,Germany,Swami,2,2
+24,Spain,Poland,Anoob,2,0
+24,Spain,Poland,Baiju,-1,-1
+24,Spain,Poland,Ranish,2,1
+24,Spain,Poland,Shanavas,2,1
+24,Spain,Poland,Shiju,3,0
+24,Spain,Poland,Swami,1,2
+25,Italy,Wales,Anoob,3,0
+25,Italy,Wales,Baiju,-1,-1
+25,Italy,Wales,Ranish,2,0
+25,Italy,Wales,Shanavas,2,0
+25,Italy,Wales,Shiju,1,1
+25,Italy,Wales,Swami,2,1
+26,Switzerland,Turkey,Anoob,3,1
+26,Switzerland,Turkey,Baiju,-1,-1
+26,Switzerland,Turkey,Ranish,2,0
+26,Switzerland,Turkey,Shanavas,2,1
+26,Switzerland,Turkey,Shiju,1,0
+26,Switzerland,Turkey,Swami,2,1
+27,Ukraine,Austria,Anoob,1,1
+27,Ukraine,Austria,Baiju,-1,-1
+27,Ukraine,Austria,Ranish,1,2
+27,Ukraine,Austria,Shanavas,2,1
+27,Ukraine,Austria,Shiju,2,1
+27,Ukraine,Austria,Swami,1,1
+28,North Macedonia,Netherlands,Anoob,0,4
+28,North Macedonia,Netherlands,Baiju,-1,-1
+28,North Macedonia,Netherlands,Ranish,0,3
+28,North Macedonia,Netherlands,Shanavas,1,3
+28,North Macedonia,Netherlands,Shiju,0,2
+28,North Macedonia,Netherlands,Swami,1,2
+29,Finland,Belgium,Anoob,0,4
+29,Finland,Belgium,Baiju,-1,-1
+29,Finland,Belgium,Ranish,0,3
+29,Finland,Belgium,Shanavas,1,3
+29,Finland,Belgium,Shiju,0,3
+29,Finland,Belgium,Swami,1,2
+30,Russia,Denmark,Anoob,1,2
+30,Russia,Denmark,Baiju,-1,-1
+30,Russia,Denmark,Ranish,1,0
+30,Russia,Denmark,Shanavas,1,2
+30,Russia,Denmark,Shiju,1,1
+30,Russia,Denmark,Swami,0,1
+31,Czech Republic,England,Anoob,0,2
+31,Czech Republic,England,Baiju,-1,-1
+31,Czech Republic,England,Ranish,0,0
+31,Czech Republic,England,Shanavas,1,2
+31,Czech Republic,England,Shiju,1,1
+31,Czech Republic,England,Swami,1,3
+32,Croatia,Scotland,Anoob,1,1
+32,Croatia,Scotland,Baiju,-1,-1
+32,Croatia,Scotland,Ranish,2,0
+32,Croatia,Scotland,Shanavas,1,0
+32,Croatia,Scotland,Shiju,2,0
+32,Croatia,Scotland,Swami,2,1
+33,Sweden,Poland,Anoob,0,1
+33,Sweden,Poland,Baiju,-1,-1
+33,Sweden,Poland,Ranish,2,0
+33,Sweden,Poland,Shanavas,1,2
+33,Sweden,Poland,Shiju,1,1
+33,Sweden,Poland,Swami,0,2
+34,Slovakia,Spain,Anoob,1,2
+34,Slovakia,Spain,Baiju,-1,-1
+34,Slovakia,Spain,Ranish,0,2
+34,Slovakia,Spain,Shanavas,1,3
+34,Slovakia,Spain,Shiju,0,2
+34,Slovakia,Spain,Swami,1,2
+35,Germany,Hungary,Anoob,3,0
+35,Germany,Hungary,Baiju,-1,-1
+35,Germany,Hungary,Ranish,3,1
+35,Germany,Hungary,Shanavas,3,0
+35,Germany,Hungary,Shiju,1,0
+35,Germany,Hungary,Swami,1,2
+36,Portugal,France,Anoob,1,1
+36,Portugal,France,Baiju,-1,-1
+36,Portugal,France,Ranish,2,3
+36,Portugal,France,Shanavas,1,2
+36,Portugal,France,Shiju,2,1
+36,Portugal,France,Swami,0,3
+37,Wales,Denmark,Anoob,1,2
+37,Wales,Denmark,Baiju,-1,-1
+37,Wales,Denmark,Ranish,1,2
+37,Wales,Denmark,Shanavas,1,3
+37,Wales,Denmark,Shiju,0,2
+37,Wales,Denmark,Swami,2,0
+38,Italy,Austria,Anoob,2,1
+38,Italy,Austria,Baiju,-1,-1
+38,Italy,Austria,Ranish,2,0
+38,Italy,Austria,Shanavas,2,0
+38,Italy,Austria,Shiju,1,0
+38,Italy,Austria,Swami,1,0
+39,Netherlands,Czech Republic,Anoob,,
+39,Netherlands,Czech Republic,Baiju,-1,-1
+39,Netherlands,Czech Republic,Ranish,,
+39,Netherlands,Czech Republic,Shanavas,,
+39,Netherlands,Czech Republic,Shiju,,
+39,Netherlands,Czech Republic,Swami,,
+40,Belgium,Portugal,Anoob,,
+40,Belgium,Portugal,Baiju,-1,-1
+40,Belgium,Portugal,Ranish,,
+40,Belgium,Portugal,Shanavas,,
+40,Belgium,Portugal,Shiju,,
+40,Belgium,Portugal,Swami,,
+41,Croatia,Spain,Anoob,,
+41,Croatia,Spain,Baiju,-1,-1
+41,Croatia,Spain,Ranish,,
+41,Croatia,Spain,Shanavas,,
+41,Croatia,Spain,Shiju,,
+41,Croatia,Spain,Swami,,
+42,France,Switzerland,Anoob,,
+42,France,Switzerland,Baiju,-1,-1
+42,France,Switzerland,Ranish,,
+42,France,Switzerland,Shanavas,,
+42,France,Switzerland,Shiju,,
+42,France,Switzerland,Swami,,
+43,England,Germany,Anoob,,
+43,England,Germany,Baiju,-1,-1
+43,England,Germany,Ranish,,
+43,England,Germany,Shanavas,,
+43,England,Germany,Shiju,,
+43,England,Germany,Swami,,
+44,Sweden,Ukraine,Anoob,,
+44,Sweden,Ukraine,Baiju,-1,-1
+44,Sweden,Ukraine,Ranish,,
+44,Sweden,Ukraine,Shanavas,,
+44,Sweden,Ukraine,Shiju,,
+44,Sweden,Ukraine,Swami,,
