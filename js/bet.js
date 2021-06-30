@@ -25,7 +25,7 @@ var matchStages = [
   {
     MatchNumber: 37,
     StageStartDate: 'June 26, 2021',
-    StageEndDate: 'June 29, 2021',
+    StageEndDate: 'June 30, 2021',
     Stage: 1,
     ScoreAndWinnerPoints: 3,
     WinnerOnlyPoints: 1,
@@ -35,7 +35,7 @@ var matchStages = [
   {
     MatchNumber: 45,
     StageStartDate: 'July 2, 2021',
-    StageEndDate: 'July 3, 2021',
+    StageEndDate: 'July 4, 2021',
     Stage: 2,
     ScoreAndWinnerPoints: 5,
     WinnerOnlyPoints: 3,
@@ -45,7 +45,7 @@ var matchStages = [
   {
     MatchNumber: 49,
     StageStartDate: 'July 6, 2021',
-    StageEndDate: 'July 7, 2021',
+    StageEndDate: 'July 8, 2021',
     Stage: 3,
     ScoreAndWinnerPoints: 15,
     WinnerOnlyPoints: 5,
@@ -54,8 +54,8 @@ var matchStages = [
   //finals
   {
     MatchNumber: 51,
-    StageStartDate: 'July 11, 2021',
-    StageEndDate: 'July 11, 2021',
+    StageStartDate: 'July 12, 2021',
+    StageEndDate: 'July 12, 2021',
     Stage: 4,
     ScoreAndWinnerPoints: 40,
     WinnerOnlyPoints: 15,
@@ -244,6 +244,7 @@ function completePredictFn(results) {
   var leaderboardPredictMatchesScorePlusWinner = {};
   var leaderboardPredictMatchesWinner = {};
   var leaderboardPredictMatchesLost = {};
+  var predictParticipationTrack = {};
 
   //find the active stage rounds of the matches
   var activeStageMatchNumber = 1;
@@ -273,6 +274,29 @@ function completePredictFn(results) {
   var lastMatchNo = 0;
   var newMatch = false;
   var isUpcoming = false;
+  var predictParticipantCount = 0;
+  //Check if prediction has (1) Game #, (2) TeamA, 
+  //(3) TeamB, (4) Name, (5) TeamAScore, (6) TeamBScore
+  var predictionRowColumnCount = 6;
+
+  //By default people participation is 6 folks.
+  var predictParticipantCount = 6;  
+  for (var ii = results.data.length - 1; ii >= 0; ii--) {
+    var otherRow = results.data[ii];
+  
+    //Check if prediction row has correct column count.
+    if (otherRow.length != predictionRowColumnCount) {
+      continue;
+    }
+
+    var currentMatchNo = otherRow[0]; 
+    if ( isNaN(predictParticipationTrack[currentMatchNo]) ) {
+      predictParticipationTrack[currentMatchNo] = 1;
+    } else {
+      predictParticipationTrack[currentMatchNo]++;
+    }
+  }
+
   for (var i = results.data.length - 1; i >= 0; i--) {
     var row = results.data[i];
     if (i == 0) {
@@ -308,7 +332,8 @@ function completePredictFn(results) {
       //set header row in the table
       thead.appendChild(theadrow);
     } else {
-      if (row.length != 6) {
+      //Check if prediction row has correct column count.
+      if (row.length != predictionRowColumnCount) {
         continue;
       }
       currentMatchNo = row[0];
@@ -342,9 +367,7 @@ function completePredictFn(results) {
       if (newMatch) {
         tbdytdName = document.createElement('td');
         tbdytdName.textContent = currentMatchNo;
-        tbdytdName.setAttribute('rowspan', '6');
-        //tbdytr.appendChild(tbdytdName);
-
+        tbdytdName.setAttribute('rowspan', predictParticipationTrack[currentMatchNo]);
 
         //actual result
         var matchResultString = "";
@@ -396,7 +419,7 @@ function completePredictFn(results) {
         }
         tbdytdName = document.createElement('td');
         tbdytdName.innerHTML = matchResultString;
-        tbdytdName.setAttribute('rowspan', '6');
+        tbdytdName.setAttribute('rowspan', predictParticipationTrack[currentMatchNo]);
         tbdytr.appendChild(tbdytdName);
       }
 
@@ -637,13 +660,11 @@ function createLeaderBoard1(leaderboard,
 
     var tpoint1 = document.createElement('td');
     tpoint1.innerHTML = leaderboard[pName] +
-      "<div style=\"font-size: 0.8em\">(Predicted Score Matches: " +
-      leaderboardPredictScorePlusWinnerGameCount[pName] +
-      ", Predicted Win Matches: " +
-      leaderboardPredictWinnerGameCount[pName] +
-      ", Predicted Fail Matches: " +
-      leaderboardPredictLossesGameCount[pName] +
-      ")</div>";
+      "<div style=\"font-size: 0.8em\">" +
+      "Score: " + leaderboardPredictScorePlusWinnerGameCount[pName] +
+      ", Win: " + leaderboardPredictWinnerGameCount[pName] +
+      ", Fail: " + leaderboardPredictLossesGameCount[pName] +
+      "</div>";
 
     //add leader row
     trow.appendChild(thead1);
