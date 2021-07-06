@@ -8,8 +8,10 @@ After downloading, simply edit the HTML and CSS files included with the template
 
 # Scoring
 
-- If one predicts the score and the winner correctly, that person gets 3-points.
-- If one predicts the winner only that person is awared 1-point.
+- Till quarterfinals, a perfect guess of score & the winner will bag 3-points. It will be 1-point if you predicted only the winner.
+- From quarterfinals, a perfect guess of score & the winner is 5-points. If you predicted only the winner it will be 3-points. A wrong prediction will result in a deduction of 1-point.
+- From semifinals, a perfect guess of score & the winner is 15-points. If you predicted only the winner it will be 5-points. A wrong prediction will result in a deduction of 5-point.
+- From finals, a perfect guess of score & the winner is 40-points. If you predicted only the winner it will be 15-points. A wrong prediction will result in a deduction of 10-point.
 
 # Preview
 **[View Live Preview](https://anoobbacker.github.io/betwc/)**
