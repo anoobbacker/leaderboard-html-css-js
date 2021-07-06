@@ -44,7 +44,7 @@ var matchStages = [
   //semi-finals
   {
     MatchNumber: 49,
-    StageStartDate: 'July 6, 2021',
+    StageStartDate: 'July 7, 2021',
     StageEndDate: 'July 8, 2021',
     Stage: 3,
     ScoreAndWinnerPoints: 15,
@@ -413,7 +413,7 @@ function completePredictFn(results) {
           predictTeamBFlag + matchResultTeamBName + "<br/> on " + matchResultStatus;
           var matchDateDiff = Math.abs(Date.parse(matchResultStatus.trim()) - new Date());
           var diffDays = Math.ceil(matchDateDiff / (1000 * 3600 * 24));
-          if (diffDays <= 1) {
+          if (diffDays <= 2) {
             isUpcoming = true;
           }
         }
@@ -437,7 +437,7 @@ function completePredictFn(results) {
 
       var predictString = "";
       if ((0 == predictTeamAScore.length) && (0 == predictTeamBScore.length)) {
-        //skipped prediction
+        //upcoming prediction
         predictString = "📅Upcoming";
       } else if ((-1 == predictTeamAScore) && (-1 == predictTeamBScore)) {
         //skipped prediction
