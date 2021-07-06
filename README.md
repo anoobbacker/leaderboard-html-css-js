@@ -2,7 +2,7 @@
 Created this after going through the pain of building custom things to calculate the leaderboard during the World Cup 2018, & Euro Cup 2020. This can be used as the dashboard for the social betting between friends. The web pages are constructed using bootstrap  design for using on mobile devices.
 
 # Usage
-I used Typeform to collect all the prediction scores from my friends and then uploaded them in the CSV files under `data` folder. One file `predict.csv` captures the predictions by friends. Another file `results.csv` captures the outcome of the match results.
+I used form to collect all the prediction scores from my friends and then uploaded them in the CSV files under `data` folder. One file `predict.csv` captures the predictions by friends. Another file `results.csv` captures the outcome of the match results.
 
 After downloading, simply edit the HTML and CSS files included with the template in your favorite text editor to make changes. These are the only files you need to worry about, you can ignore everything else! To preview the changes you make to the code, you can open the `index.html` file in your web browser.
 
