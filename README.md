@@ -1,5 +1,5 @@
 # Overview
-Created this after going through the pain of building custom things to calculate the leaderboard during the world cup 2018. This can be used as the dashboard for the social betting between friends. The web pages are constructed using bootstrap  design for using on mobile devices.
+Created this after going through the pain of building custom things to calculate the leaderboard during the World Cup 2018, & Euro Cup 2020. This can be used as the dashboard for the social betting between friends. The web pages are constructed using bootstrap  design for using on mobile devices.
 
 # Usage
 I used Typeform to collect all the prediction scores from my friends and then uploaded them in the CSV files under `data` folder. One file `predict.csv` captures the predictions by friends. Another file `results.csv` captures the outcome of the match results.
