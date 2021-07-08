@@ -211,7 +211,8 @@ function completePredictFn(results) {
   var predictParticipationTrack = {};
 
   //find the active stage rounds of the matches
-  var activeStageMatchNumber = 1;
+  var activeStageMatchNumber = 0;
+  var tournamentStillOn = false;
   var today = new Date();
   for (var i = 0; i < matchStages.length; i++) {
     var dDiff = Date.parse(matchStages[i].StageEndDate) - today;
@@ -222,6 +223,11 @@ function completePredictFn(results) {
     }
   }
 
+  //set flag to indicate if tournament is still running.
+  if (activeStageMatchNumber != 0) { 
+    tournamentStillOn = true;
+  }
+
   //all match prediction table
   var tbl = document.createElement('table');
   tbl.setAttribute('class', 'table table-condensed');
@@ -229,12 +235,6 @@ function completePredictFn(results) {
 
   var thead = document.createElement('thead');
   var tbdy = document.createElement('tbody');
-
-  //upcoming match prediction table
-  var upcomingTbl = document.createElement('table');
-  upcomingTbl.setAttribute('class', 'table table-condensed');
-  upcomingTbl.setAttribute('id', 'upcomingdetail');
-  var upcomingTbdy = document.createElement('tbody');
 
   var lastMatchNo = 0;
   var newMatch = false;
@@ -508,20 +508,6 @@ function completePredictFn(results) {
   }
   tbl.appendChild(tbdy);
 
-  var upcomingTblHead = thead.cloneNode(true);
-  upcomingTblHead.firstElementChild.removeChild(upcomingTblHead.firstElementChild.lastElementChild);
-  
-  if (upcomingTbdy.childElementCount == 0) {
-    var tbdytr = document.createElement('tr');
-    var tbdytdName = document.createElement('td');
-    tbdytdName.textContent = "Predictions are pending. Wait for particpants to submit the predictions.";
-    tbdytdName.setAttribute('colspan', thead.children[0].children.length);
-    tbdytr.appendChild(tbdytdName);
-    upcomingTbdy.appendChild(tbdytr);
-  }
-  upcomingTbl.appendChild(upcomingTblHead);
-  upcomingTbl.appendChild(upcomingTbdy);
-
   var sortedLeaderboard = Object.keys(leaderboard) //Create a list from the keys of your map. 
     .sort( //Sort it ...
       function (a, b) { // using a custom sort function that...
@@ -533,9 +519,16 @@ function completePredictFn(results) {
   if ($("#featuredetail").exists()) {
     $("#featuredetail").remove();
   }
+  if ($("#featuredetail-header").exists()) {
+    $("#featuredetail-header").remove();
+  }
 
   if ($("#upcomingdetail").exists()) {
     $("#upcomingdetail").remove();
+  }
+
+  if ($("#upcomingdetail-header").exists()) {
+    $("#upcomingdetail-header").remove();
   }
 
   if ($("#breakupdetail").exists()) {
@@ -558,7 +551,46 @@ function completePredictFn(results) {
     leaderboardPredictMatchesWinner,
     leaderboardPredictMatchesLost,
     sortedLeaderboard));
-  $("#upcomingdetails").append(upcomingTbl);
+
+  if ( tournamentStillOn == true) {
+      //upcoming match prediction table
+      var upcomingTbl = document.createElement('table');
+      upcomingTbl.setAttribute('class', 'table table-condensed');
+      upcomingTbl.setAttribute('id', 'upcomingdetail');
+      
+      var upcomingTbdy = document.createElement('tbody');
+      
+      var upcomingTblHead = thead.cloneNode(true);
+      upcomingTblHead.firstElementChild.removeChild(upcomingTblHead.firstElementChild.lastElementChild);
+
+      var upcomingDiv1 = document.createElement('div');
+      upcomingDiv1.setAttribute('class', 'section-heading text-center');
+      upcomingDiv1.setAttribute('id', 'upcomingdetail-header');
+  
+      var upcomingDiv1H2 = document.createElement('h2');
+      upcomingDiv1H2.innerHTML = 'Upcoming match predictions';
+      upcomingDiv1.append(upcomingDiv1H2);
+  
+      var upcomingDiv1Desc = document.createElement('p');
+      upcomingDiv1Desc.setAttribute('class', 'text-muted');
+      upcomingDiv1Desc.innerHTML = 'Shows only the predictions for upcomings games. To see all the predictions scroll down to the bottom of the page.';
+      upcomingDiv1.append(upcomingDiv1Desc);
+  
+      var tbdytr = document.createElement('tr');
+      var tbdytdName = document.createElement('td');
+      tbdytdName.textContent = "Predictions are pending. Wait for particpants to submit the predictions.";
+      tbdytdName.setAttribute('colspan', thead.children[0].children.length);
+      tbdytr.appendChild(tbdytdName);
+  
+      upcomingTbdy.appendChild(tbdytr);
+  
+      upcomingTbl.appendChild(upcomingTblHead);
+      upcomingTbl.appendChild(upcomingTbdy);
+
+      $("#upcomingdetails").append(upcomingDiv1);
+      $("#upcomingdetails").append(upcomingTbl);
+  }
+
   $("#leaderboarddetails").append(createLeaderBoard2(leaderboard,
     leaderboardPredictScorePlusWinnerGameCount,
     leaderboardPredictWinnerGameCount,
@@ -582,6 +614,7 @@ function createLeaderBoard1(leaderboard,
   sortedLeaderboard) {
     var leaderBrdDiv1 = document.createElement('div');
     leaderBrdDiv1.setAttribute('class', 'section-heading text-center');
+    leaderBrdDiv1.setAttribute('id', 'featuredetail-header');
 
     var leaderBrdDiv1H2 = document.createElement('h2');
     leaderBrdDiv1H2.innerHTML = 'Leader Board - ' + tournamentName;
@@ -589,6 +622,7 @@ function createLeaderBoard1(leaderboard,
 
     var leaderBrdDiv1Desc = document.createElement('p');
     leaderBrdDiv1Desc.setAttribute('class', 'text-muted');
+    leaderBrdDiv1Desc.innerHTML = 'Leader board shows the overrall points of the participants.';
     leaderBrdDiv1.append(leaderBrdDiv1Desc);
 
 
