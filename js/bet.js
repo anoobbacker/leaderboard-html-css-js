@@ -18,7 +18,7 @@ var teamNameAcronymn = {
   'Australia': 'AUS',
   'Austria': 'AUT',
   'Belgium': 'BEL',
-  'Brazil': 'BRA',  
+  'Brazil': 'BRA',
   'Colombia': 'COL',
   'Costa Rica': 'CRC',
   'Croatia': 'CRO',
@@ -33,7 +33,7 @@ var teamNameAcronymn = {
   'Iceland': 'ISL',
   'Iran': 'IRN',
   'Italy': 'ITA',
-  'Japan': 'JPN',  
+  'Japan': 'JPN',
   'Korea Republic': 'KOR',
   'South Korea': 'KOR',
   'Mexico': 'MEX',
@@ -67,7 +67,7 @@ var teamFlag = {
   'Australia': 'au',
   'Austria': 'at',
   'Belgium': 'be',
-  'Brazil': 'br',  
+  'Brazil': 'br',
   'Colombia': 'co',
   'Costa Rica': 'cr',
   'Croatia': 'hr',
@@ -82,7 +82,7 @@ var teamFlag = {
   'Iceland': 'is',
   'Iran': 'ir',
   'Italy': 'it',
-  'Japan': 'jp',  
+  'Japan': 'jp',
   'Korea Republic': 'kp',
   'South Korea': 'kr',
   'Mexico': 'mx',
@@ -157,7 +157,7 @@ $(function () {
     tournamentName = $(event.target).text();
     resultsURL = null;
     predictionDataURL = null;
-    matchStages = null;    
+    matchStages = null;
     if (!"World Cup 2018".localeCompare(tournamentName)) {
       resultsURL = wc2018ResultsURL;
       predictionDataURL = wc2018PredictionDataURL;
@@ -210,6 +210,45 @@ function completePredictFn(results) {
   var leaderboardPredictMatchesLost = {};
   var predictParticipationTrack = {};
 
+  //all match prediction table
+  var tbl = document.createElement('table');
+  tbl.setAttribute('class', 'table table-condensed');
+  tbl.setAttribute('id', 'breakupdetail');
+
+  //create the table user prediction display
+  var thead = document.createElement('thead');
+  var tbdy = document.createElement('tbody');
+  //table headers      
+  var theadrow = document.createElement('tr');
+
+  //add match number
+  var theadth = document.createElement('th');
+  theadth.textContent = "Match#";
+  //theadrow.appendChild(theadth);
+
+  //add match
+  theadth = document.createElement('th');
+  theadth.textContent = "Match";
+  theadrow.appendChild(theadth);
+
+  //add name
+  theadth = document.createElement('th');
+  theadth.textContent = "Name";
+  theadrow.appendChild(theadth);
+
+  //add prediction
+  theadth = document.createElement('th');
+  theadth.textContent = "Predict";
+  theadrow.appendChild(theadth);
+
+  //add points
+  theadth = document.createElement('th');
+  theadth.textContent = "Points";
+  theadrow.appendChild(theadth);
+
+  //set header row in the table
+  thead.appendChild(theadrow);
+
   //find the active stage rounds of the matches
   var activeStageMatchNumber = 0;
   var tournamentStillOn = false;
@@ -223,18 +262,40 @@ function completePredictFn(results) {
     }
   }
 
-  //set flag to indicate if tournament is still running.
-  if (activeStageMatchNumber != 0) { 
-    tournamentStillOn = true;
+  var upcomingTbl = null;
+
+  if ($("#upcomingdetail-header").exists()) {
+    $("#upcomingdetail-header").remove();
   }
 
-  //all match prediction table
-  var tbl = document.createElement('table');
-  tbl.setAttribute('class', 'table table-condensed');
-  tbl.setAttribute('id', 'breakupdetail');
+  //set flag to indicate if tournament is still running.
+  if (activeStageMatchNumber != 0) {
+    tournamentStillOn = true;
 
-  var thead = document.createElement('thead');
-  var tbdy = document.createElement('tbody');
+    //upcoming match prediction table
+    upcomingTbl = document.createElement('table');
+    upcomingTbl.setAttribute('class', 'table table-condensed');
+    upcomingTbl.setAttribute('id', 'upcomingdetail');
+
+    var upcomingTbdy = document.createElement('tbody');
+
+    var upcomingTblHead = thead.cloneNode(true);
+    upcomingTblHead.firstElementChild.removeChild(upcomingTblHead.firstElementChild.lastElementChild);
+
+    var upcomingDiv1 = document.createElement('div');
+    upcomingDiv1.setAttribute('class', 'section-heading text-center');
+    upcomingDiv1.setAttribute('id', 'upcomingdetail-header');
+
+    var upcomingDiv1H2 = document.createElement('h2');
+    upcomingDiv1H2.innerHTML = 'Upcoming match predictions';
+    upcomingDiv1.append(upcomingDiv1H2);
+
+    var upcomingDiv1Desc = document.createElement('p');
+    upcomingDiv1Desc.setAttribute('class', 'text-muted');
+    upcomingDiv1Desc.innerHTML = 'Shows only the predictions for upcomings games. To see all the predictions scroll down to the bottom of the page.';
+    upcomingDiv1.append(upcomingDiv1Desc);
+    $("#upcomingdetails").append(upcomingDiv1);
+  }
 
   var lastMatchNo = 0;
   var newMatch = false;
@@ -245,256 +306,223 @@ function completePredictFn(results) {
   var predictionRowColumnCount = 6;
 
   //By default people participation is 6 folks.
-  var predictParticipantCount = 6;  
+  var predictParticipantCount = 6;
   for (var ii = results.data.length - 1; ii >= 0; ii--) {
     var otherRow = results.data[ii];
-  
+
     //Check if prediction row has correct column count.
     if (otherRow.length != predictionRowColumnCount) {
       continue;
     }
 
-    var currentMatchNo = otherRow[0]; 
-    if ( isNaN(predictParticipationTrack[currentMatchNo]) ) {
+    var currentMatchNo = otherRow[0];
+    if (isNaN(predictParticipationTrack[currentMatchNo])) {
       predictParticipationTrack[currentMatchNo] = 1;
     } else {
       predictParticipationTrack[currentMatchNo]++;
     }
   }
 
-  for (var i = results.data.length - 1; i >= 0; i--) {
+  for (var i = results.data.length - 1; i > 0; i--) {
     var row = results.data[i];
-    if (i == 0) {
-      //table headers      
-      var theadrow = document.createElement('tr');
 
-      //add match number
-      var theadth = document.createElement('th');
-      theadth.textContent = row[0];
-      //theadrow.appendChild(theadth);
-
-      //add name
-      theadth = document.createElement('th');
-      theadth.textContent = "Match";
-      theadrow.appendChild(theadth);
-
-      //add name
-      theadth = document.createElement('th');
-      theadth.textContent = row[3];
-      theadrow.appendChild(theadth);
-
-      //add prediction
-      theadth = document.createElement('th');
-      theadth.textContent = "Predict";
-      theadrow.appendChild(theadth);
-
-      //add prediction
-      theadth = document.createElement('th');
-      theadth.textContent = "Points";
-      theadrow.appendChild(theadth);
-
-
-      //set header row in the table
-      thead.appendChild(theadrow);
+    //Check if prediction row has correct column count.
+    if (row.length != predictionRowColumnCount) {
+      continue;
+    }
+    currentMatchNo = row[0];
+    if (lastMatchNo != currentMatchNo) {
+      newMatch = true;
+      isUpcoming = false;
     } else {
-      //Check if prediction row has correct column count.
-      if (row.length != predictionRowColumnCount) {
-        continue;
+      newMatch = false;
+    }
+    lastMatchNo = currentMatchNo;
+
+    var currentMatchStage = matchStages.length - 1;
+    for (var x = 0; x < matchStages.length; x++) {
+      if (currentMatchNo < matchStages[x].MatchNumber) {
+        currentMatchStage = matchStages[x].Stage - 1;
+        break;
       }
-      currentMatchNo = row[0];
-      if (lastMatchNo != currentMatchNo) {
-        newMatch = true;
-        isUpcoming = false;
-      } else {
-        newMatch = false;
+    }
+
+    //name
+    var participantName = row[3].trim();
+    if (!"".localeCompare(participantName)) {
+      continue;
+    }
+
+    //table rows
+    var tbdytr = document.createElement('tr');
+
+    //add match#
+    var tbdytdName = null;
+    if (newMatch) {
+      tbdytdName = document.createElement('td');
+      tbdytdName.textContent = currentMatchNo;
+      tbdytdName.setAttribute('rowspan', predictParticipationTrack[currentMatchNo]);
+
+      //actual result
+      var matchResultString = "";
+      var matchResult = matchResults[currentMatchNo];
+
+      var matchResultTeamAName = matchResult[1];
+      var matchResultTeamBName = matchResult[2];
+
+      var predictTeamAName = teamNameAcronymn[matchResultTeamAName];
+      var predictTeamBName = teamNameAcronymn[matchResultTeamBName];
+
+      var predictTeamAFlag = "";
+      var predictTeamBFlag = "";
+      if ("TBD".localeCompare(matchResultTeamAName)) {
+        predictTeamAFlag = "<img src='img/country-flags-main/" + teamFlag[matchResultTeamAName] + ".svg' height=16px /> ";
       }
-      lastMatchNo = currentMatchNo;
 
-      var currentMatchStage = matchStages.length - 1;
-      for (var x = 0; x < matchStages.length; x++) {
-        if (currentMatchNo < matchStages[x].MatchNumber) {
-          currentMatchStage = matchStages[x].Stage - 1;
-          break;
-        }
+      if ("TBD".localeCompare(matchResultTeamBName)) {
+        predictTeamBFlag = "<img src='img/country-flags-main/" + teamFlag[matchResultTeamBName] + ".svg' height=16px /> ";
       }
 
-      //name
-      var participantName = row[3].trim();
-      if (!"".localeCompare(participantName)) {
-        continue;
-      }
-
-      //table rows
-      var tbdytr = document.createElement('tr');
-
-      //add match#
-      var tbdytdName = null;
-      if (newMatch) {
-        tbdytdName = document.createElement('td');
-        tbdytdName.textContent = currentMatchNo;
-        tbdytdName.setAttribute('rowspan', predictParticipationTrack[currentMatchNo]);
-
-        //actual result
-        var matchResultString = "";
-        var matchResult = matchResults[currentMatchNo];
-
-        var matchResultTeamAName = matchResult[1];
-        var matchResultTeamBName = matchResult[2];
-        
-        var predictTeamAName = teamNameAcronymn[matchResultTeamAName];
-        var predictTeamBName = teamNameAcronymn[matchResultTeamBName];
-
-        var predictTeamAFlag = "";
-        var predictTeamBFlag = "";
-        if ("TBD".localeCompare(matchResultTeamAName)) {
-          predictTeamAFlag = "<img src='img/country-flags-main/" + teamFlag[matchResultTeamAName] +".svg' height=16px /> ";
-        }
-        
-        if ("TBD".localeCompare(matchResultTeamBName)) {
-          predictTeamBFlag = "<img src='img/country-flags-main/" + teamFlag[matchResultTeamBName] +".svg' height=16px /> ";
-        }
-
-        var matchResultTeamAScore = matchResult[4];
-        var matchResultTeamBScore = matchResult[5];
-        var matchResultStatus = matchResult[3];
-        var matchComplete = false;
-        if (!"Complete".localeCompare(matchResultStatus)) {
-          var winner = "";
-          if (matchResultTeamAScore > matchResultTeamBScore) {
-            matchResultString = "<b>" 
-            + predictTeamAFlag + matchResultTeamAName + "(" + 
+      var matchResultTeamAScore = matchResult[4];
+      var matchResultTeamBScore = matchResult[5];
+      var matchResultStatus = matchResult[3];
+      var matchComplete = false;
+      if (!"Complete".localeCompare(matchResultStatus)) {
+        var winner = "";
+        if (matchResultTeamAScore > matchResultTeamBScore) {
+          matchResultString = "<b>"
+            + predictTeamAFlag + matchResultTeamAName + "(" +
             matchResultTeamAScore + ")</b><br/> " +
             predictTeamBFlag + matchResultTeamBName + "(" + matchResultTeamBScore + ")";
-          } else if (matchResultTeamAScore < matchResultTeamBScore) {
-            matchResultString = predictTeamAFlag + matchResultTeamAName + "(" + matchResultTeamAScore + ") <b><br/>" +
+        } else if (matchResultTeamAScore < matchResultTeamBScore) {
+          matchResultString = predictTeamAFlag + matchResultTeamAName + "(" + matchResultTeamAScore + ") <b><br/>" +
             predictTeamBFlag + matchResultTeamBName + "(" + matchResultTeamBScore + ")</b>";
-          } else {
-            matchResultString = predictTeamAFlag + matchResultTeamAName + "(" + matchResultTeamAScore + ")<br/> " +
-            predictTeamBFlag + matchResultTeamBName + "(" + matchResultTeamBScore + ")";
-          }
-          matchComplete = true;
         } else {
-          matchResultString = predictTeamAFlag + matchResultTeamAName + "<br/> " +
+          matchResultString = predictTeamAFlag + matchResultTeamAName + "(" + matchResultTeamAScore + ")<br/> " +
+            predictTeamBFlag + matchResultTeamBName + "(" + matchResultTeamBScore + ")";
+        }
+        matchComplete = true;
+      } else {
+        matchResultString = predictTeamAFlag + matchResultTeamAName + "<br/> " +
           predictTeamBFlag + matchResultTeamBName + "<br/> on " + matchResultStatus;
-          var matchDateDiff = Math.abs(Date.parse(matchResultStatus.trim()) - new Date());
-          var diffDays = Math.ceil(matchDateDiff / (1000 * 3600 * 24));
-          if (diffDays <= 2) {
-            isUpcoming = true;
-          }
+        var matchDateDiff = Math.abs(Date.parse(matchResultStatus.trim()) - new Date());
+        var diffDays = Math.ceil(matchDateDiff / (1000 * 3600 * 24));
+        if (diffDays <= 2) {
+          isUpcoming = true;
         }
-        tbdytdName = document.createElement('td');
-        tbdytdName.innerHTML = matchResultString;
-        tbdytdName.setAttribute('rowspan', predictParticipationTrack[currentMatchNo]);
-        tbdytr.appendChild(tbdytdName);
-      }
-
-      var avatarInline = "<img src='./img/" + participantName + ".png' width='20' />" +
-        participantName;
-
-      tbdytdName = document.createElement('td');
-      tbdytdName.innerHTML = avatarInline;
-      tbdytr.appendChild(tbdytdName);
-
-      //predict
-      var predictTeamAScore = row[4];
-      var predictTeamBScore = row[5];
-
-
-      var predictString = "";
-      if ((0 == predictTeamAScore.length) && (0 == predictTeamBScore.length)) {
-        //upcoming prediction
-        predictString = "📅Upcoming";
-      } else if ((-1 == predictTeamAScore) && (-1 == predictTeamBScore)) {
-        //skipped prediction
-        predictString = "⌛Skip";
-      } else if (predictTeamAScore > predictTeamBScore) {
-        predictString = "<b>" + predictTeamAName + "(" + predictTeamAScore + ")</b> " +
-          predictTeamBName + "(" + predictTeamBScore + ")";
-      } else if (predictTeamAScore < predictTeamBScore) {
-        predictString = predictTeamAName + "(" + predictTeamAScore + ") <b>" +
-          predictTeamBName + "(" + predictTeamBScore + ")</b>";
-      } else {
-        predictString = predictTeamAName + "(" + predictTeamAScore + ") " +
-          predictTeamBName + "(" + predictTeamBScore + ")";
       }
       tbdytdName = document.createElement('td');
-      tbdytdName.innerHTML = predictString;
+      tbdytdName.innerHTML = matchResultString;
+      tbdytdName.setAttribute('rowspan', predictParticipationTrack[currentMatchNo]);
       tbdytr.appendChild(tbdytdName);
-
-      //points
-      var predictPoints = matchStages[currentMatchStage].LostPoints;
-      if ((-1 == predictTeamAScore) && (-1 == predictTeamBScore)) {
-        //skipped prediction
-      } else if ((matchResultTeamAScore == predictTeamAScore) &&
-        (matchResultTeamBScore == predictTeamBScore)) {
-        //Perfect prediction
-        predictPoints = matchStages[currentMatchStage].ScoreAndWinnerPoints;
-      } else if ((matchResultTeamAScore == matchResultTeamBScore) &&
-        (predictTeamAScore == predictTeamBScore)) {
-        //Only predicted the winner but score wasn't correct.
-        predictPoints = matchStages[currentMatchStage].WinnerOnlyPoints;
-      } else if ((matchResultTeamAScore > matchResultTeamBScore) &&
-        (predictTeamAScore > predictTeamBScore)) {
-        //Only predicted the winner but score wasn't correct.
-        predictPoints = matchStages[currentMatchStage].WinnerOnlyPoints;
-      } else if ((matchResultTeamAScore < matchResultTeamBScore) &&
-        (predictTeamAScore < predictTeamBScore)) {
-        //Only predicted the winner but score wasn't correct.
-        predictPoints = matchStages[currentMatchStage].WinnerOnlyPoints;
-      }
-
-      tbdytdName = document.createElement('td');
-      if (matchComplete) {
-        if (!(participantName in leaderboard)) {
-          leaderboard[participantName] = 0;
-          leaderboardPredictScorePlusWinnerGameCount[participantName] = 0;
-          leaderboardPredictWinnerGameCount[participantName] = 0;
-          leaderboardPredictLossesGameCount[participantName] = 0;
-          leaderboardPredictMatchesScorePlusWinner[participantName] = [];
-          leaderboardPredictMatchesWinner[participantName] = [];
-          leaderboardPredictMatchesLost[participantName] = [];
-        }
-
-        leaderboard[participantName] += predictPoints;
-
-        if (predictPoints >= matchStages[currentMatchStage].WinnerOnlyPoints) {
-          leaderboardPredictWinnerGameCount[participantName] += 1;
-          leaderboardPredictMatchesWinner[participantName].push(predictString);
-          tbdytdName.innerHTML = '<i class="fas fa-angle-up" style="color:#32CD32;"></i>' + Math.abs(predictPoints);
-        }
-
-        if (predictPoints == matchStages[currentMatchStage].ScoreAndWinnerPoints) {
-          leaderboardPredictScorePlusWinnerGameCount[participantName] += 1;
-          leaderboardPredictMatchesScorePlusWinner[participantName].push(predictString);
-          tbdytdName.innerHTML = '<i class="fas fa-angle-double-up" style="color:#32CD32;"></i>' + Math.abs(predictPoints);
-        }
-
-        if (predictPoints == matchStages[currentMatchStage].LostPoints) {
-          leaderboardPredictLossesGameCount[participantName] += 1;
-          leaderboardPredictMatchesLost[participantName].push(predictString);
-          tbdytdName.innerHTML = '<i class="fas fa-angle-down" style="color:#DC143C;"></i>' + Math.abs(predictPoints);
-        }
-
-        updateLeaderBoardCatalog(currentMatchNo, participantName, predictPoints, currentMatchStage);
-      } else {
-        //tbdytdName.textContent = "-";
-        tbdytdName.innerHTML = '<i class="fas fa-ellipsis-h" style="color:#797D7F;"></i>';
-      }
-
-      if (isUpcoming) {
-        upcomingTbdy.appendChild(tbdytr.cloneNode(true));
-      }
-
-      tbdytr.appendChild(tbdytdName);
-
-      //If you want to show only active stage prediction score uncomment below.
-      //if (currentMatchNo >= activeStageMatchNumber) 
-      {
-        tbdy.appendChild(tbdytr);
-      }
-
-      location.hash = "features";
     }
+
+    var avatarInline = "<img src='./img/" + participantName + ".png' width='20' />" +
+      participantName;
+
+    tbdytdName = document.createElement('td');
+    tbdytdName.innerHTML = avatarInline;
+    tbdytr.appendChild(tbdytdName);
+
+    //predict
+    var predictTeamAScore = row[4];
+    var predictTeamBScore = row[5];
+
+
+    var predictString = "";
+    if ((0 == predictTeamAScore.length) && (0 == predictTeamBScore.length)) {
+      //upcoming prediction
+      predictString = "📅Upcoming";
+    } else if ((-1 == predictTeamAScore) && (-1 == predictTeamBScore)) {
+      //skipped prediction
+      predictString = "⌛Skip";
+    } else if (predictTeamAScore > predictTeamBScore) {
+      predictString = "<b>" + predictTeamAName + "(" + predictTeamAScore + ")</b> " +
+        predictTeamBName + "(" + predictTeamBScore + ")";
+    } else if (predictTeamAScore < predictTeamBScore) {
+      predictString = predictTeamAName + "(" + predictTeamAScore + ") <b>" +
+        predictTeamBName + "(" + predictTeamBScore + ")</b>";
+    } else {
+      predictString = predictTeamAName + "(" + predictTeamAScore + ") " +
+        predictTeamBName + "(" + predictTeamBScore + ")";
+    }
+    tbdytdName = document.createElement('td');
+    tbdytdName.innerHTML = predictString;
+    tbdytr.appendChild(tbdytdName);
+
+    //points
+    var predictPoints = matchStages[currentMatchStage].LostPoints;
+    if ((-1 == predictTeamAScore) && (-1 == predictTeamBScore)) {
+      //skipped prediction
+    } else if ((matchResultTeamAScore == predictTeamAScore) &&
+      (matchResultTeamBScore == predictTeamBScore)) {
+      //Perfect prediction
+      predictPoints = matchStages[currentMatchStage].ScoreAndWinnerPoints;
+    } else if ((matchResultTeamAScore == matchResultTeamBScore) &&
+      (predictTeamAScore == predictTeamBScore)) {
+      //Only predicted the winner but score wasn't correct.
+      predictPoints = matchStages[currentMatchStage].WinnerOnlyPoints;
+    } else if ((matchResultTeamAScore > matchResultTeamBScore) &&
+      (predictTeamAScore > predictTeamBScore)) {
+      //Only predicted the winner but score wasn't correct.
+      predictPoints = matchStages[currentMatchStage].WinnerOnlyPoints;
+    } else if ((matchResultTeamAScore < matchResultTeamBScore) &&
+      (predictTeamAScore < predictTeamBScore)) {
+      //Only predicted the winner but score wasn't correct.
+      predictPoints = matchStages[currentMatchStage].WinnerOnlyPoints;
+    }
+
+    tbdytdName = document.createElement('td');
+    if (matchComplete) {
+      if (!(participantName in leaderboard)) {
+        leaderboard[participantName] = 0;
+        leaderboardPredictScorePlusWinnerGameCount[participantName] = 0;
+        leaderboardPredictWinnerGameCount[participantName] = 0;
+        leaderboardPredictLossesGameCount[participantName] = 0;
+        leaderboardPredictMatchesScorePlusWinner[participantName] = [];
+        leaderboardPredictMatchesWinner[participantName] = [];
+        leaderboardPredictMatchesLost[participantName] = [];
+      }
+
+      leaderboard[participantName] += predictPoints;
+
+      if (predictPoints >= matchStages[currentMatchStage].WinnerOnlyPoints) {
+        leaderboardPredictWinnerGameCount[participantName] += 1;
+        leaderboardPredictMatchesWinner[participantName].push(predictString);
+        tbdytdName.innerHTML = '<i class="fas fa-angle-up" style="color:#32CD32;"></i>' + Math.abs(predictPoints);
+      }
+
+      if (predictPoints == matchStages[currentMatchStage].ScoreAndWinnerPoints) {
+        leaderboardPredictScorePlusWinnerGameCount[participantName] += 1;
+        leaderboardPredictMatchesScorePlusWinner[participantName].push(predictString);
+        tbdytdName.innerHTML = '<i class="fas fa-angle-double-up" style="color:#32CD32;"></i>' + Math.abs(predictPoints);
+      }
+
+      if (predictPoints == matchStages[currentMatchStage].LostPoints) {
+        leaderboardPredictLossesGameCount[participantName] += 1;
+        leaderboardPredictMatchesLost[participantName].push(predictString);
+        tbdytdName.innerHTML = '<i class="fas fa-angle-down" style="color:#DC143C;"></i>' + Math.abs(predictPoints);
+      }
+
+      updateLeaderBoardCatalog(currentMatchNo, participantName, predictPoints, currentMatchStage);
+    } else {
+      //tbdytdName.textContent = "-";
+      tbdytdName.innerHTML = '<i class="fas fa-ellipsis-h" style="color:#797D7F;"></i>';
+    }
+
+    if (isUpcoming && tournamentStillOn) {
+      upcomingTbdy.appendChild(tbdytr.cloneNode(true));
+    }
+
+    tbdytr.appendChild(tbdytdName);
+
+    //If you want to show only active stage prediction score uncomment below.
+    //if (currentMatchNo >= activeStageMatchNumber) 
+    {
+      tbdy.appendChild(tbdytr);
+    }
+
+    location.hash = "features";
   }
 
   tbl.appendChild(thead);
@@ -527,10 +555,6 @@ function completePredictFn(results) {
     $("#upcomingdetail").remove();
   }
 
-  if ($("#upcomingdetail-header").exists()) {
-    $("#upcomingdetail-header").remove();
-  }
-
   if ($("#breakupdetail").exists()) {
     $("#breakupdetail").remove();
   }
@@ -552,43 +576,20 @@ function completePredictFn(results) {
     leaderboardPredictMatchesLost,
     sortedLeaderboard));
 
-  if ( tournamentStillOn == true) {
-      //upcoming match prediction table
-      var upcomingTbl = document.createElement('table');
-      upcomingTbl.setAttribute('class', 'table table-condensed');
-      upcomingTbl.setAttribute('id', 'upcomingdetail');
-      
-      var upcomingTbdy = document.createElement('tbody');
-      
-      var upcomingTblHead = thead.cloneNode(true);
-      upcomingTblHead.firstElementChild.removeChild(upcomingTblHead.firstElementChild.lastElementChild);
-
-      var upcomingDiv1 = document.createElement('div');
-      upcomingDiv1.setAttribute('class', 'section-heading text-center');
-      upcomingDiv1.setAttribute('id', 'upcomingdetail-header');
-  
-      var upcomingDiv1H2 = document.createElement('h2');
-      upcomingDiv1H2.innerHTML = 'Upcoming match predictions';
-      upcomingDiv1.append(upcomingDiv1H2);
-  
-      var upcomingDiv1Desc = document.createElement('p');
-      upcomingDiv1Desc.setAttribute('class', 'text-muted');
-      upcomingDiv1Desc.innerHTML = 'Shows only the predictions for upcomings games. To see all the predictions scroll down to the bottom of the page.';
-      upcomingDiv1.append(upcomingDiv1Desc);
-  
+  if (tournamentStillOn == true) {
+    if ( upcomingTbdy.childElementCount == 0) {
       var tbdytr = document.createElement('tr');
       var tbdytdName = document.createElement('td');
       tbdytdName.textContent = "Predictions are pending. Wait for particpants to submit the predictions.";
       tbdytdName.setAttribute('colspan', thead.children[0].children.length);
       tbdytr.appendChild(tbdytdName);
-  
       upcomingTbdy.appendChild(tbdytr);
+    }
   
-      upcomingTbl.appendChild(upcomingTblHead);
-      upcomingTbl.appendChild(upcomingTbdy);
+    upcomingTbl.appendChild(upcomingTblHead);
+    upcomingTbl.appendChild(upcomingTbdy);
 
-      $("#upcomingdetails").append(upcomingDiv1);
-      $("#upcomingdetails").append(upcomingTbl);
+    $("#upcomingdetails").append(upcomingTbl);
   }
 
   $("#leaderboarddetails").append(createLeaderBoard2(leaderboard,
@@ -612,18 +613,18 @@ function createLeaderBoard1(leaderboard,
   leaderboardPredictMatchesWinner,
   leaderboardPredictMatchesLost,
   sortedLeaderboard) {
-    var leaderBrdDiv1 = document.createElement('div');
-    leaderBrdDiv1.setAttribute('class', 'section-heading text-center');
-    leaderBrdDiv1.setAttribute('id', 'featuredetail-header');
+  var leaderBrdDiv1 = document.createElement('div');
+  leaderBrdDiv1.setAttribute('class', 'section-heading text-center');
+  leaderBrdDiv1.setAttribute('id', 'featuredetail-header');
 
-    var leaderBrdDiv1H2 = document.createElement('h2');
-    leaderBrdDiv1H2.innerHTML = 'Leader Board - ' + tournamentName;
-    leaderBrdDiv1.append(leaderBrdDiv1H2);
+  var leaderBrdDiv1H2 = document.createElement('h2');
+  leaderBrdDiv1H2.innerHTML = 'Leader Board - ' + tournamentName;
+  leaderBrdDiv1.append(leaderBrdDiv1H2);
 
-    var leaderBrdDiv1Desc = document.createElement('p');
-    leaderBrdDiv1Desc.setAttribute('class', 'text-muted');
-    leaderBrdDiv1Desc.innerHTML = 'Leader board shows the overrall points of the participants.';
-    leaderBrdDiv1.append(leaderBrdDiv1Desc);
+  var leaderBrdDiv1Desc = document.createElement('p');
+  leaderBrdDiv1Desc.setAttribute('class', 'text-muted');
+  leaderBrdDiv1Desc.innerHTML = 'Leader board shows the overrall points of the participants.';
+  leaderBrdDiv1.append(leaderBrdDiv1Desc);
 
 
   var leaderTbl = document.createElement('table');
