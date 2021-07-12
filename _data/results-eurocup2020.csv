@@ -37,9 +37,16 @@ Match#,TeamA,TeamB,Status,TeamA-Result,TeamB-Result
 36,Portugal,France,Complete,2,2
 37,Wales,Denmark,Complete,0,4
 38,Italy,Austria,Complete,2,1
-39,Netherlands,Czech Republic,"Jun 27, 2021",,
-40,Belgium,Portugal,"Jun 28, 2021",,
-41,Croatia,Spain,"Jun 28, 2021",,
-42,France,Switzerland,"Jun 29, 2021",,
-43,England,Germany,"Jun 29, 2021",,
-44,Sweden,Ukraine,Jun 30 2021,,
+39,Netherlands,Czech Republic,Complete,0,2
+40,Belgium,Portugal,Complete,1,0
+41,Croatia,Spain,Complete,3,5
+42,France,Switzerland,Complete,7,8
+43,England,Germany,Complete,2,0
+44,Sweden,Ukraine,Complete,1,2
+45,Switzerland,Spain,Complete,2,4
+46,Belgium,Italy,Complete,1,2
+47,Czech Republic,Denmark,Complete,1,2
+48,Ukraine,England,Complete,0,4
+49,Italy,Spain,Complete,5,3
+50,England,Denmark,Complete,2,1
+51,Italy,England,Complete,4,3
