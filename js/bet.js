@@ -110,39 +110,7 @@ var teamFlag = {
   'Wales': 'gb-wls',
 }
 var leaderboardCatalog = [];
-var keyOptions = [
-  "Participant", //0
-  "Total points", //1
-  "Total score predict matches", //2
-  "Total winner predict matches", //3
-  "Total predict lost matches", //4
-  "Groupstage matchday1 points", //5
-  "Groupstage matchday1 score predict matches", //6
-  "Groupstage matchday1 winner predict matches", //7
-  "Groupstage matchday1 predict lost matches", //8
-  "Groupstage matchday2 points", //9
-  "Groupstage matchday2 score predict matches", //10
-  "Groupstage matchday2 winner predict matches", //11
-  "Groupstage matchday2 predict lost matches", //12
-  "Groupstage matchday3 points", //13
-  "Groupstage matchday3 score predict matches", //14
-  "Groupstage matchday3 winner predict matches", //15
-  "Groupstage matchday3 predict lost matches", //16
-  "Round16 points", //17
-  "Round16 score predict matches", //18
-  "Round16 winner predict matches", //19
-  "Round16 predict lost matches", //20
-  "Quarter final points", //21
-  "Quarter final score predict matches", //22
-  "Quarter final winner predict matches", //23
-  "Quarter final predict lost matches", //24
-  "Semi final points", //25
-  "Semi final score predict matches", //26
-  "Semi final winner predict matches", //27
-  "Semi final predict lost matches", //28
-  "Final points", //29
-  "Total number of matches" //30
-];
+var keyOptions = [];
 
 $.fn.exists = function () {
   return this.length !== 0;
@@ -168,6 +136,26 @@ $(function () {
       predictionDataURL = euro2020PredictionDataURL;
       matchStages = euro2020MatchStages;
     }
+    
+    matchStages.forEach(initializeKeyPoint);
+
+    function initializeKeyPoint(value, index, array) {
+      if (keyOptions.length == 0) {
+        keyOptions.push("Participant"); //0
+        keyOptions.push("Total points"); //1
+        keyOptions.push("Total score predict matches"); //2
+        keyOptions.push("Total winner predict matches"); //3
+        keyOptions.push("Total predict lost matches"); //4
+        keyOptions.push("Total number of matches"); //5
+      }
+
+      //add these to every stages in the matchStages
+      keyOptions.push(value['Desc'] + " points");
+      keyOptions.push(value['Desc'] + " score predict matches");
+      keyOptions.push(value['Desc'] + " winner predict matches");
+      keyOptions.push(value['Desc'] + " predict lost matches");    
+    }
+    
     stepped = 0;
     chunks = 0;
     rows = 0;
@@ -294,7 +282,6 @@ function completePredictFn(results) {
     upcomingDiv1Desc.setAttribute('class', 'text-muted');
     upcomingDiv1Desc.innerHTML = 'Shows only the predictions for upcomings games. To see all the predictions scroll down to the bottom of the page.';
     upcomingDiv1.append(upcomingDiv1Desc);
-    $("#upcomingdetails").append(upcomingDiv1);
   }
 
   var lastMatchNo = 0;
@@ -402,6 +389,9 @@ function completePredictFn(results) {
             predictTeamBFlag + matchResultTeamBName + "(" + matchResultTeamBScore + ")";
         }
         matchComplete = true;
+        if (!"True".localeCompare(matchStages[currentMatchStage].IsFinal)) {
+          tournamentStillOn = false;
+        }
       } else {
         matchResultString = predictTeamAFlag + matchResultTeamAName + "<br/> " +
           predictTeamBFlag + matchResultTeamBName + "<br/> on " + matchResultStatus;
@@ -577,6 +567,7 @@ function completePredictFn(results) {
     sortedLeaderboard));
 
   if (tournamentStillOn == true) {
+    $("#upcomingdetails").append(upcomingDiv1);
     if ( upcomingTbdy.childElementCount == 0) {
       var tbdytr = document.createElement('tr');
       var tbdytdName = document.createElement('td');
@@ -814,99 +805,44 @@ function updateLeaderBoardCatalog(currentMatchNo, participantName, predictPoints
   for (var i = 0; i < leaderboardCatalog.length; i++) {
     if (leaderboardCatalog[i][keyOptions[0]] == participantName) {
       var leaderBoardItem = leaderboardCatalog[i];
+      
+      //update total prediction points
       leaderBoardItem[keyOptions[1]] += predictPoints;
-      leaderBoardItem[keyOptions[30]] += 1;
+
+      //count correct score prediction
       if (predictPoints == matchStages[currentMatchStage].ScoreAndWinnerPoints) {
         leaderBoardItem[keyOptions[2]] += 1;
       }
 
+      //count winner only predictions
       if (predictPoints >= matchStages[currentMatchStage].WinnerOnlyPoints) {
         leaderBoardItem[keyOptions[3]] += 1;
       }
 
+      //count lost predictions
       if (predictPoints == matchStages[currentMatchStage].LostPoints) {
         leaderBoardItem[keyOptions[4]] += 1;
       }
-      if (currentMatchNo < matchStages[1].MatchNumber) {
-        leaderBoardItem[keyOptions[5]] += predictPoints;
+
+      //update total number of matches
+      leaderBoardItem[keyOptions[5]] += 1;
+
+      matchStages.forEach(initializeStageLeaderBoards);
+
+      function initializeStageLeaderBoards(value, index, array) {
+        //stage points, prefect prediction, winner only & lost
+        leaderBoardItem[value['Desc'] + " points"] += predictPoints;
         if (predictPoints == matchStages[currentMatchStage].ScoreAndWinnerPoints) {
-          leaderBoardItem[keyOptions[6]] += 1;
+          leaderBoardItem[value['Desc'] + " score predict matches"] += 1;
         }
 
         if (predictPoints >= matchStages[currentMatchStage].WinnerOnlyPoints) {
-          leaderBoardItem[keyOptions[7]] += 1;
+          leaderBoardItem[value['Desc'] + " winner predict matches"] += 1;
         }
 
         if (predictPoints == matchStages[currentMatchStage].LostPoints) {
-          leaderBoardItem[keyOptions[8]] += 1;
+          leaderBoardItem[value['Desc'] + " predict lost matches"] += 1;
         }
-      } else if (currentMatchNo < matchStages[2].MatchNumber) {
-        leaderBoardItem[keyOptions[9]] += predictPoints;
-        if (predictPoints == matchStages[currentMatchStage].ScoreAndWinnerPoints) {
-          leaderBoardItem[keyOptions[10]] += 1;
-        }
-
-        if (predictPoints >= matchStages[currentMatchStage].WinnerOnlyPoints) {
-          leaderBoardItem[keyOptions[11]] += 1;
-        }
-
-        if (predictPoints == matchStages[currentMatchStage].LostPoints) {
-          leaderBoardItem[keyOptions[12]] += 1;
-        }
-      } else if (currentMatchNo < matchStages[3].MatchNumber) {
-        leaderBoardItem[keyOptions[13]] += predictPoints;
-        if (predictPoints == matchStages[currentMatchStage].ScoreAndWinnerPoints) {
-          leaderBoardItem[keyOptions[14]] += 1;
-        }
-
-        if (predictPoints >= matchStages[currentMatchStage].WinnerOnlyPoints) {
-          leaderBoardItem[keyOptions[15]] += 1;
-        }
-
-        if (predictPoints == matchStages[currentMatchStage].LostPoints) {
-          leaderBoardItem[keyOptions[16]] += 1;
-        }
-      } else if (currentMatchNo < matchStages[4].MatchNumber) {
-        leaderBoardItem[keyOptions[17]] += predictPoints;
-        if (predictPoints == matchStages[currentMatchStage].ScoreAndWinnerPoints) {
-          leaderBoardItem[keyOptions[18]] += 1;
-        }
-
-        if (predictPoints >= matchStages[currentMatchStage].WinnerOnlyPoints) {
-          leaderBoardItem[keyOptions[19]] += 1;
-        }
-
-        if (predictPoints == matchStages[currentMatchStage].LostPoints) {
-          leaderBoardItem[keyOptions[20]] += 1;
-        }
-      } else if (currentMatchNo < matchStages[5].MatchNumber) {
-        leaderBoardItem[keyOptions[21]] += predictPoints;
-        if (predictPoints == matchStages[currentMatchStage].ScoreAndWinnerPoints) {
-          leaderBoardItem[keyOptions[22]] += 1;
-        }
-
-        if (predictPoints >= matchStages[currentMatchStage].WinnerOnlyPoints) {
-          leaderBoardItem[keyOptions[23]] += 1;
-        }
-
-        if (predictPoints == matchStages[currentMatchStage].LostPoints) {
-          leaderBoardItem[keyOptions[24]] += 1;
-        }
-      } else if (currentMatchNo < matchStages[6].MatchNumber) {
-        leaderBoardItem[keyOptions[25]] += predictPoints;
-        if (predictPoints == matchStages[currentMatchStage].ScoreAndWinnerPoints) {
-          leaderBoardItem[keyOptions[26]] += 1;
-        }
-
-        if (predictPoints >= matchStages[currentMatchStage].WinnerOnlyPoints) {
-          leaderBoardItem[keyOptions[27]] += 1;
-        }
-
-        if (predictPoints == matchStages[currentMatchStage].LostPoints) {
-          leaderBoardItem[keyOptions[28]] += 1;
-        }
-      } else if (currentMatchNo < matchStages[6].MatchNumber + 2) {
-        leaderBoardItem[keyOptions[29]] += predictPoints;
       }
     }
   }

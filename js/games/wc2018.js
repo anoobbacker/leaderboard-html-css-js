@@ -5,6 +5,7 @@ var wc2018MatchStages = [
     //Groupstage match day1
     {
       MatchNumber: 1,
+      Desc: 'Groupstage first match',
       StageStartDate: 'June 14, 2018',
       StageEndDate: 'June 19, 2018',
       Stage: 0,
@@ -15,6 +16,7 @@ var wc2018MatchStages = [
     //Groupstage match day2
     {
       MatchNumber: 17,
+      Desc: 'Groupstage second match',
       StageStartDate: 'June 19, 2018',
       StageEndDate: 'June 24, 2018',
       Stage: 1,
@@ -25,6 +27,7 @@ var wc2018MatchStages = [
     //Groupstage match day3
     {
       MatchNumber: 31,
+      Desc: 'Groupstage thrid match',
       StageStartDate: 'June 25, 2018',
       StageEndDate: 'June 28, 2018',
       Stage: 2,
@@ -35,6 +38,7 @@ var wc2018MatchStages = [
     //round 16
     {
       MatchNumber: 49,
+      Desc: 'Round of 16',
       StageStartDate: 'June 30, 2018',
       StageEndDate: 'July 3, 2018',
       Stage: 3,
@@ -45,6 +49,7 @@ var wc2018MatchStages = [
     //quarter finals
     {
       MatchNumber: 57,
+      Desc: 'Quarter finals',
       StageStartDate: 'July 6, 2018',
       StageEndDate: 'July 7, 2018',
       Stage: 4,
@@ -55,6 +60,7 @@ var wc2018MatchStages = [
     //semi finals
     {
       MatchNumber: 61,
+      Desc: 'Semi finals',
       StageStartDate: 'July 10, 2018',
       StageEndDate: 'July 12, 2018',
       Stage: 5,
@@ -65,11 +71,13 @@ var wc2018MatchStages = [
     //winner & loser finals
     {
       MatchNumber: 63,
+      Desc: 'Finals',
       StageStartDate: 'July 14, 2018',
       StageEndDate: 'July 15, 2018',
       Stage: 6,
       ScoreAndWinnerPoints: 40,
       WinnerOnlyPoints: 15,
-      LostPoints: -10
+      LostPoints: -10,
+      IsFinal: 'True'
     }
   ];

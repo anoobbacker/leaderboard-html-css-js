@@ -5,6 +5,7 @@ var euro2020MatchStages = [
     //stage1
     {
       MatchNumber: 1,
+      Desc: 'Groupstage',
       StageStartDate: 'June 11, 2021',
       StageEndDate: 'June 23, 2021',
       Stage: 0,
@@ -12,9 +13,10 @@ var euro2020MatchStages = [
       WinnerOnlyPoints: 1,
       LostPoints: 0
     },
-    //stage2
+    //round of 16
     {
       MatchNumber: 37,
+      Desc: 'Round of 16',
       StageStartDate: 'June 26, 2021',
       StageEndDate: 'June 30, 2021',
       Stage: 1,
@@ -25,6 +27,7 @@ var euro2020MatchStages = [
     //quarter-finals
     {
       MatchNumber: 45,
+      Desc: 'Quarter finals',
       StageStartDate: 'July 2, 2021',
       StageEndDate: 'July 4, 2021',
       Stage: 2,
@@ -35,6 +38,7 @@ var euro2020MatchStages = [
     //semi-finals
     {
       MatchNumber: 49,
+      Desc: 'Semi finals',
       StageStartDate: 'July 7, 2021',
       StageEndDate: 'July 8, 2021',
       Stage: 3,
@@ -45,11 +49,13 @@ var euro2020MatchStages = [
     //finals
     {
       MatchNumber: 51,
+      Desc: 'Finals',
       StageStartDate: 'July 12, 2021',
       StageEndDate: 'July 12, 2021',
       Stage: 4,
       ScoreAndWinnerPoints: 40,
       WinnerOnlyPoints: 15,
-      LostPoints: -10
+      LostPoints: -10,
+      IsFinal: 'True'
     }
   ];
