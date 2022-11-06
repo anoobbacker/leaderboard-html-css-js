@@ -1,10 +1,15 @@
 # Overview
-Created this after going through the pain of building custom things to calculate the leaderboard during the World Cup 2018, & Euro Cup 2020. This can be used as the dashboard for the social betting between friends. The web pages are constructed using bootstrap  design for using on mobile devices.
+This is a friendly project created after going through the pain of building custom things to calculate the leaderboard for a friendly prediction during the World Cup 2018, & Euro Cup 2020. I will be updating this for World Cup 2022. This can be used as the dashboard for the social betting between friends. The web pages are constructed using bootstrap  design for using on mobile devices.
 
 # Usage
-I used form to collect all the prediction scores from my friends and then uploaded them in the CSV files under `data` folder. One file `predict.csv` captures the predictions by friends. Another file `results.csv` captures the outcome of the match results.
+I used an online form to collect all the prediction scores from my friends and then uploaded the CSV file under `_data` folder. The `_data/predict*.csv` captures the predictions by friends. Another file `_data/results*.csv` captures the outcome of the match results.
 
-After downloading, simply edit the HTML and CSS files included with the template in your favorite text editor to make changes. These are the only files you need to worry about, you can ignore everything else! To preview the changes you make to the code, you can open the `index.html` file in your web browser.
+After forking this project, edit the below files:
+1. `_data/*` files you need to update and upload the CSV files in a publicly accessible storage.
+2. Update `betwc/js/games/*.js` to point to the publicly accessible storage location
+3. Change Avatar for your friends under `betwc/img/`. 
+
+To preview the changes you make to the code, you can open the `index.html` file in your web browser.
 
 # Scoring
 
@@ -17,12 +22,10 @@ After downloading, simply edit the HTML and CSS files included with the template
 **[View Live Preview](https://anoobbacker.github.io/betwc/)**
 
 # To do
-
-- Automate the input prediction collection.
-- Automate the results of the games using API.
+- Automate the collecting prediction input from friends.
+- Automate fetching results of the games using API.
 
 # Tools used
-
 - Avatars generated from [Getavataaars](https://getavataaars.com).
 - Bootstrap template [New Age](https://github.com/BlackrockDigital/startbootstrap-new-age)
 - Parsing of CSV using [Papa parse](http://papaparse.com/)
