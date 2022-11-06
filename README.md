@@ -21,6 +21,12 @@ To preview the changes you make to the code, you can open the `index.html` file 
 # Preview
 **[View Live Preview](https://anoobbacker.github.io/betwc/)**
 
+# Screenshots
+![screen1](https://user-images.githubusercontent.com/13219906/200187454-4cf46c9b-16be-43bb-b184-e8ff3d3a3ed7.jpeg)
+![worldcup2018](https://user-images.githubusercontent.com/13219906/200187563-b75bfd8f-5cb4-4ac1-bd78-9c95ae530a1d.jpeg)
+![euro2020](https://user-images.githubusercontent.com/13219906/200187570-c9ff53e5-398b-4253-a708-e04a1f49c076.jpeg)
+
+
 # To do
 - Automate the collecting prediction input from friends.
 - Automate fetching results of the games using API.
