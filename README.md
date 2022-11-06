@@ -30,6 +30,7 @@ To preview the changes you make to the code, you can open the `index.html` file 
 # To do
 - Automate the collecting prediction input from friends.
 - Automate fetching results of the games using API.
+- Improve the documentation
 
 # Tools used
 - Avatars generated from [Getavataaars](https://getavataaars.com).
