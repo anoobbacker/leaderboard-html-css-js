@@ -6,14 +6,14 @@ This uses bootstrap's static single pages design suited best for all devices lik
 **[View Live Preview](https://anoobbacker.github.io/betwc/)**
 
 # Usage
-I used an online form to collect all the prediction scores from my friends and then uploaded the CSV file under `_data` folder. The `_data/predict*.csv` captures the predictions by friends. Another file `_data/results*.csv` captures the outcome of the match results.
+Fork this project and peform the following steps to customize it for you and your friends:
+1. `_data/*` has sample files for prediction and results. You need to update the files for you friends. Use an either online form like Microsoft Forms or Microsoft Excel to collect all the prediction scores from your friends.
+2. Upload the CSV files in a publicly accessible read-only storage location. You can use Azure Storage account for uploading the CSV, set the CORS, and set the appropriate permission. The browser just needs a read-only access to these CSV files.
+3. Update `betwc/js/games/*.js` to point to the publicly accessible CSV
+4. Upload the Avatars for your friends under `betwc/assets/img/`. The final name for the Avatar should be like `Anoob.png`. Use the same name used in the CSV files for the Avatar image name. 
+5. Edit `index.html` and update `aside` with all the Avatar img URLs.
 
-After forking this project, edit the below files:
-1. `_data/*` files you need to update and upload the CSV files in a publicly accessible storage.
-2. Update `betwc/js/games/*.js` to point to the publicly accessible storage location
-3. Change Avatar for your friends under `betwc/img/`. 
-
-To preview the changes you make to the code, you can open the `index.html` file in your web browser.
+To view a preview open the `index.html` file in your web browser after making the changes.
 
 # Scoring
 - Till quarterfinals, a perfect guess of score & the winner will bag 3-points. It will be 1-point if you predicted only the winner.
