@@ -1,129 +1,9 @@
-var stepped = 0,
-  chunks = 0,
-  rows = 0;
-var start, end;
-var parser;
-var pauseChecked = false;
-var printStepChecked = false;
 var matchResults = null;
-const random = Math.random();
-
 var resultsURL = null;
 var predictionDataURL = null;
 var matchStages = null;
 var tournamentName = null;
 
-//Refer https://www.iban.com/country-codes
-var teamNameAcronymn = {
-  'Argentina': 'ARG',
-  'Australia': 'AUS',
-  'Austria': 'AUT',
-  'Belgium': 'BEL',
-  'Brazil': 'BRA',
-  'Cameroon': 'CMR',
-  'Canada': 'CAN',
-  'Colombia': 'COL',
-  'Costa Rica': 'CRC',
-  'Croatia': 'CRO',
-  'Czech Republic': 'CZE',
-  'Denmark': 'DEN',
-  'Egypt': 'EGY',
-  'England': 'ENG',
-  'Ecuador': 'ECU',
-  'France': 'FRA',
-  'Finland': 'FIN',
-  'Ghana': 'GHA',
-  'Germany': 'GER',
-  'Hungary': 'HUN',
-  'Iceland': 'ISL',
-  'Iran': 'IRN',
-  'Italy': 'ITA',
-  'Japan': 'JPN',
-  'Korea Republic': 'KOR',
-  'South Korea': 'KOR',
-  'Mexico': 'MEX',
-  'Morocco': 'MAR',
-  'Nigeria': 'NGA',
-  'Netherlands': 'NED',
-  'North Macedonia': 'MKD',
-  'Panama': 'PAN',
-  'Peru': 'PER',
-  'Poland': 'POL',
-  'Portugal': 'POR',
-  'Qatar': 'QAT',
-  'Russia': 'RUS',
-  'Saudi Arabia': 'KSA',
-  'Scotland': 'SCO',
-  'Senegal': 'SEN',
-  'Serbia': 'SRB',
-  'Spain': 'ESP',
-  'Sweden': 'SWE',
-  'Slovakia': 'SVK',
-  'Switzerland': 'SUI',
-  'Tunisia': 'TUN',
-  'Turkey': 'TUR',
-  'Uruguay': 'URU',
-  'Ukraine': 'UKR',
-  'Wales': 'WAL',
-  'United States': 'USA',
-  'TBD': 'TBD',
-}
-
-//Look at the folder /img/country-flags-main/* 
-//for the SVG name
-var teamFlag = {
-  'Argentina': 'ar',
-  'Australia': 'au',
-  'Austria': 'at',
-  'Belgium': 'be',
-  'Brazil': 'br',
-  'Cameroon': 'cr',
-  'Canada': 'ca',
-  'Colombia': 'co',
-  'Costa Rica': 'cr',
-  'Croatia': 'hr',
-  'Czech Republic': 'cz',
-  'Denmark': 'dk',
-  'Ecuador': 'ec',
-  'Egypt': 'eg',
-  'England': 'gb',
-  'France': 'fr',
-  'Finland': 'fi',
-  'Ghana': 'gh',
-  'Germany': 'de',
-  'Hungary': 'hu',
-  'Iceland': 'is',
-  'Iran': 'ir',
-  'Italy': 'it',
-  'Japan': 'jp',
-  'Korea Republic': 'kp',
-  'South Korea': 'kr',
-  'Mexico': 'mx',
-  'Morocco': 'ma',
-  'Nigeria': 'ng',
-  'Netherlands': 'nl',
-  'North Macedonia': 'mk',
-  'Panama': 'pa',
-  'Peru': 'pe',
-  'Poland': 'pl',
-  'Portugal': 'pt',
-  'Qatar': 'qa',
-  'Russia': 'ru',
-  'Saudi Arabia': 'sa',
-  'Scotland': 'gb-sct',
-  'Senegal': 'sn',
-  'Serbia': 'rs',
-  'Spain': 'es',
-  'Sweden': 'se',
-  'Slovakia': 'sk',
-  'Switzerland': 'ch',
-  'Tunisia': 'tn',
-  'Turkey': 'tr',
-  'Uruguay': 'uy',
-  'Ukraine': 'ua',
-  'Wales': 'gb-wls',
-  'United States': 'us',
-}
 var leaderboardCatalog = [];
 var keyOptions = [];
 
@@ -132,75 +12,77 @@ $.fn.exists = function () {
 }
 
 $(function () {
-  $('#features').ready(function () {
-    $('#features').css('display', 'none');
+  $('#leaderboards').ready(function () {
+    //by default load WC2022
+    processTournament("World Cup 2022")
   });
 
   $('.dropdown-menu a').click(function (event) {
-    tournamentName = $(event.target).text();
-    resultsURL = null;
-    predictionDataURL = null;
-    matchStages = null;
-
-    //based on what user clicks initalize the right CSV variables 
-    //these variables are defined under /js/games/*.js
-    if (!"World Cup 2018".localeCompare(tournamentName)) {
-      resultsURL = wc2018ResultsURL;
-      predictionDataURL = wc2018PredictionDataURL;
-      matchStages = wc2018MatchStages;
-    }
-    if (!"Euro Cup 2020".localeCompare(tournamentName)) {
-      resultsURL = euro2020ResultsURL;
-      predictionDataURL = euro2020PredictionDataURL;
-      matchStages = euro2020MatchStages;
-    }    
-    if (!"World Cup 2022".localeCompare(tournamentName)) {
-      resultsURL = wc2022ResultsURL;
-      predictionDataURL = wc2022PredictionDataURL;
-      matchStages = wc2022MatchStages;
-    }
-
-    //iterate through the matchStages defined under /js/games/*.js
-    //and initalize the keyOptions
-    matchStages.forEach(initializeKeyOptions);
-
-    function initializeKeyOptions(value, index, array) {
-      if (keyOptions.length == 0) {
-        keyOptions.push("Participant"); //index 0
-        keyOptions.push("Total points"); //index 1
-        keyOptions.push("Total score predict matches"); //index 2
-        keyOptions.push("Total winner predict matches"); //index 3
-        keyOptions.push("Total predict lost matches"); //index 4
-        keyOptions.push("Total number of matches"); //index 5
-      }
-
-      //add these to every stages in the matchStages
-      keyOptions.push(value['Desc'] + " points");
-      keyOptions.push(value['Desc'] + " score predict matches");
-      keyOptions.push(value['Desc'] + " winner predict matches");
-      keyOptions.push(value['Desc'] + " predict lost matches");    
-    }
-    
-    stepped = 0;
-    chunks = 0;
-    rows = 0;
-    matchResults = null;
-
-    disableButton();
-
-    //parse the CSV file for match results
-    //completeResultsFn is executed after 
-    //all files are complete
-    var rConfig = buildResultsConfig();
-
-    Papa.parse(
-      resultsURL,
-      rConfig);
-    if (rConfig.worker || rConfig.download) {
-      //console.log("Results parsing running...");
-    }
+    //one selection load the selected tournament name
+    //World Cup 2018, Euro Cup 2020, Or World Cup 2022
+    processTournament($(event.target).text());
   });
 });
+
+function processTournament(tName) {
+  tournamentName = tName;
+  resultsURL = null;
+  predictionDataURL = null;
+  matchStages = null;
+  matchResults = null;
+  leaderboardCatalog = [];
+  keyOptions = [];
+
+  //based on what user clicks initalize the right CSV variables 
+  //these variables are defined under /js/games/*.js
+  if (!"World Cup 2018".localeCompare(tournamentName)) {
+    resultsURL = wc2018ResultsURL;
+    predictionDataURL = wc2018PredictionDataURL;
+    matchStages = wc2018MatchStages;
+  }
+  if (!"Euro Cup 2020".localeCompare(tournamentName)) {
+    resultsURL = euro2020ResultsURL;
+    predictionDataURL = euro2020PredictionDataURL;
+    matchStages = euro2020MatchStages;
+  }    
+  if (!"World Cup 2022".localeCompare(tournamentName)) {
+    resultsURL = wc2022ResultsURL;
+    predictionDataURL = wc2022PredictionDataURL;
+    matchStages = wc2022MatchStages;
+  }
+
+  //iterate through the matchStages defined under /js/games/*.js
+  //and initalize the keyOptions
+  matchStages.forEach(initializeKeyOptions);
+
+  function initializeKeyOptions(value, index, array) {
+    if (keyOptions.length == 0) {
+      keyOptions.push("Participant"); //index 0
+      keyOptions.push("Total points"); //index 1
+      keyOptions.push("Total score predict matches"); //index 2
+      keyOptions.push("Total winner predict matches"); //index 3
+      keyOptions.push("Total predict lost matches"); //index 4
+      keyOptions.push("Total number of matches"); //index 5
+    }
+
+    //add these to every stages in the matchStages
+    keyOptions.push(value['Desc'] + " points");
+    keyOptions.push(value['Desc'] + " score predict matches");
+    keyOptions.push(value['Desc'] + " winner predict matches");
+    keyOptions.push(value['Desc'] + " predict lost matches");    
+  }
+  
+  //parse the CSV file for match results completeResultsFn is executed after 
+  //all files are complete
+  var rConfig = buildResultsConfig();
+
+  Papa.parse(
+    resultsURL,
+    rConfig);
+  if (rConfig.worker || rConfig.download) {
+    //console.log("Results parsing running...");
+  }
+}
 
 //function that is called after parsing prediction csv file.
 function completePredictFn(results) {
@@ -213,7 +95,6 @@ function completePredictFn(results) {
       rowCount = results.data.length;
   }
 
-  //printStats("Parse complete");
   //console.log("    Predict Results:", results);
   if (!matchResults) {
     console.log("    Match Results not loaded!");
@@ -319,19 +200,6 @@ function completePredictFn(results) {
 
     var upcomingTblHead = thead.cloneNode(true);
     upcomingTblHead.firstElementChild.removeChild(upcomingTblHead.firstElementChild.lastElementChild);
-
-    var upcomingDiv1 = document.createElement('div');
-    upcomingDiv1.setAttribute('class', 'section-heading text-center');
-    upcomingDiv1.setAttribute('id', 'upcomingdetail-header');
-
-    var upcomingDiv1H2 = document.createElement('h2');
-    upcomingDiv1H2.innerHTML = 'Upcoming match predictions';
-    upcomingDiv1.append(upcomingDiv1H2);
-
-    var upcomingDiv1Desc = document.createElement('p');
-    upcomingDiv1Desc.setAttribute('class', 'text-muted');
-    upcomingDiv1Desc.innerHTML = 'Shows only the predictions for upcomings games. To see all the predictions scroll down to the bottom of the page.';
-    upcomingDiv1.append(upcomingDiv1Desc);
   }
 
   var lastMatchNo = 0;
@@ -581,8 +449,6 @@ function completePredictFn(results) {
     {
       tbdy.appendChild(tbdytr);
     }
-
-    location.hash = "features";
   }
 
   tbl.appendChild(thead);
@@ -619,14 +485,6 @@ function completePredictFn(results) {
     $("#breakupdetail").remove();
   }
 
-  if ($("#leaderboard").exists()) {
-    $("#leaderboard").remove();
-  }
-
-  if ($("#leaderboarddetails").exists()) {
-    $("#leaderboarddetails").hide();
-  }
-
   if ($("#leaderboarddetail").exists()) {
     $("#leaderboarddetail").remove();
   }
@@ -644,7 +502,9 @@ function completePredictFn(results) {
   //if tournamental is still active and there are no upcoming matches
   //don't show the upcomign details.
   if ( (tournamentStillOn == true) && (upComingMatchCount > 0)) {
-    $("#upcomingdetails").append(upcomingDiv1);
+    if ($("#upcomingdetails").exists()) {
+      $("#upcomingdetails").show();
+    }
     if ( upcomingTbdy.childElementCount == 0) {
       var tbdytr = document.createElement('tr');
       var tbdytdName = document.createElement('td');
@@ -652,29 +512,35 @@ function completePredictFn(results) {
       tbdytdName.setAttribute('colspan', thead.children[0].children.length);
       tbdytr.appendChild(tbdytdName);
       upcomingTbdy.appendChild(tbdytr);
-    }
+    } 
   
     upcomingTbl.appendChild(upcomingTblHead);
     upcomingTbl.appendChild(upcomingTbdy);
 
     $("#upcomingdetails").append(upcomingTbl);
+  } else {
+    if ($("#upcomingdetails").exists()) {
+      $("#upcomingdetails").hide();
+    }
   }
 
+  $("#leaderboarddetails").append(createLeaderBoard2(leaderboard,
+    leaderboardPredictScorePlusWinnerGameCount,
+    leaderboardPredictWinnerGameCount,
+    leaderboardPredictLossesGameCount,
+    leaderboardPredictMatchesScorePlusWinner,
+    leaderboardPredictMatchesWinner,
+    leaderboardPredictMatchesLost,
+    sortedLeaderboard));
+
+  //if there are no predictions don't show the break down
   if (leaderboardTotalPredicts['Total'] > 0 ) {
-    $("#leaderboarddetails").append(createLeaderBoard2(leaderboard,
-      leaderboardPredictScorePlusWinnerGameCount,
-      leaderboardPredictWinnerGameCount,
-      leaderboardPredictLossesGameCount,
-      leaderboardPredictMatchesScorePlusWinner,
-      leaderboardPredictMatchesWinner,
-      leaderboardPredictMatchesLost,
-      sortedLeaderboard));
     $("#leaderboarddetails").show();
+  } else {
+    $("#leaderboarddetails").hide();
   }
 
   $("#breakupdetails").append(tbl);
-
-  enableButton();
 }
 
 function createLeaderBoard1(leaderboard,
@@ -867,8 +733,6 @@ function createLeaderBoard2(leaderboard,
 
   leaderTbl.appendChild(tLbdy);
 
-  // $("#featuredetails").append(leaderTbl);
-
   return leaderTbl;
 }
 
@@ -959,7 +823,6 @@ function completeResultsFn(results) {
     }
   }
 
-  //printStats("Parse complete");
   //console.log("    Match Results:", results);
 
   //afte processing results CSV. Parse prediction CSV
@@ -1030,15 +893,4 @@ function getLineEnding() {
     return "\r\n";
   else
     return "";
-}
-
-function enableButton() {
-  $('#submit').prop('disabled', false);
-  $('#submit').prop('text', "Generate");
-}
-
-function disableButton() {
-  $('#submit').prop('disabled', true);
-  $('#submit').prop('text', "Wait processing predictions...");
-  $('#features').css('display', 'block');
 }
