@@ -196,8 +196,9 @@ $(function () {
     Papa.parse(
       resultsURL,
       rConfig);
-    if (rConfig.worker || rConfig.download)
-      console.log("Results parsing running...");
+    if (rConfig.worker || rConfig.download) {
+      //console.log("Results parsing running...");
+    }
   });
 });
 
@@ -213,7 +214,7 @@ function completePredictFn(results) {
   }
 
   //printStats("Parse complete");
-  console.log("    Predict Results:", results);
+  //console.log("    Predict Results:", results);
   if (!matchResults) {
     console.log("    Match Results not loaded!");
     return;
@@ -280,7 +281,7 @@ function completePredictFn(results) {
   for (var i = 0; i < matchStages.length; i++) {
     var dDiff = Date.parse(matchStages[i].StageEndDate) - today;
     var diffDays = Math.ceil(dDiff / (1000 * 3600 * 24));
-    console.log("Today",today, "stage end date", matchStages[i].StageEndDate, "Diff days", diffDays);
+    //console.log("Today",today, "stage end date", matchStages[i].StageEndDate, "Diff days", diffDays);
     //if diffDays is -ve that means match was completed.
     //if diffDays is zero or +ve that means match is yet to happen.
     if (diffDays >= 0) {
@@ -545,19 +546,19 @@ function completePredictFn(results) {
       if (predictPoints >= matchStages[currentMatchStage].WinnerOnlyPoints) {
         leaderboardPredictWinnerGameCount[participantName] += 1;
         leaderboardPredictMatchesWinner[participantName].push(predictString);
-        tbdytdName.innerHTML = '<i class="fas fa-angle-up" style="color:#32CD32;"></i>' + Math.abs(predictPoints);
+        tbdytdName.innerHTML = '<i class="bi-chevron-up" style="color:#32CD32;"></i>' + Math.abs(predictPoints);
       }
 
       if (predictPoints == matchStages[currentMatchStage].ScoreAndWinnerPoints) {
         leaderboardPredictScorePlusWinnerGameCount[participantName] += 1;
         leaderboardPredictMatchesScorePlusWinner[participantName].push(predictString);
-        tbdytdName.innerHTML = '<i class="fas fa-angle-double-up" style="color:#32CD32;"></i>' + Math.abs(predictPoints);
+        tbdytdName.innerHTML = '<i class="bi-chevron-double-up" style="color:#32CD32;"></i>' + Math.abs(predictPoints);
       }
 
       if (predictPoints == matchStages[currentMatchStage].LostPoints) {
         leaderboardPredictLossesGameCount[participantName] += 1;
         leaderboardPredictMatchesLost[participantName].push(predictString);
-        tbdytdName.innerHTML = '<i class="fas fa-angle-down" style="color:#DC143C;"></i>' + Math.abs(predictPoints);
+        tbdytdName.innerHTML = '<i class="bi-chevron-down" style="color:#DC143C;"></i>' + Math.abs(predictPoints);
       }
 
       updateLeaderBoardCatalog(currentMatchNo, participantName, predictPoints, currentMatchStage);
@@ -959,7 +960,7 @@ function completeResultsFn(results) {
   }
 
   //printStats("Parse complete");
-  console.log("    Match Results:", results);
+  //console.log("    Match Results:", results);
 
   //afte processing results CSV. Parse prediction CSV
   //completePredictFn is called after all files are complete
@@ -967,8 +968,9 @@ function completeResultsFn(results) {
   Papa.parse(
     predictionDataURL,
     pConfig);
-  if (pConfig.worker || pConfig.download)
-    console.log("Prediction parsing running...");
+  if (pConfig.worker || pConfig.download) {
+    //console.log("Prediction parsing running...");
+  }
 }
 
 function errorFn(err, file) {
