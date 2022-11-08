@@ -1,5 +1,9 @@
 # Overview
-This is a friendly project created after going through the pain of building custom things to calculate the leaderboard for a friendly prediction during the World Cup 2018, & Euro Cup 2020. I will be updating this for World Cup 2022. This can be used as the dashboard for the social betting between friends. The web pages are constructed using bootstrap  design for using on mobile devices.
+This is a friendly fun project created after going through the pain of building custom things to calculate the leaderboard for the match predictions during the World Cup 2018, & Euro Cup 2020. I will be updating this for World Cup 2022. This can be used as the dashboard for the social betting between friends.
+
+This uses bootstrap's static single pages design suited best for all devices like mobile, desktop etc.
+
+**[View Live Preview](https://anoobbacker.github.io/betwc/)**
 
 # Usage
 I used an online form to collect all the prediction scores from my friends and then uploaded the CSV file under `_data` folder. The `_data/predict*.csv` captures the predictions by friends. Another file `_data/results*.csv` captures the outcome of the match results.
@@ -12,14 +16,10 @@ After forking this project, edit the below files:
 To preview the changes you make to the code, you can open the `index.html` file in your web browser.
 
 # Scoring
-
 - Till quarterfinals, a perfect guess of score & the winner will bag 3-points. It will be 1-point if you predicted only the winner.
 - From quarterfinals, a perfect guess of score & the winner is 5-points. If you predicted only the winner it will be 3-points. A wrong prediction will result in a deduction of 1-point.
 - From semifinals, a perfect guess of score & the winner is 15-points. If you predicted only the winner it will be 5-points. A wrong prediction will result in a deduction of 5-point.
 - From finals, a perfect guess of score & the winner is 40-points. If you predicted only the winner it will be 15-points. A wrong prediction will result in a deduction of 10-point.
-
-# Preview
-**[View Live Preview](https://anoobbacker.github.io/betwc/)**
 
 # Screenshots
 ![screen1](https://user-images.githubusercontent.com/13219906/200187454-4cf46c9b-16be-43bb-b184-e8ff3d3a3ed7.jpeg)
@@ -31,6 +31,8 @@ To preview the changes you make to the code, you can open the `index.html` file 
 - Automate the collecting prediction input from friends.
 - Automate fetching results of the games using API.
 - Improve the documentation
+- Improve the code to make it modular, reusable, configurable
+- Add support for localization
 
 # Tools used
 - Avatars generated from [Getavataaars](https://getavataaars.com).

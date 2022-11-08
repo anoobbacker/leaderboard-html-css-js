@@ -13,12 +13,15 @@ var predictionDataURL = null;
 var matchStages = null;
 var tournamentName = null;
 
+//Refer https://www.iban.com/country-codes
 var teamNameAcronymn = {
   'Argentina': 'ARG',
   'Australia': 'AUS',
   'Austria': 'AUT',
   'Belgium': 'BEL',
   'Brazil': 'BRA',
+  'Cameroon': 'CMR',
+  'Canada': 'CAN',
   'Colombia': 'COL',
   'Costa Rica': 'CRC',
   'Croatia': 'CRO',
@@ -26,8 +29,10 @@ var teamNameAcronymn = {
   'Denmark': 'DEN',
   'Egypt': 'EGY',
   'England': 'ENG',
+  'Ecuador': 'ECU',
   'France': 'FRA',
   'Finland': 'FIN',
+  'Ghana': 'GHA',
   'Germany': 'GER',
   'Hungary': 'HUN',
   'Iceland': 'ISL',
@@ -45,6 +50,7 @@ var teamNameAcronymn = {
   'Peru': 'PER',
   'Poland': 'POL',
   'Portugal': 'POR',
+  'Qatar': 'QAT',
   'Russia': 'RUS',
   'Saudi Arabia': 'KSA',
   'Scotland': 'SCO',
@@ -59,24 +65,31 @@ var teamNameAcronymn = {
   'Uruguay': 'URU',
   'Ukraine': 'UKR',
   'Wales': 'WAL',
+  'United States': 'USA',
   'TBD': 'TBD',
 }
 
+//Look at the folder /img/country-flags-main/* 
+//for the SVG name
 var teamFlag = {
   'Argentina': 'ar',
   'Australia': 'au',
   'Austria': 'at',
   'Belgium': 'be',
   'Brazil': 'br',
+  'Cameroon': 'cr',
+  'Canada': 'ca',
   'Colombia': 'co',
   'Costa Rica': 'cr',
   'Croatia': 'hr',
   'Czech Republic': 'cz',
   'Denmark': 'dk',
+  'Ecuador': 'ec',
   'Egypt': 'eg',
   'England': 'gb',
   'France': 'fr',
   'Finland': 'fi',
+  'Ghana': 'gh',
   'Germany': 'de',
   'Hungary': 'hu',
   'Iceland': 'is',
@@ -94,6 +107,7 @@ var teamFlag = {
   'Peru': 'pe',
   'Poland': 'pl',
   'Portugal': 'pt',
+  'Qatar': 'qa',
   'Russia': 'ru',
   'Saudi Arabia': 'sa',
   'Scotland': 'gb-sct',
@@ -108,6 +122,7 @@ var teamFlag = {
   'Uruguay': 'uy',
   'Ukraine': 'ua',
   'Wales': 'gb-wls',
+  'United States': 'us',
 }
 var leaderboardCatalog = [];
 var keyOptions = [];
@@ -126,6 +141,9 @@ $(function () {
     resultsURL = null;
     predictionDataURL = null;
     matchStages = null;
+
+    //based on what user clicks initalize the right CSV variables 
+    //these variables are defined under /js/games/*.js
     if (!"World Cup 2018".localeCompare(tournamentName)) {
       resultsURL = wc2018ResultsURL;
       predictionDataURL = wc2018PredictionDataURL;
@@ -135,18 +153,25 @@ $(function () {
       resultsURL = euro2020ResultsURL;
       predictionDataURL = euro2020PredictionDataURL;
       matchStages = euro2020MatchStages;
+    }    
+    if (!"World Cup 2022".localeCompare(tournamentName)) {
+      resultsURL = wc2022ResultsURL;
+      predictionDataURL = wc2022PredictionDataURL;
+      matchStages = wc2022MatchStages;
     }
-    
-    matchStages.forEach(initializeKeyPoint);
 
-    function initializeKeyPoint(value, index, array) {
+    //iterate through the matchStages defined under /js/games/*.js
+    //and initalize the keyOptions
+    matchStages.forEach(initializeKeyOptions);
+
+    function initializeKeyOptions(value, index, array) {
       if (keyOptions.length == 0) {
-        keyOptions.push("Participant"); //0
-        keyOptions.push("Total points"); //1
-        keyOptions.push("Total score predict matches"); //2
-        keyOptions.push("Total winner predict matches"); //3
-        keyOptions.push("Total predict lost matches"); //4
-        keyOptions.push("Total number of matches"); //5
+        keyOptions.push("Participant"); //index 0
+        keyOptions.push("Total points"); //index 1
+        keyOptions.push("Total score predict matches"); //index 2
+        keyOptions.push("Total winner predict matches"); //index 3
+        keyOptions.push("Total predict lost matches"); //index 4
+        keyOptions.push("Total number of matches"); //index 5
       }
 
       //add these to every stages in the matchStages
@@ -162,7 +187,12 @@ $(function () {
     matchResults = null;
 
     disableButton();
+
+    //parse the CSV file for match results
+    //completeResultsFn is executed after 
+    //all files are complete
     var rConfig = buildResultsConfig();
+
     Papa.parse(
       resultsURL,
       rConfig);
@@ -197,6 +227,7 @@ function completePredictFn(results) {
   var leaderboardPredictMatchesWinner = {};
   var leaderboardPredictMatchesLost = {};
   var predictParticipationTrack = {};
+  var leaderboardTotalPredicts = {};
 
   //all match prediction table
   var tbl = document.createElement('table');
@@ -238,12 +269,20 @@ function completePredictFn(results) {
   thead.appendChild(theadrow);
 
   //find the active stage rounds of the matches
+  //stage number starts from 1, after processing if 
+  //activeStageMatchNumber is zero that means all the matches
+  //are completed.
   var activeStageMatchNumber = 0;
+  var activeStageYetToStart = false;
+  var activeStageYetToEnd = false;
   var tournamentStillOn = false;
   var today = new Date();
   for (var i = 0; i < matchStages.length; i++) {
     var dDiff = Date.parse(matchStages[i].StageEndDate) - today;
     var diffDays = Math.ceil(dDiff / (1000 * 3600 * 24));
+    console.log("Today",today, "stage end date", matchStages[i].StageEndDate, "Diff days", diffDays);
+    //if diffDays is -ve that means match was completed.
+    //if diffDays is zero or +ve that means match is yet to happen.
     if (diffDays >= 0) {
       activeStageMatchNumber = matchStages[i].MatchNumber;
       break;
@@ -259,6 +298,16 @@ function completePredictFn(results) {
   //set flag to indicate if tournament is still running.
   if (activeStageMatchNumber != 0) {
     tournamentStillOn = true;
+    
+    var activeStageStartDate = Date.parse(matchStages[activeStageMatchNumber].StageStartDate);
+    var activeStageEndDate = Date.parse(matchStages[activeStageMatchNumber].StageEndDate);
+    if (today < activeStageStartDate) {
+      activeStageYetToStart = true;
+    }
+
+    if (today <= activeStageEndDate){
+      activeStageYetToEnd = true;
+    }
 
     //upcoming match prediction table
     upcomingTbl = document.createElement('table');
@@ -287,14 +336,13 @@ function completePredictFn(results) {
   var lastMatchNo = 0;
   var newMatch = false;
   var isUpcoming = false;
-  var predictParticipantCount = 0;
+  var upComingMatchCount = 0;
   //Check if prediction has (1) Game #, (2) TeamA, 
   //(3) TeamB, (4) Name, (5) TeamAScore, (6) TeamBScore
   var predictionRowColumnCount = 6;
 
   //By default people participation is 6 folks.
-  var predictParticipantCount = 6;
-  for (var ii = results.data.length - 1; ii >= 0; ii--) {
+   for (var ii = results.data.length - 1; ii >= 0; ii--) {
     var otherRow = results.data[ii];
 
     //Check if prediction row has correct column count.
@@ -303,6 +351,7 @@ function completePredictFn(results) {
     }
 
     var currentMatchNo = otherRow[0];
+    //predictParticipationTrack[currentMatchNo] tracks the # of predictions
     if (isNaN(predictParticipationTrack[currentMatchNo])) {
       predictParticipationTrack[currentMatchNo] = 1;
     } else {
@@ -317,6 +366,8 @@ function completePredictFn(results) {
     if (row.length != predictionRowColumnCount) {
       continue;
     }
+    //set new match flag. new match flag this is used to ensure that match name
+    //is displayed once in the row where as participants names are shown seperatly
     currentMatchNo = row[0];
     if (lastMatchNo != currentMatchNo) {
       newMatch = true;
@@ -325,7 +376,10 @@ function completePredictFn(results) {
       newMatch = false;
     }
     lastMatchNo = currentMatchNo;
-
+      
+    //set the current match stage by reading stages defined in js/games/*.js
+    //set default currentMatchStage to last match stage to ensure that if we
+    //don't match the if-condition inside for loop, it means last stage.
     var currentMatchStage = matchStages.length - 1;
     for (var x = 0; x < matchStages.length; x++) {
       if (currentMatchNo < matchStages[x].MatchNumber) {
@@ -343,38 +397,41 @@ function completePredictFn(results) {
     //table rows
     var tbdytr = document.createElement('tr');
 
-    //add match#
+    //actual result
+    var matchResultString = "";
+    var matchResult = matchResults[currentMatchNo];
+
+    var matchResultTeamAName = (matchResult[1] == "") ? "TBD" : matchResult[1];
+    var matchResultTeamBName = (matchResult[2] == "") ? "TBD" : matchResult[2];
+
+    var predictTeamAName = teamNameAcronymn[matchResultTeamAName];
+    var predictTeamBName = teamNameAcronymn[matchResultTeamBName];
+
+    //add match name
+    //new match flag this is used to ensure that match name
+    //is displayed once in the row
     var tbdytdName = null;
     if (newMatch) {
       tbdytdName = document.createElement('td');
       tbdytdName.textContent = currentMatchNo;
       tbdytdName.setAttribute('rowspan', predictParticipationTrack[currentMatchNo]);
 
-      //actual result
-      var matchResultString = "";
-      var matchResult = matchResults[currentMatchNo];
-
-      var matchResultTeamAName = matchResult[1];
-      var matchResultTeamBName = matchResult[2];
-
-      var predictTeamAName = teamNameAcronymn[matchResultTeamAName];
-      var predictTeamBName = teamNameAcronymn[matchResultTeamBName];
 
       var predictTeamAFlag = "";
       var predictTeamBFlag = "";
-      if ("TBD".localeCompare(matchResultTeamAName)) {
-        predictTeamAFlag = "<img src='img/country-flags-main/" + teamFlag[matchResultTeamAName] + ".svg' height=16px /> ";
+      if ("TBD".localeCompare(matchResultTeamAName) != 0) {
+        predictTeamAFlag = "<img src='assets/img/country-flags-main/" + teamFlag[matchResultTeamAName] + ".svg' height=16px /> ";
       }
 
-      if ("TBD".localeCompare(matchResultTeamBName)) {
-        predictTeamBFlag = "<img src='img/country-flags-main/" + teamFlag[matchResultTeamBName] + ".svg' height=16px /> ";
+      if ("TBD".localeCompare(matchResultTeamBName) != 0) {
+        predictTeamBFlag = "<img src='assets/img/country-flags-main/" + teamFlag[matchResultTeamBName] + ".svg' height=16px /> ";
       }
 
       var matchResultTeamAScore = matchResult[4];
       var matchResultTeamBScore = matchResult[5];
       var matchResultStatus = matchResult[3];
       var matchComplete = false;
-      if (!"Complete".localeCompare(matchResultStatus)) {
+      if ("Complete".localeCompare(matchResultStatus) == 0) {
         var winner = "";
         if (matchResultTeamAScore > matchResultTeamBScore) {
           matchResultString = "<b>"
@@ -397,8 +454,14 @@ function completePredictFn(results) {
           predictTeamBFlag + matchResultTeamBName + "<br/> on " + matchResultStatus;
         var matchDateDiff = Math.abs(Date.parse(matchResultStatus.trim()) - new Date());
         var diffDays = Math.ceil(matchDateDiff / (1000 * 3600 * 24));
+        //if the match is going to happen in the next x days 
+        //show that in upcoming section.
         if (diffDays <= 2) {
           isUpcoming = true;
+          upComingMatchCount++;
+        } else if ( (currentMatchStage == activeStageMatchNumber) && ((activeStageYetToStart == true) || (activeStageYetToEnd == true))) {
+          isUpcoming = true;
+          upComingMatchCount++;
         }
       }
       tbdytdName = document.createElement('td');
@@ -407,7 +470,7 @@ function completePredictFn(results) {
       tbdytr.appendChild(tbdytdName);
     }
 
-    var avatarInline = "<img src='./img/" + participantName + ".png' width='20' />" +
+    var avatarInline = "<img src='assets/img/" + participantName + ".png' width='20' />" +
       participantName;
 
     tbdytdName = document.createElement('td');
@@ -442,7 +505,9 @@ function completePredictFn(results) {
 
     //points
     var predictPoints = matchStages[currentMatchStage].LostPoints;
-    if ((-1 == predictTeamAScore) && (-1 == predictTeamBScore)) {
+    if ((0 == predictTeamAScore.length) && (0 == predictTeamBScore.length)) {
+      //upcoming prediction
+    } else if ((-1 == predictTeamAScore) && (-1 == predictTeamBScore)) {
       //skipped prediction
     } else if ((matchResultTeamAScore == predictTeamAScore) &&
       (matchResultTeamBScore == predictTeamBScore)) {
@@ -462,18 +527,19 @@ function completePredictFn(results) {
       predictPoints = matchStages[currentMatchStage].WinnerOnlyPoints;
     }
 
+    //whether match is complete or not initialize leaderboard
+    if (!(participantName in leaderboard)) {
+      leaderboard[participantName] = 0;
+      leaderboardPredictScorePlusWinnerGameCount[participantName] = 0;
+      leaderboardPredictWinnerGameCount[participantName] = 0;
+      leaderboardPredictLossesGameCount[participantName] = 0;
+      leaderboardPredictMatchesScorePlusWinner[participantName] = [];
+      leaderboardPredictMatchesWinner[participantName] = [];
+      leaderboardPredictMatchesLost[participantName] = [];
+    }
+
     tbdytdName = document.createElement('td');
     if (matchComplete) {
-      if (!(participantName in leaderboard)) {
-        leaderboard[participantName] = 0;
-        leaderboardPredictScorePlusWinnerGameCount[participantName] = 0;
-        leaderboardPredictWinnerGameCount[participantName] = 0;
-        leaderboardPredictLossesGameCount[participantName] = 0;
-        leaderboardPredictMatchesScorePlusWinner[participantName] = [];
-        leaderboardPredictMatchesWinner[participantName] = [];
-        leaderboardPredictMatchesLost[participantName] = [];
-      }
-
       leaderboard[participantName] += predictPoints;
 
       if (predictPoints >= matchStages[currentMatchStage].WinnerOnlyPoints) {
@@ -507,7 +573,10 @@ function completePredictFn(results) {
     tbdytr.appendChild(tbdytdName);
 
     //If you want to show only active stage prediction score uncomment below.
-    //if (currentMatchNo >= activeStageMatchNumber) 
+    //if (currentMatchNo >= activeStageMatchNumber)
+    //skip adding upcoming match details for which team names are TBD
+    if ( ("TBD".localeCompare(matchResultTeamAName) != 0) 
+    || ("TBD".localeCompare(matchResultTeamBName) != 0))
     {
       tbdy.appendChild(tbdytr);
     }
@@ -532,7 +601,7 @@ function completePredictFn(results) {
         // compares (the keys) by their respective values.
         return leaderboard[b] - leaderboard[a];
       })
-  // console.log("Sorted leaders: " + sortedLeaderboard);
+  //console.log("Sorted leaders: " + sortedLeaderboard);
 
   if ($("#featuredetail").exists()) {
     $("#featuredetail").remove();
@@ -553,6 +622,10 @@ function completePredictFn(results) {
     $("#leaderboard").remove();
   }
 
+  if ($("#leaderboarddetails").exists()) {
+    $("#leaderboarddetails").hide();
+  }
+
   if ($("#leaderboarddetail").exists()) {
     $("#leaderboarddetail").remove();
   }
@@ -564,9 +637,12 @@ function completePredictFn(results) {
     leaderboardPredictMatchesScorePlusWinner,
     leaderboardPredictMatchesWinner,
     leaderboardPredictMatchesLost,
+    leaderboardTotalPredicts,
     sortedLeaderboard));
 
-  if (tournamentStillOn == true) {
+  //if tournamental is still active and there are no upcoming matches
+  //don't show the upcomign details.
+  if ( (tournamentStillOn == true) && (upComingMatchCount > 0)) {
     $("#upcomingdetails").append(upcomingDiv1);
     if ( upcomingTbdy.childElementCount == 0) {
       var tbdytr = document.createElement('tr');
@@ -583,14 +659,18 @@ function completePredictFn(results) {
     $("#upcomingdetails").append(upcomingTbl);
   }
 
-  $("#leaderboarddetails").append(createLeaderBoard2(leaderboard,
-    leaderboardPredictScorePlusWinnerGameCount,
-    leaderboardPredictWinnerGameCount,
-    leaderboardPredictLossesGameCount,
-    leaderboardPredictMatchesScorePlusWinner,
-    leaderboardPredictMatchesWinner,
-    leaderboardPredictMatchesLost,
-    sortedLeaderboard));
+  if (leaderboardTotalPredicts['Total'] > 0 ) {
+    $("#leaderboarddetails").append(createLeaderBoard2(leaderboard,
+      leaderboardPredictScorePlusWinnerGameCount,
+      leaderboardPredictWinnerGameCount,
+      leaderboardPredictLossesGameCount,
+      leaderboardPredictMatchesScorePlusWinner,
+      leaderboardPredictMatchesWinner,
+      leaderboardPredictMatchesLost,
+      sortedLeaderboard));
+    $("#leaderboarddetails").show();
+  }
+
   $("#breakupdetails").append(tbl);
 
   enableButton();
@@ -603,6 +683,7 @@ function createLeaderBoard1(leaderboard,
   leaderboardPredictMatchesScorePlusWinner,
   leaderboardPredictMatchesWinner,
   leaderboardPredictMatchesLost,
+  leaderboardTotalPredicts,
   sortedLeaderboard) {
   var leaderBrdDiv1 = document.createElement('div');
   leaderBrdDiv1.setAttribute('class', 'section-heading text-center');
@@ -649,7 +730,7 @@ function createLeaderBoard1(leaderboard,
     //add match number
     var thead1 = document.createElement('th');
     var avatar = document.createElement("img");
-    avatar.src = "./img/" + pName + ".png";
+    avatar.src = "assets/img/" + pName + ".png";
     avatar.width = "50";
 
     //add avatar
@@ -660,12 +741,27 @@ function createLeaderBoard1(leaderboard,
     thead2.style.textAlign = "left";
 
     var tpoint1 = document.createElement('td');
-    tpoint1.innerHTML = leaderboard[pName] +
-      "<div style=\"font-size: 0.8em\">" +
-      "Score: " + leaderboardPredictScorePlusWinnerGameCount[pName] +
-      ", Win: " + leaderboardPredictWinnerGameCount[pName] +
-      ", Fail: " + leaderboardPredictLossesGameCount[pName] +
-      "</div>";
+    var totalParticipantMatchesPredicted = leaderboardPredictScorePlusWinnerGameCount[pName] + 
+                                leaderboardPredictWinnerGameCount[pName] + 
+                                leaderboardPredictLossesGameCount[pName];
+ 
+    //console.log("Total predicted matches", totalMatchesPredicted);
+    leaderboardTotalPredicts[pName] = totalParticipantMatchesPredicted;
+    if (!'Total' in leaderboardTotalPredicts) {
+      leaderboardTotalPredicts['Total'] = 0;      
+    }
+    leaderboardTotalPredicts['Total'] = totalParticipantMatchesPredicted;
+
+    if ( totalParticipantMatchesPredicted > 0 ) {
+      tpoint1.innerHTML = leaderboard[pName] +
+        "<div style=\"font-size: 0.8em\">" +
+        "Score: " + leaderboardPredictScorePlusWinnerGameCount[pName] +
+        ", Win: " + leaderboardPredictWinnerGameCount[pName] +
+        ", Fail: " + leaderboardPredictLossesGameCount[pName] +
+        "</div>";
+    } else {
+      tpoint1.innerHTML = "⏳";
+    }
 
     //add leader row
     trow.appendChild(thead1);
@@ -728,7 +824,7 @@ function createLeaderBoard2(leaderboard,
     //add match number
     var thead1 = document.createElement('th');
     var avatar = document.createElement("img");
-    avatar.src = "./img/" + pName + ".png";
+    avatar.src = "assets/img/" + pName + ".png";
     avatar.width = "50";
 
     //add avatar
@@ -865,6 +961,8 @@ function completeResultsFn(results) {
   //printStats("Parse complete");
   console.log("    Match Results:", results);
 
+  //afte processing results CSV. Parse prediction CSV
+  //completePredictFn is called after all files are complete
   var pConfig = buildPredictConfig();
   Papa.parse(
     predictionDataURL,
