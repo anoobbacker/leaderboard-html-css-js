@@ -28,11 +28,13 @@ To view a preview open the `index.html` file in your web browser after making th
 
 
 # To do
-- Automate the collecting prediction input from friends.
-- Automate fetching results of the games using API.
 - Improve the documentation
 - Improve the code to make it modular, reusable, configurable
 - Add support for localization
+- Add unit tests
+- Automate the collecting prediction input from friends.
+- Fetch match schedule, match results and particpant prediction using API.
+- Integrate with DevOps CI/CD
 
 # Tools used
 - Avatars generated from [Getavataaars](https://getavataaars.com).
