@@ -3,7 +3,7 @@ This is a friendly fun project created after going through the pain of building 
 
 This uses bootstrap's static single pages design suited best for all devices like mobile, desktop etc.
 
-**[View Live Preview](https://anoobbacker.github.io/betwc/)**
+**[View Live Preview](https://anoobbacker.github.io/leaderboard-html-css-js/)**
 
 # Usage
 Fork this project and peform the following steps to customize it for you and your friends:
